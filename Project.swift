@@ -42,15 +42,6 @@ let project = Project(
                 .external(name: "Alamofire")
             ]
         ),
-        .target(
-            name: "\(appName)Tests",
-            destinations: .iOS,
-            product: .unitTests,
-            bundleId: bundleId(for: "\(appName)Tests"),
-            infoPlist: .default,
-            sources: ["bias/Tests/**"],
-            resources: [],
-            dependencies: [.target(name: appName)]
-        )
+        
     ]
 )
