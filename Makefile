@@ -65,14 +65,14 @@ edit:
 .PHONY: build
 build:
 	@echo "$(BLUE)Building the app...$(NC)"
-	@xcodebuild -scheme bias -destination 'platform=iOS Simulator' build | xcpretty
+	@xcodebuild -scheme spwit -destination 'platform=iOS Simulator' build | xcpretty
 	@echo "$(GREEN)✓ App built successfully$(NC)"
 
 # Run unit tests
 .PHONY: test
 test:
 	@echo "$(BLUE)Running unit tests...$(NC)"
-	@xcodebuild -scheme biasTests -destination 'platform=iOS Simulator' test | xcpretty
+	@xcodebuild -scheme spwitTests -destination 'platform=iOS Simulator' test | xcpretty
 	@echo "$(GREEN)✓ Unit tests completed successfully$(NC)"
 
 # Show help
