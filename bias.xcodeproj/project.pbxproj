@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -67,13 +67,35 @@
 		F43277EA642C15D01B53C111 /* bias.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bias.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		ED040A9E2E7A8A70009CE70C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ChooseUndertoneView/ChooseUndertoneView.swift,
+				ChooseUndertoneView/ChooseUndertoneViewmodel.swift,
+			);
+			target = CAB7826DED12066C0B86A671 /* bias */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		ED040A9F2E7A8A70009CE70C /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = B01B7B0DFFA370B7D1AE3B86 /* Resources */;
+			membershipExceptions = (
+				ChooseUndertoneView/ChooseUndertoneView.swift,
+				ChooseUndertoneView/ChooseUndertoneViewmodel.swift,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ED4FAADE2E790FCE00B39957 /* Core */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Core; sourceTree = "<group>"; };
 		ED4FAADF2E790FD900B39957 /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
 		ED4FAAE02E790FE700B39957 /* Domain */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Domain; sourceTree = "<group>"; };
 		ED4FAAE12E790FEB00B39957 /* Helper */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helper; sourceTree = "<group>"; };
 		ED4FAAE22E790FF700B39957 /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
-		ED4FAAE32E790FFF00B39957 /* Presentation  */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Presentation "; sourceTree = "<group>"; };
+		ED4FAAE32E790FFF00B39957 /* Presentation  */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (ED040A9E2E7A8A70009CE70C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ED040A9F2E7A8A70009CE70C /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Presentation "; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,7 +279,6 @@
 				};
 			};
 			buildConfigurationList = 6E5E910FB5A6314E4EA2DFA7 /* Build configuration list for PBXProject "bias" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -265,6 +286,7 @@
 				en,
 			);
 			mainGroup = FEBDCC5147C29B65D496CB77;
+			preferredProjectObjectVersion = 56;
 			productRefGroup = 682B22098E63140653D4B880 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
