@@ -4,6 +4,9 @@
 .AppleDouble
 .LSOverride
 .env
+**/.env
+**/*.env
+.env.*
 
 #vscode
 .vscode
