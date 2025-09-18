@@ -29,7 +29,7 @@ env:
 	else \
 		echo "$(RED)Error: .env file not found$(NC)"; \
 		echo "$(YELLOW)Creating default .env file...$(NC)"; \
-		echo "TUIST_COMPANY_ID=app.adit" > .env; \
+		echo "TUIST_COMPANY_ID=ada.il" > .env; \
 		echo "TUIST_TEAM_ID=32T8HNVYGX" > .env; \
 		echo "$(GREEN)✓ Created default .env file$(NC)"; \
 	fi
@@ -65,14 +65,14 @@ edit:
 .PHONY: build
 build:
 	@echo "$(BLUE)Building the app...$(NC)"
-	@xcodebuild -scheme spwit -destination 'platform=iOS Simulator' build | xcpretty
+	@xcodebuild -scheme bias -destination 'platform=iOS Simulator' build | xcpretty
 	@echo "$(GREEN)✓ App built successfully$(NC)"
 
 # Run unit tests
 .PHONY: test
 test:
 	@echo "$(BLUE)Running unit tests...$(NC)"
-	@xcodebuild -scheme spwitTests -destination 'platform=iOS Simulator' test | xcpretty
+	@xcodebuild -scheme biasTests -destination 'platform=iOS Simulator' test | xcpretty
 	@echo "$(GREEN)✓ Unit tests completed successfully$(NC)"
 
 # Show help
