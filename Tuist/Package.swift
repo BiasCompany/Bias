@@ -7,8 +7,8 @@ import PackageDescription
     let packageSettings = PackageSettings(
         // Customize the product types for specific package product
         // Default is .staticFramework
-        productTypes: ["Alamofire": .framework,] 
-        // productTypes: [:]
+        // productTypes: ["Alamofire": .framework,] 
+        productTypes: [:]
     )
 #endif
 
@@ -17,6 +17,7 @@ let package = Package(
     dependencies: [
         // Add your own dependencies here:
         .package(url: "https://github.com/Alamofire/Alamofire", from: "5.10.2"),
+        .package(url: "https://github.com/onevcat/Kingfisher", from: "8.0.0"),
         // You can read more about dependencies here: https://docs.tuist.io/documentation/tuist/dependencies
     ]
 )

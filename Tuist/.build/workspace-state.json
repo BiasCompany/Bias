@@ -20,11 +20,25 @@
           "name" : "sourceControlCheckout"
         },
         "subpath" : "Alamofire"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "kingfisher",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/onevcat/Kingfisher",
+          "name" : "Kingfisher"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "2015fda791daa72c8058619545a593bf8c1dd59f",
+            "version" : "8.5.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "Kingfisher"
       }
-    ],
-    "prebuilts" : [
-
     ]
   },
-  "version" : 7
+  "version" : 6
 }
