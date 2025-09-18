@@ -1,10 +1,19 @@
 
 import SwiftUI
 
-enum Undertone {
-    case cool
-    case neutral
-    case warm
+
+public enum Undertone: String, Codable {
+    case cool = "cool"
+    case warm = "warm"
+    case neutral = "neutral"
+    case unknown = "unknown"
+
+    public init(rawOrAny raw: String?) {
+        guard let r = raw?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines), !r.isEmpty else {
+            self = .unknown; return
+        }
+        self = Undertone(rawValue: r) ?? .unknown
+    }
 }
 
 enum VeinColor { case purple, blue, green, bluishGreen, unknown }
