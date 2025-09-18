@@ -25,7 +25,7 @@ struct biasApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            QuizUndertoneView()
         }
         .modelContainer(sharedModelContainer)
     }

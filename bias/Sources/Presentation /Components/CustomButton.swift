@@ -7,11 +7,27 @@
 
 import SwiftUI
 
+enum ButtonVariant {
+    case active
+    case disabled
+    
+}
+
+
 struct CustomButton: View {
     let title: String
     let isFilled: Bool
     let action: () -> Void
     var isIconOnly: Bool = false
+    var variant: ButtonVariant = .active
+    private var backgroundColor : Color {
+        switch variant {
+            case .active:
+            return .black
+        case .disabled:
+            return .gray
+        }
+    }
 
     var body: some View {
         Button(action: action) {
@@ -24,13 +40,13 @@ struct CustomButton: View {
             }
             .font(.system(size: 16, weight: .medium, design: .monospaced))
             .frame(maxWidth: .infinity, minHeight: 48)
-            .background(isFilled ? Color.black : Color.white)
+            .background(isFilled ? backgroundColor : Color.white )
             .foregroundColor(isFilled ? .white : .black)
             .overlay(
                 Rectangle()
                     .stroke(Color.black, lineWidth: isFilled ? 0 : 1)
             )
-        }
+        }.disabled(variant == .disabled)
         
     }
 }
@@ -40,6 +56,7 @@ struct CustomButton: View {
         CustomButton(title: "CONTINUE", isFilled: true, action: {})
         CustomButton(title: "I DON’T KNOW MY UNDERTONE", isFilled: false, action: {})
         CustomButton(title: "star", isFilled: false, action: {}, isIconOnly: true)
+        CustomButton(title: "next", isFilled: true, action: {}, isIconOnly: false, variant: .disabled)
     }
     .padding()
 }
