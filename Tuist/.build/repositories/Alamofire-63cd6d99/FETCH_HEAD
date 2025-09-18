@@ -11,6 +11,7 @@ bd2ecc97a82a3e9aa05b00ea1c4ac7c38c2d0299	not-for-merge	branch 'bug/xcode16-cance
 368d37065188a2039e39149d98176aede7919e3f	not-for-merge	branch 'ci-update' of https://github.com/Alamofire/Alamofire
 85067cbd3ccac74d023e34dd44d443e98f5eab71	not-for-merge	branch 'cnoon/response-adapters' of https://github.com/Alamofire/Alamofire
 77cb597755f2719494d61062c8b5e37b90603f3c	not-for-merge	branch 'default-cancellation' of https://github.com/Alamofire/Alamofire
+47bc862d221963a642130a78116a7d9f7a5515f2	not-for-merge	branch 'dependabot/bundler/rexml-3.4.2' of https://github.com/Alamofire/Alamofire
 a55cdee021038a93c0c3f39305a74662c241e7cf	not-for-merge	branch 'feature/background-tasks' of https://github.com/Alamofire/Alamofire
 bf5a2dfd148e05228174630d45e96fe1ec30d1c3	not-for-merge	branch 'feature/docc-docs' of https://github.com/Alamofire/Alamofire
 619ceb9b69e6c6c33c6274a70f3209871088a085	not-for-merge	branch 'feature/request-compression-part-deux' of https://github.com/Alamofire/Alamofire
@@ -1188,6 +1189,8 @@ ebca31bcec13e2824cf694670e5df9dde4a67f3c	not-for-merge	'refs/pull/3973/merge' of
 0f48e123829e354a95280d37e627202577b9c792	not-for-merge	'refs/pull/3976/merge' of https://github.com/Alamofire/Alamofire
 6f1db502758cd9dafab9f74a56a06fd15fb72e16	not-for-merge	'refs/pull/3977/head' of https://github.com/Alamofire/Alamofire
 d4798558adc3d3853aad2db3ecaa25be21fec51a	not-for-merge	'refs/pull/3977/merge' of https://github.com/Alamofire/Alamofire
+47bc862d221963a642130a78116a7d9f7a5515f2	not-for-merge	'refs/pull/3979/head' of https://github.com/Alamofire/Alamofire
+c6b37eb902838ac61f764e5a4755385f09b6859b	not-for-merge	'refs/pull/3979/merge' of https://github.com/Alamofire/Alamofire
 84ce8c8c1f50e34a602e8b3c20b9f50d7adcfe10	not-for-merge	'refs/pull/4/head' of https://github.com/Alamofire/Alamofire
 390fad0398cfe0212f00a7ec05ebb96049b1e94b	not-for-merge	'refs/pull/4/merge' of https://github.com/Alamofire/Alamofire
 ee567d955892438b218789ce3ebc2dc38e9cc440	not-for-merge	'refs/pull/40/head' of https://github.com/Alamofire/Alamofire
