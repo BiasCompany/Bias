@@ -10,9 +10,11 @@ import SwiftData
 
 @main
 struct biasApp: App {
+
     var body: some Scene {
         WindowGroup {
             RootView()
+                .modelContainer( DIContainer.shared.localDataSource.container )
         }
     }
 }
