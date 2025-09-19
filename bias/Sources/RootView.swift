@@ -6,6 +6,7 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     
     @StateObject private var router = Router()
+    @StateObject private var chooseBrandViewModel = ChooseBrandViewModel()
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
@@ -17,6 +18,7 @@ struct RootView: View {
                 .navigationBarHidden(true)
         }
         .environmentObject(router)
+        .environmentObject(chooseBrandViewModel)
     }
     
     @ViewBuilder
@@ -24,8 +26,8 @@ struct RootView: View {
         switch route {
             case .onboarding:
                 OnBoardingView()
-            // case .brandPreference:
-            //     BrandPreferenceView()
+            case .brandPreference:
+                ChooseBrandView()
             // case .chooseUndertone:
             //     ChooseUndertoneView()
             // case .undertoneQuiz:
