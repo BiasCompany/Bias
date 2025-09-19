@@ -99,7 +99,7 @@
 		9302C16372E087B63EC51605 /* ChooseBrandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBrandView.swift; sourceTree = "<group>"; };
 		A30A0BC031624ED3D090B9FF /* StaticQuiz .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaticQuiz .swift"; sourceTree = "<group>"; };
 		A8FADF3314A67F06E042C361 /* ChooseBrandViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBrandViewmodel.swift; sourceTree = "<group>"; };
-		A9A4C281B1B465901670D1B6 /* .png */ = {isa = PBXFileReference; lastKnownFileType = file; path = .png; sourceTree = "<group>"; };
+		A9A4C281B1B465901670D1B6 /* .png */ = {isa = PBXFileReference; lastKnownFileType = text; path = .png; sourceTree = "<group>"; };
 		AB50FE161A15EE30B6116FFB /* AllShadeRecommendationViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllShadeRecommendationViewmodel.swift; sourceTree = "<group>"; };
 		BF8C6BB55C55B8E0C757F558 /* SkinAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinAnalysisService.swift; sourceTree = "<group>"; };
 		C4C7D602E656C66BB0ECD314 /* OnBoardingViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewmodel.swift; sourceTree = "<group>"; };
@@ -473,7 +473,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 			};
-			buildConfigurationList = 6E5E910FB5A6314E4EA2DFA7 /* Build configuration list for PBXProject "bias" */;
+			buildConfigurationList = 6E5E910FB5A6314E4EA2DFA7 /* Build configuration list for PBXProject "Bias" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -720,7 +720,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E5E910FB5A6314E4EA2DFA7 /* Build configuration list for PBXProject "bias" */ = {
+		6E5E910FB5A6314E4EA2DFA7 /* Build configuration list for PBXProject "Bias" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA02AAA8400BA3F20D49CF49 /* Debug */,
