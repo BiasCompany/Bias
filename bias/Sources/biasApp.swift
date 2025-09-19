@@ -10,13 +10,13 @@ import SwiftData
 
 @main
 struct biasApp: App {
+
     var body: some Scene {
         WindowGroup {
 
        
 
-            RootView()
-
+            RootView().modelContainer( DIContainer.shared.localDataSource.container )
         }
     }
 }

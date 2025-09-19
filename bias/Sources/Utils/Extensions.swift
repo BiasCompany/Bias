@@ -30,3 +30,20 @@ extension Color {
         )
     }
 }
+
+private extension Array {
+    subscript (safe index: Int) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}
+
+private extension String {
+    var trimmed: String { trimmingCharacters(in: .whitespacesAndNewlines) }
+    var trimmedNonEmpty: String? {
+        let t = trimmed
+        return t.isEmpty ? nil : t
+    }
+    func caseInsensitiveEquals(_ other: String) -> Bool {
+        self.compare(other, options: [.caseInsensitive, .diacriticInsensitive]) == .orderedSame
+    }
+}
