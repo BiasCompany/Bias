@@ -13,24 +13,23 @@ final class ChooseBrandViewModel: ObservableObject {
     @Published private(set) var allBrandNames: [String] = []
     @Published var selected: Set<String> = []
 
-    init(repo: ProductRepositoryProtocol) {
-        self.repo = repo
+    init() {
         load()
     }
 
     func load() {
-        do { try repo.loadIfNeeded() } catch {
-            print("ProductRepository load error:", error.localizedDescription)
-        }
-
-        let names = repo.allBrands().map { $0.name }
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { !$0.isEmpty }
-
-        let uniqueSorted = Array(Set(names)).sorted {
-            $0.localizedCaseInsensitiveCompare($1) == .orderedAscending
-        }
-        self.allBrandNames = uniqueSorted
+//        do { try repo.loadIfNeeded() } catch {
+//            print("ProductRepository load error:", error.localizedDescription)
+//        }
+//
+//        let names = repo.allBrands().map { $0.name }
+//            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+//            .filter { !$0.isEmpty }
+//
+//        let uniqueSorted = Array(Set(names)).sorted {
+//            $0.localizedCaseInsensitiveCompare($1) == .orderedAscending
+//        }
+//        self.allBrandNames = uniqueSorted
     }
 
     // MARK: - Filtering

@@ -1,6 +1,6 @@
 import SwiftUI
 
-private struct AlphabetIndexBar: View {
+struct AlphabetIndexBar: View {
     let letters: [String]
     var onChange: (String) -> Void
     var onCommit: (() -> Void)? = nil

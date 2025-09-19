@@ -3,6 +3,7 @@ import SwiftData
 
 @Model
 class ShadeRecommendation {
+    var id: UUID
     var shade: Shade
     var skinTone: SkinTone
     var undertone: Undertone
@@ -11,6 +12,7 @@ class ShadeRecommendation {
     var percentage: Int
 
     init(
+        id: UUID,
         shade: Shade,
         skinTone: SkinTone,
         undertone: Undertone,
@@ -18,6 +20,7 @@ class ShadeRecommendation {
         lastUpdatedNote: Date = .now,
         percentage: Int = 0
     ) {
+        self.id = id
         self.shade = shade
         self.skinTone = skinTone
         self.undertone = undertone

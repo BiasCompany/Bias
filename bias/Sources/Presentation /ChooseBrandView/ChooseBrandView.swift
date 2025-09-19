@@ -130,16 +130,16 @@ private struct BrandRow: View {
     }
 }
 
-#if DEBUG
-import SwiftUI
-
-struct ChooseBrandView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            ChooseBrandView(repo: MockProductRepository()) { selected in
-                print("Selected:", selected)
-            }
-        }
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//
+//struct ChooseBrandView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationStack {
+//            ChooseBrandView(repo: MockProductRepository()) { selected in
+//                print("Selected:", selected)
+//            }
+//        }
+//    }
+//}
+//#endif

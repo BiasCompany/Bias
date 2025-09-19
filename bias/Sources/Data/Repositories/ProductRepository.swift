@@ -6,10 +6,63 @@
 //
 
 protocol ProductRepository {
+    func insertAllBrand(_ brands: [Brand]) async throws
+    func getBrands() async throws -> [Brand]
+        // CRUD Shades
+    func getShades() async throws -> [Shade]
+    func insertAllShade(_ shades: [Shade]) async throws
+
+    func getBrandPreference() async throws -> [String]
+    func insertBrandPreference(_ brands: [String]) async throws
+
+    func insertAllRecommendation(_ recommendations: [ShadeRecommendation]) async throws
+    func getRecommendations() async throws -> [ShadeRecommendation]
+    func deleteAllRecommendations() async throws
 }
 
 class ProductRepositoryImpl: ProductRepository {
+    private let ds: LocalDataSource
+    init(localDataSource: LocalDataSource) { self.ds = localDataSource }
 
+    // MARK: - Brands
+    func insertAllBrand(_ brands: [Brand]) async throws {
+        try await ds.setBrandsCatalog(brands)
+    }
+
+    func getBrands() async throws -> [Brand] {
+        return try await ds.getBrandsCatalog()
+    }
+
+    // MARK: - Shades
+    func getShades() async throws -> [Shade] {
+        return try await ds.fetchShades()
+    }
+
+    func insertAllShade(_ shades: [Shade]) async throws {
+        try await ds.insertAllShades(shades)
+    }
+
+    // MARK: - Preferences
+    func getBrandPreference() async throws -> [String] {
+        return try await ds.getUserPreferenceBrands()
+    }
+
+    func insertBrandPreference(_ brands: [String]) async throws {
+        try await ds.setUserPreferenceBrands(brands)
+    }
+
+    // MARK: - Recommendations
+    func insertAllRecommendation(_ recommendations: [ShadeRecommendation]) async throws {
+        try await ds.insertAllRecommendations(recommendations)
+    }
+
+    func getRecommendations() async throws -> [ShadeRecommendation] {
+        return try await ds.fetchRecommendations()
+    }
+
+    func deleteAllRecommendations() async throws {
+        try await ds.deleteAllRecommendations()
+    }
 }
 // import Foundation
 // import simd
