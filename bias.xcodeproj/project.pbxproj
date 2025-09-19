@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,9 +20,9 @@
 		3984C56434270B8758F70534 /* ChooseUndertoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4B93F8D8DCF33D3C3C2F36 /* ChooseUndertoneView.swift */; };
 		3C0C44F37F36207291346A4F /* NotesViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D3C2021353CD3443423C2 /* NotesViewmodel.swift */; };
 		40E1E78B246F9EE26284B0D6 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E440CEC6FD1A9DC0784D72 /* CameraView.swift */; };
-		459D68312E7BB4610078C5DA /* allShades.csv in Resources */ = {isa = PBXBuildFile; fileRef = 459D68302E7BB4610078C5DA /* allShades.csv */; };
 		497B70BF7CA0C74915E9B0E4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E1D4D04C642F94F611974D /* Alamofire.framework */; };
 		4DBDCAAF91E7ACCB76604915 /* ProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D35FEC629298F0C8BEE6F /* ProductRepository.swift */; };
+		4FE84BC141C73A6FDA4F85F9 /* allShades.csv in Resources */ = {isa = PBXBuildFile; fileRef = 29164B6D647F2AA8D234946C /* allShades.csv */; };
 		5D9CFB3080A932BFF700AA57 /* AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3382E9E003E1512566873398 /* AVFoundation.swift */; };
 		5E9726E941DB6C0926276B4C /* AllShadeRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FFF01F971126CA5745A07 /* AllShadeRecommendationView.swift */; };
 		5EFD1C6345512D2697E2FA21 /* ProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDC5F6328051BF463857C8 /* ProductService.swift */; };
@@ -44,8 +44,10 @@
 		B170A284B6EE108638AEC0E7 /* TuistBundle+Bias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2FA478777084B066E39E14 /* TuistBundle+Bias.swift */; };
 		BBBC03AA5D45114327094D8B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FD90680DF96D4128380BCF /* ContentView.swift */; };
 		BFA07F4F6843440086C87E87 /* DetailShadeViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4850065C3D963A932349B981 /* DetailShadeViewmodel.swift */; };
+		C6279E4B2731654155AF3192 /* CustomedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91B3DB3CBB46EBF2134F38D /* CustomedButton.swift */; };
 		CA9861038D6F13ADB816F44B /* ShadeRecommendationViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FB6C369A588DCC337FEB63 /* ShadeRecommendationViewmodel.swift */; };
 		CF4856A290D48E5AEB3FA81E /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93503D780737ED9396C949C /* FavoriteService.swift */; };
+		D7E714FD48789F5160BBBCB7 /* .png in Resources */ = {isa = PBXBuildFile; fileRef = A9A4C281B1B465901670D1B6 /* .png */; };
 		F83B33FBDDD789E270DBE527 /* OnBoardingViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C7D602E656C66BB0ECD314 /* OnBoardingViewmodel.swift */; };
 		FBD1888E9ACD6C3F6119F200 /* SkinAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C6BB55C55B8E0C757F558 /* SkinAnalysisService.swift */; };
 		FFCFDC5A6F698C87D6D6A1EA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB54061423CFD952C3FC9C2 /* Item.swift */; };
@@ -73,6 +75,7 @@
 		1757861A3F10A5CACFE2A70E /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		1D2FA478777084B066E39E14 /* TuistBundle+Bias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+Bias.swift"; sourceTree = "<group>"; };
 		2703D2E10306F56FC3994E95 /* ResultAnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAnalyzeView.swift; sourceTree = "<group>"; };
+		29164B6D647F2AA8D234946C /* allShades.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = allShades.csv; sourceTree = "<group>"; };
 		3382E9E003E1512566873398 /* AVFoundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundation.swift; sourceTree = "<group>"; };
 		368FFF01F971126CA5745A07 /* AllShadeRecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllShadeRecommendationView.swift; sourceTree = "<group>"; };
 		36E1D4D04C642F94F611974D /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +83,6 @@
 		41E6AAA45ACC277B95FDF45D /* ChooseUndertoneViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUndertoneViewmodel.swift; sourceTree = "<group>"; };
 		42A69F4E16F467A49D0B0787 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		45084B912FBF6FF1C65F1603 /* NotesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesService.swift; sourceTree = "<group>"; };
-		459D68302E7BB4610078C5DA /* allShades.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = allShades.csv; sourceTree = "<group>"; };
 		4850065C3D963A932349B981 /* DetailShadeViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailShadeViewmodel.swift; sourceTree = "<group>"; };
 		4DC4871A1201F758D692FC5F /* FavoriteViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewmodel.swift; sourceTree = "<group>"; };
 		4EE603DE9DF73A38C0DB686E /* biasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = biasApp.swift; sourceTree = "<group>"; };
@@ -97,12 +99,14 @@
 		9302C16372E087B63EC51605 /* ChooseBrandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBrandView.swift; sourceTree = "<group>"; };
 		A30A0BC031624ED3D090B9FF /* StaticQuiz .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaticQuiz .swift"; sourceTree = "<group>"; };
 		A8FADF3314A67F06E042C361 /* ChooseBrandViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBrandViewmodel.swift; sourceTree = "<group>"; };
+		A9A4C281B1B465901670D1B6 /* .png */ = {isa = PBXFileReference; lastKnownFileType = file; path = .png; sourceTree = "<group>"; };
 		AB50FE161A15EE30B6116FFB /* AllShadeRecommendationViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllShadeRecommendationViewmodel.swift; sourceTree = "<group>"; };
 		BF8C6BB55C55B8E0C757F558 /* SkinAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinAnalysisService.swift; sourceTree = "<group>"; };
 		C4C7D602E656C66BB0ECD314 /* OnBoardingViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewmodel.swift; sourceTree = "<group>"; };
 		C549F78A122881FF8B636FAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C77CA1B6BC85325083D99DA8 /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
 		CA4B93F8D8DCF33D3C3C2F36 /* ChooseUndertoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUndertoneView.swift; sourceTree = "<group>"; };
+		D91B3DB3CBB46EBF2134F38D /* CustomedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedButton.swift; sourceTree = "<group>"; };
 		D93503D780737ED9396C949C /* FavoriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteService.swift; sourceTree = "<group>"; };
 		DD18B951867CA2AF0888DABE /* InitialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialService.swift; sourceTree = "<group>"; };
 		E9DFC2CF32F48A0C379D0B32 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
@@ -110,6 +114,10 @@
 		F0F8D89A2CDCAFD03DA4F635 /* bias-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "bias-Info.plist"; sourceTree = "<group>"; };
 		F43277EA642C15D01B53C111 /* bias.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bias.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		459D68392E7CC4FA0078C5DA /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		ABEB839C26C27A60E7DC3930 /* Frameworks */ = {
@@ -168,6 +176,7 @@
 		31CCA4F7FE660081209CC10E /* ChooseUndertoneView */ = {
 			isa = PBXGroup;
 			children = (
+				459D68392E7CC4FA0078C5DA /* Components */,
 				CA4B93F8D8DCF33D3C3C2F36 /* ChooseUndertoneView.swift */,
 				41E6AAA45ACC277B95FDF45D /* ChooseUndertoneViewmodel.swift */,
 			);
@@ -225,6 +234,7 @@
 				EECD72221437A4A84140BAC9 /* CameraView */,
 				A569F5F01A43F2B931DFD69F /* ChooseBrandView */,
 				31CCA4F7FE660081209CC10E /* ChooseUndertoneView */,
+				F8883CE9317161D6A32F0AD3 /* Components */,
 				C9C093FC6C65ADB6D369CD7C /* DetailShadeView */,
 				EFAD9A75ACFE397A1953FFE8 /* FavoriteView */,
 				2392CAE8858609906EE47754 /* NotesView */,
@@ -377,8 +387,9 @@
 			isa = PBXGroup;
 			children = (
 				907D23C05A924D2F8C860019 /* Preview Content */,
+				A9A4C281B1B465901670D1B6 /* .png */,
+				29164B6D647F2AA8D234946C /* allShades.csv */,
 				58360E5B1A563AA199E11B2C /* Assets.xcassets */,
-				459D68302E7BB4610078C5DA /* allShades.csv */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -399,6 +410,14 @@
 				4DC4871A1201F758D692FC5F /* FavoriteViewmodel.swift */,
 			);
 			path = FavoriteView;
+			sourceTree = "<group>";
+		};
+		F8883CE9317161D6A32F0AD3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D91B3DB3CBB46EBF2134F38D /* CustomedButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F9F7A5360B8BB2DA63550A5B /* Repositories */ = {
@@ -435,6 +454,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				459D68392E7CC4FA0078C5DA /* Components */,
 			);
 			name = bias;
 			packageProductDependencies = (
@@ -474,9 +496,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7E714FD48789F5160BBBCB7 /* .png in Resources */,
 				1FA32B466074C89BA9D2B34A /* Assets.xcassets in Resources */,
 				392990F6356B8D931B3D8625 /* Preview Assets.xcassets in Resources */,
-				459D68312E7BB4610078C5DA /* allShades.csv in Resources */,
+				4FE84BC141C73A6FDA4F85F9 /* allShades.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +534,7 @@
 				78C526814B9312488FEF6894 /* ChooseBrandViewmodel.swift in Sources */,
 				3984C56434270B8758F70534 /* ChooseUndertoneView.swift in Sources */,
 				9385412A18BDE9A5DB5E4334 /* ChooseUndertoneViewmodel.swift in Sources */,
+				C6279E4B2731654155AF3192 /* CustomedButton.swift in Sources */,
 				6287ECF6664B805D1D71C88A /* DetailShadeView.swift in Sources */,
 				BFA07F4F6843440086C87E87 /* DetailShadeViewmodel.swift in Sources */,
 				682FCC713302AEF3B85175BE /* FavoriteView.swift in Sources */,
@@ -536,7 +560,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = QW8PFJL6C3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/bias-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -616,7 +639,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = QW8PFJL6C3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/bias-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
