@@ -4,6 +4,7 @@ import SwiftUI
 
 
 struct OnBoardingView : View {
+    @EnvironmentObject private var router: Router
     @State private var currentPage : Int = 0
     // MARK: - Bottom Section
     var bottomSection: some View {
@@ -30,6 +31,7 @@ struct OnBoardingView : View {
                             .frame(width: width * 0.15)
                         
                         CustomButton(title: "LET'S GET STARTED", isFilled: true, action: {
+                            router.navigate(to: .brandPreference)
                         })
                         .frame(width: width * 0.8)
                     }
