@@ -41,10 +41,9 @@ struct ChooseSkintoneView: View {
                     Spacer().layoutPriority(3)
                     CustomButton(
                         title: "Start Capture",
-                        isFilled: false,
                         action: {
                             print("Go to next screen")
-                        },
+                        }, isFilled:false,
                         variant: .active
                     )
                     .frame(height: 70)

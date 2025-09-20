@@ -27,12 +27,12 @@ struct OnBoardingView : View {
                     .padding(.bottom, geometry.safeAreaInsets.bottom + 8)
                 } else {
                     HStack(spacing: 12) {
-                        CustomButton(title: "arrow.left", isFilled: true, action: {}, isIconOnly: true)
+                        CustomButton(title: "arrow.left", action: {}, isFilled: true, isIconOnly: true)
                             .frame(width: width * 0.15)
                         
-                        CustomButton(title: "LET'S GET STARTED", isFilled: true, action: {
+                        CustomButton(title: "LET'S GET STARTED", action: {
                             router.navigate(to: .brandPreference)
-                        })
+                        }, isFilled: true)
                         .frame(width: width * 0.8)
                     }
                     .padding(.horizontal, 32)

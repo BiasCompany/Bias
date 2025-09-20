@@ -50,10 +50,9 @@ struct QuizUndertoneView: View {
                 
                 CustomButton(
                     title: viewModel.currentStep == viewModel.questions.count - 1 ? "SEE UNDERTONE RESULT" : "NEXT",
-                    isFilled: true,
                     action: {
                         viewModel.nextStep()
-                    },
+                    }, isFilled: true,
                     variant: viewModel.answers[viewModel.currentStep].isEmpty ? .disabled : .active
                 )
                 .padding(.horizontal, 20)
