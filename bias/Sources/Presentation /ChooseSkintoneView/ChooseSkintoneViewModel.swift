@@ -24,7 +24,7 @@ final class ChooseSkintoneViewModel: ObservableObject {
             
             ("FIT IN THE FRAME",
              "Position your face on within a frame and ensure your entire face is visible in the frame.",
-             5),
+             4.5),
             
             ("BRIGHTNESS SCALE",
              "For precise results, ensure good lighting, preferably natural sunlight.",
