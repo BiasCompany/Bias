@@ -1,52 +1,7 @@
 import Combine
 import SwiftUI
 
-final class ChooseUndertoneViewModel: ObservableObject {
-
-    enum Undertone: String, CaseIterable, Hashable, Identifiable {
-        case cool, neutral, warm
-        var id: String { rawValue }
-
-        var label: String {
-            switch self {
-            case .cool: return "COOL"
-            case .neutral: return "NEUTRAL"
-            case .warm: return "WARM"
-            }
-        }
-
-        var subtitle: String {
-            switch self {
-            case .cool:
-                return "Your veins color is purple or blue"
-            case .neutral:
-                return "Your veins color is green and blue"
-            case .warm:
-                return "Your veins color is green or olive"
-            }
-        }
-
-        var assetName: String {
-            switch self {
-            case .cool: return "cool"
-            case .neutral: return "neutral"
-            case .warm: return "warm"
-            }
-        }
-    }
-
-    // MARK: - Published state
-    @Published var selected: Undertone = .neutral
-
-    // MARK: - Copy
-    let infoText =
-        "Check your wrist veins to determine your undertone, preferably under natural light for precise result."
-
-    // MARK: - Intent
-    func select(_ u: Undertone) {
-        selected = u
-    }
-
+final class QuizUndertoneViewModel: ObservableObject {
     @Published var currentStep: Int = 0
     @Published var answers: [String]
     @Published var showResult: Bool = false

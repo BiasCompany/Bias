@@ -1,13 +1,12 @@
 import SwiftUI
 
 struct ChooseUndertoneView: View {
-    @StateObject var vm: ChooseUndertoneViewModel = ChooseUndertoneViewModel()
-    var onBack: (() -> Void)? = nil
-    var onContinue: ((ChooseUndertoneViewModel.Undertone) -> Void)? = nil
+    @EnvironmentObject var router: Router
+    @EnvironmentObject var vm: ChooseUndertoneViewModel
 
     private var selectedBinding: Binding<ChooseUndertoneViewModel.Undertone> {
         Binding(
-            get: { vm.selected ?? .neutral },
+            get: { vm.selected },
             set: { vm.select($0) }
         )
     }
@@ -17,7 +16,7 @@ struct ChooseUndertoneView: View {
             VStack(spacing: 0) {
                 // Nav
                 HStack {
-                    Button(action: { onBack?() }) {
+                    Button(action: { router.navigateBack() }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.black)
@@ -49,12 +48,13 @@ struct ChooseUndertoneView: View {
                 UndertoneCarousel(selected: selectedBinding)
             }
             BottomActionButtons(
-                canContinue: vm.selected != nil,
-                onIDK: { vm.startAutoAnalysis() },
-                onContinue: { if let u = vm.selected { onContinue?(u) } }
+                onIDK: { router.navigate(to: .undertoneQuiz) },
+                onContinue: { }
             )
         }
         .animation(.easeInOut, value: vm.selected)
+        .navigationBarBackButtonHidden()
+        .toolbar(.hidden)
     }
 }
 
