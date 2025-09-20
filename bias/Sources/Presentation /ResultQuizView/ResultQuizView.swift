@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ResultQuizView: View {
-    @StateObject var viewModel: ChooseUndertoneViewModel
+    @EnvironmentObject private var router: Router
+    @EnvironmentObject var viewModel: QuizUndertoneViewModel
     
     var body: some View {
         VStack(spacing: 24) {
@@ -50,7 +51,7 @@ struct ResultQuizView: View {
             
             
             CustomButton(title: "Continue", action: {
-                print("Continue tapped")
+                router.navigate(to: .onboarding)
             }, isFilled: true)
         }
         .padding()

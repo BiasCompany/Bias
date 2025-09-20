@@ -7,11 +7,14 @@ struct RootView: View {
     
     @StateObject private var router = Router()
     @StateObject private var chooseBrandViewModel = ChooseBrandViewModel()
+    @StateObject private var splashViewModel = SplashViewModel()
+    @StateObject private var chooseUndertoneViewModel = ChooseUndertoneViewModel()
+    @StateObject private var quizUndertoneViewModel = QuizUndertoneViewModel()
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
                         
-            ChooseSkintoneView()
+            SplashView()
                 .navigationDestination(for: Router.Route.self) { route in
                     destinationView(for: route)
                 }
@@ -19,6 +22,9 @@ struct RootView: View {
         }
         .environmentObject(router)
         .environmentObject(chooseBrandViewModel)
+        .environmentObject(splashViewModel)
+        .environmentObject(chooseUndertoneViewModel)
+        .environmentObject(quizUndertoneViewModel)
     }
     
     @ViewBuilder
@@ -28,12 +34,12 @@ struct RootView: View {
                 OnBoardingView()
             case .brandPreference:
                 ChooseBrandView()
-            // case .chooseUndertone:
-            //     ChooseUndertoneView()
-            // case .undertoneQuiz:
-            //     UndertoneQuizView()
-            // case .undertoneQuizResult:
-            //     UndertoneQuizResultView()
+             case .chooseUndertone:
+                 ChooseUndertoneView()
+             case .undertoneQuiz:
+                QuizUndertoneView()
+             case .undertoneQuizResult:
+                 ResultQuizView()
             // case .skinToneTutorial:
             //     SkinToneTutorialView()
             // case .cameraSkinTone:

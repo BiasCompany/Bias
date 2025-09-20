@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BottomActionButtons: View {
-    let canContinue: Bool
     let onIDK: () -> Void
     let onContinue: () -> Void
 
@@ -23,19 +22,17 @@ struct BottomActionButtons: View {
             VStack(spacing: buttonsSpacing) {
                 CustomButton(
                     title: "I DON’T KNOW MY UNDERTONE",
-                    isFilled: false,
-                    action: onIDK
+                    action: onIDK,
+                    isFilled: false
                 )
                 .frame(height: buttonHeight)
 
                 CustomButton(
                     title: "CONTINUE",
-                    isFilled: true,
-                    action: onContinue
+                    action: onContinue,
+                    isFilled: true
                 )
                 .frame(height: buttonHeight)
-                .opacity(canContinue ? 1 : 0.4)
-                .disabled(!canContinue)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, bottomPadding)

@@ -1,7 +1,5 @@
 import SwiftUI
 
-import SwiftUI
-
 
 struct OnBoardingView : View {
     @EnvironmentObject private var router: Router
@@ -9,7 +7,8 @@ struct OnBoardingView : View {
     // MARK: - Bottom Section
     var bottomSection: some View {
         GeometryReader { geometry in
-            let width = geometry.size.width - 32
+            let rawWidth = geometry.size.width - 32
+            let width = max(0, rawWidth.isFinite ? rawWidth : 0)
             VStack(spacing: 0) {
                 if currentPage < 2 {
                     HStack(spacing: 10) {
@@ -17,7 +16,7 @@ struct OnBoardingView : View {
                             Rectangle()
                                 .fill(index == currentPage ? Color.black : Color.gray.opacity(0.3))
                                 .frame(
-                                    width: index == currentPage ? width * 0.73 : width * 0.2,
+                                    width: max(1, (index == currentPage ? width * 0.73 : width * 0.2)),
                                     height: 10
                                 )
                                 .animation(.easeInOut(duration: 0.2), value: currentPage)
@@ -25,10 +24,15 @@ struct OnBoardingView : View {
                     }
                     .padding(.horizontal, 32)
                     .padding(.bottom, geometry.safeAreaInsets.bottom + 8)
+                    .transition(.opacity)
                 } else {
                     HStack(spacing: 12) {
-                        CustomButton(title: "arrow.left", action: {}, isFilled: true, isIconOnly: true)
-                            .frame(width: width * 0.15)
+//                        CustomButton(title: "arrow.left", action: {currentPage = 1}, isFilled: true, isIconOnly: true)
+//                            .frame(width: width * 0.15)
+                        CustomButton(title: "arrow.left", action: {
+                            currentPage = 1
+                        }, isFilled: true, isIconOnly: true, iconName: "star")
+                                                    .frame(width: width * 0.15)
                         
                         CustomButton(title: "LET'S GET STARTED", action: {
                             router.navigate(to: .brandPreference)
@@ -37,6 +41,7 @@ struct OnBoardingView : View {
                     }
                     .padding(.horizontal, 32)
                     .padding(.bottom, 100)
+                    .transition(.opacity)
                     
                 }
             }
@@ -46,7 +51,7 @@ struct OnBoardingView : View {
         .frame(height: currentPage==2 ? 70 : 20)
     }
     var body: some View {
-        VStack() {
+        VStack {
             
             TabView(selection: $currentPage) {
                 
@@ -141,6 +146,7 @@ struct OnBoardingView : View {
             
             
         }
+        .navigationBarBackButtonHidden()
     }
     
 }
