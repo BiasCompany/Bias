@@ -30,7 +30,7 @@ struct ResultQuizView: View {
             }
             Spacer()
             ZStack {
-                Image("Hand")
+                Image("hands")
                     .resizable()
                     .scaledToFit()
                     .frame(maxHeight: .infinity)
@@ -57,15 +57,15 @@ struct ResultQuizView: View {
     }
 }
 
-
-#Preview {
-    let vm = ChooseUndertoneViewModel()
-    vm.answers = ["Purple", "My skin looks pinkish or bluish", "Silver", "Pure White flatters me more"]
-    vm.nextStep()
-    vm.nextStep()
-    vm.nextStep()
-    vm.nextStep()
-    return ResultQuizView(viewModel: vm)
-}
-
+//
+//#Preview {
+//    let vm = ChooseUndertoneViewModel()
+//    vm.answers = ["Purple", "My skin looks pinkish or bluish", "Silver", "Pure White flatters me more"]
+//    vm.nextStep()
+//    vm.nextStep()
+//    vm.nextStep()
+//    vm.nextStep()
+//    return ResultQuizView(viewModel: vm)
+//}
+//
 

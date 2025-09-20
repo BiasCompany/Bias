@@ -2,6 +2,14 @@
 //  WhiteGradientView.swift
 //  bias
 //
+//  Created by Adithya Firmansyah Putra on 20/09/25.
+//
+
+
+//
+//  WhiteGradientView.swift
+//  bias
+//
 //  Created by Muhammad Rifqi Syatria on 9/19/25.
 //
 import SwiftUI
