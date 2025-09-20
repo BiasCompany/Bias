@@ -66,8 +66,7 @@ final class ChooseSkintoneViewModel: ObservableObject {
         if currentStepIndex < steps.count - 1 {
             currentStepIndex += 1
         } else {
-            currentStepIndex = 0 /
-        }
+            currentStepIndex = 0         }
         scheduleStepChange()
     }
     
