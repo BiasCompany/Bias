@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CAB7826DED12066C0B86A671"
+               BlueprintIdentifier = "C009B8796F0AA90C1F9FA714"
                BuildableName = "bias.app"
                BlueprintName = "bias"
-               ReferencedContainer = "container:bias.xcodeproj">
+               ReferencedContainer = "container:Bias.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CAB7826DED12066C0B86A671"
+            BlueprintIdentifier = "C009B8796F0AA90C1F9FA714"
             BuildableName = "bias.app"
             BlueprintName = "bias"
-            ReferencedContainer = "container:bias.xcodeproj">
+            ReferencedContainer = "container:Bias.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,10 +62,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CAB7826DED12066C0B86A671"
+            BlueprintIdentifier = "C009B8796F0AA90C1F9FA714"
             BuildableName = "bias.app"
             BlueprintName = "bias"
-            ReferencedContainer = "container:bias.xcodeproj">
+            ReferencedContainer = "container:Bias.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

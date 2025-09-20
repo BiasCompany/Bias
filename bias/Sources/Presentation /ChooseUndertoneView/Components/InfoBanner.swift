@@ -26,4 +26,3 @@ struct InfoBanner: View {
         .background(Color("creamLabel"))
     }
 }
-

@@ -29,6 +29,15 @@ public enum BiasAsset: Sendable {
     public static let warm = BiasImages(name: "Warm")
     public static let creamLabel = BiasColors(name: "creamLabel")
     public static let creamSelect = BiasColors(name: "creamSelect")
+    public static let faceGreen = BiasImages(name: "faceGreen")
+    public static let faceRed = BiasImages(name: "faceRed")
+    public static let glassGreen = BiasImages(name: "glassGreen")
+    public static let glassRed = BiasImages(name: "glassRed")
+    public static let green = BiasColors(name: "green")
+    public static let lampGreen = BiasImages(name: "lampGreen")
+    public static let lampRed = BiasImages(name: "lampRed")
+    public static let overlayCamera = BiasImages(name: "overlayCamera")
+    public static let red = BiasColors(name: "red")
   }
   public enum PreviewAssets {
   }
