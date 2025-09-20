@@ -10,6 +10,7 @@ class Router: ObservableObject {
     @Published var navigationPath = NavigationPath()
     
     enum Route: Hashable, CaseIterable {
+        case splash
         // Onboarding Flow
         case onboarding
         

@@ -48,7 +48,7 @@ struct CustomButton: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: progressViewColor))
                         .scaleEffect(0.9)
                 } else if isIconOnly, let iconName = iconName {
-                    Image(systemName: iconName)
+                    Image(systemName: "arrow.left")
                 } else {
                     Text(title)
                 }

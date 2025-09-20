@@ -1,84 +1,3 @@
-//
-//  UndertonePeekLebel.swift
-//  bias
-//
-//  Created by Shafa Tiara Tsabita Himawan on 19/09/25.
-//
-//
-//import SwiftUI
-//
-//struct UndertonePeekLabels: View {
-//    typealias U = ChooseUndertoneViewModel.Undertone
-//    let current: U
-//    var onSelect: (U) -> Void
-//
-//    private let fullWidth: CGFloat = 110
-//    private let partialWidth: CGFloat = 64
-//    private let sidePadding: CGFloat = 16
-//
-//    var body: some View {
-//        let all = U.allCases
-//        let idx = all.firstIndex(of: current)!
-//        let left: U?  = idx > 0 ? all[idx - 1] : nil
-//        let right: U? = idx < all.count - 1 ? all[idx + 1] : nil
-//
-//        HStack(alignment: .firstTextBaseline) {
-//            // LEFT
-//            if let l = left {
-//                let isNeutralTail = (current == .warm && l == .neutral)
-//                PeekClipText(
-//                    l.label,
-//                    width: isNeutralTail ? partialWidth : fullWidth,
-//                    align: isNeutralTail ? .trailing : .leading
-//                )
-//                .padding(.leading, sidePadding)
-//                .contentShape(Rectangle())
-//                .onTapGesture { onSelect(l) }
-//            }
-//
-//            Spacer()
-//
-//            // RIGHT
-//            if let r = right {
-//                let isNeutralHead = (current == .cool && r == .neutral)
-//                PeekClipText(
-//                    r.label,
-//                    width: isNeutralHead ? partialWidth : fullWidth,
-//                    align: isNeutralHead ? .leading : .trailing
-//                )
-//                .padding(.trailing, sidePadding)
-//                .contentShape(Rectangle())
-//                .onTapGesture { onSelect(r) }
-//            }
-//        }
-//        .frame(height: 64)
-//        .padding(.top, 8)
-//    }
-//}
-//
-///// Menampilkan teks penuh lalu DI-CLIP sesuai width & alignment (tanpa “...”)
-//private struct PeekClipText: View {
-//    let text: String
-//    let width: CGFloat
-//    let align: Alignment
-//
-//    init(_ text: String, width: CGFloat, align: Alignment) {
-//        self.text = text
-//        self.width = width
-//        self.align = align
-//    }
-//
-//    var body: some View {
-//        Text(text)
-//            .font(.system(size: 28, weight: .bold, design: .monospaced))
-//            .foregroundColor(.black.opacity(0.25))
-//            .lineLimit(1)                        // satu baris
-//            .fixedSize(horizontal: true, vertical: false) // biar tidak truncate
-//            .minimumScaleFactor(1.0)             // jangan mengecil
-//            .frame(width: width, alignment: align)
-//            .clipped()                           // potong tanpa “...”
-//    }
-//}
 import SwiftUI
 
 struct UndertonePeekLabels: View {
@@ -126,6 +45,7 @@ struct UndertonePeekLabels: View {
                                     .font(titleFont)
                                     .foregroundColor(.black.opacity(0.25))
                                     .lineLimit(1)
+                                    .fixedSize(horizontal: true, vertical: false)
                                     .frame(width: slotWidth, alignment: .leading)
                                     .clipped()
                             }
@@ -167,6 +87,7 @@ struct UndertonePeekLabels: View {
                                     .font(titleFont)
                                     .foregroundColor(.black.opacity(0.25))
                                     .lineLimit(1)
+                                    .fixedSize(horizontal: true, vertical: false)
                                     .frame(width: slotWidth, alignment: .trailing)
                                     .clipped()
                             }

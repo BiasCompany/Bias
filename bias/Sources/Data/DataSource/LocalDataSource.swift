@@ -4,26 +4,12 @@ import SwiftData
 @MainActor
 final class LocalDataSource: ObservableObject {
 
-    // MARK: Lifecycle
-
     let container: ModelContainer
     var context: ModelContext { container.mainContext }
 
     init(container: ModelContainer) {
         self.container = container
     }
-
-    static func makeDefaultContainer(isStoredInMemory: Bool = false) throws -> ModelContainer {
-        let config = ModelConfiguration(isStoredInMemoryOnly: isStoredInMemory)
-        return try ModelContainer(
-            for: AppData.self,
-                Shade.self,
-                SkinTone.self,
-                ShadeRecommendation.self,
-            configurations: config
-        )
-    }
-
     // MARK: - AppData root
 
     func getOrCreateAppData() throws -> AppData {

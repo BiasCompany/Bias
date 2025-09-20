@@ -8,39 +8,41 @@
 import Foundation
 import Combine
 
+@MainActor
 final class ChooseBrandViewModel: ObservableObject {
+    @Published var productService: ProductService = DIContainer.shared.productService
     @Published var searchText: String = ""
-    @Published private(set) var allBrandNames: [String] = []
-    @Published var selected: Set<String> = []
+    @Published var isLoading: Bool = true
+    @Published var brands: [Brand] = []
+    @Published var selectedBrands: Set<Brand> = []
 
     init() {
         load()
     }
 
     func load() {
-//        do { try repo.loadIfNeeded() } catch {
-//            print("ProductRepository load error:", error.localizedDescription)
-//        }
-//
-//        let names = repo.allBrands().map { $0.name }
-//            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-//            .filter { !$0.isEmpty }
-//
-//        let uniqueSorted = Array(Set(names)).sorted {
-//            $0.localizedCaseInsensitiveCompare($1) == .orderedAscending
-//        }
-//        self.allBrandNames = uniqueSorted
+        Task {
+            do {
+                isLoading = true
+                brands = try await productService.getBrands()
+                let selectedBrands = try await productService.getBrandPreference()
+                self.selectedBrands = Set(selectedBrands)
+            } catch {
+                print("Error loading brands:", error)
+            }
+            isLoading = false
+        }
     }
 
     // MARK: - Filtering
-    var filteredBrands: [String] {
+    var filteredBrands: [Brand] {
         let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !q.isEmpty else { return allBrandNames }
-        return allBrandNames.filter { $0.localizedCaseInsensitiveContains(q) }
+        guard !q.isEmpty else { return brands }
+        return brands.filter { $0.localizedCaseInsensitiveContains(q) }
     }
 
     // MARK: - Sections (A-Z)
-    var sections: [(key: String, values: [String])] {
+    var sections: [(key: String, values: [Brand])] {
         let grouped = Dictionary(grouping: filteredBrands) { brand -> String in
             guard let c = brand.first else { return "#" }
             let u = String(c).uppercased()
@@ -56,25 +58,30 @@ final class ChooseBrandViewModel: ObservableObject {
     }
 
     // MARK: - Selection
-    func toggleSelection(_ name: String) {
-        if selected.contains(name) { selected.remove(name) } else { selected.insert(name) }
+    func toggleSelection(_ name: Brand) {
+        if selectedBrands.contains(name) { selectedBrands.remove(name) } else { selectedBrands.insert(name) }
     }
 
     var isAllSelectedInCurrentView: Bool {
         let visible = Set(filteredBrands)
-        return !visible.isEmpty && visible.isSubset(of: selected)
+        return !visible.isEmpty && visible.isSubset(of: selectedBrands)
     }
 
     func toggleSelectAll() {
         let visible = Set(filteredBrands)
-        if visible.isSubset(of: selected) {
-            selected.subtract(visible)
+        if visible.isSubset(of: selectedBrands) {
+            selectedBrands.subtract(visible)
         } else {
-            selected.formUnion(visible)
+            selectedBrands.formUnion(visible)
+        }
+    }
+    
+    func saveSelection() {
+        Task {
+            try await productService.saveBrandPreference(Array(selectedBrands))
         }
     }
 
-    var canContinue: Bool { !selected.isEmpty }
 }
 
 
