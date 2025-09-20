@@ -49,9 +49,9 @@ struct ResultQuizView: View {
             }
             
             
-            CustomButton(title: "Continue", isFilled: true, action: {
+            CustomButton(title: "Continue", action: {
                 print("Continue tapped")
-            })
+            }, isFilled: true)
         }
         .padding()
     }
