@@ -7,18 +7,17 @@ struct RootView: View {
     
     @StateObject private var router = Router()
     @StateObject private var chooseBrandViewModel = ChooseBrandViewModel()
+    @StateObject private var cameraViewModel = CameraViewmodel()
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
                         
             OnBoardingView()
-                .navigationDestination(for: Router.Route.self) { route in
-                    destinationView(for: route)
-                }
                 .navigationBarHidden(true)
         }
         .environmentObject(router)
         .environmentObject(chooseBrandViewModel)
+        .environmentObject(cameraViewModel)
     }
     
     @ViewBuilder
@@ -36,8 +35,8 @@ struct RootView: View {
             //     UndertoneQuizResultView()
             // case .skinToneTutorial:
             //     SkinToneTutorialView()
-            // case .cameraSkinTone:
-            //     CameraSkinToneView()
+             case .cameraSkinTone:
+                 CameraView()
             // case .skinToneLoading:
             //     SkinToneLoadingView()
             // case .skinToneFailed:

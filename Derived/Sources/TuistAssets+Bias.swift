@@ -20,9 +20,20 @@
 public enum BiasAsset: Sendable {
   public enum Assets {
   public static let accentColor = BiasColors(name: "AccentColor")
+    public static let cool = BiasImages(name: "Cool")
+    public static let hand = BiasImages(name: "Hand")
     public static let onboardOne = BiasImages(name: "onboard_one")
     public static let onboardThree = BiasImages(name: "onboard_three")
     public static let onboardTwo = BiasImages(name: "onboard_two")
+    public static let netral = BiasImages(name: "Netral")
+    public static let warm = BiasImages(name: "Warm")
+    public static let blackOverlay = BiasImages(name: "blackOverlay")
+    public static let creamLabel = BiasColors(name: "creamLabel")
+    public static let creamSelect = BiasColors(name: "creamSelect")
+    public static let dotOverlay = BiasImages(name: "dotOverlay")
+    public static let gardientA = BiasColors(name: "gardientA")
+    public static let gradientB = BiasColors(name: "gradientB")
+    public static let tiara = BiasImages(name: "tiara")
   }
   public enum PreviewAssets {
   }
