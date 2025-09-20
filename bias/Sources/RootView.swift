@@ -10,6 +10,7 @@ struct RootView: View {
     @StateObject private var splashViewModel = SplashViewModel()
     @StateObject private var chooseUndertoneViewModel = ChooseUndertoneViewModel()
     @StateObject private var quizUndertoneViewModel = QuizUndertoneViewModel()
+    @StateObject private var cameraViewModel = CameraViewmodel()
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
@@ -25,6 +26,7 @@ struct RootView: View {
         .environmentObject(splashViewModel)
         .environmentObject(chooseUndertoneViewModel)
         .environmentObject(quizUndertoneViewModel)
+        .environmentObject(cameraViewModel)
     }
     
     @ViewBuilder
@@ -42,8 +44,8 @@ struct RootView: View {
                  ResultQuizView()
              case .skinToneTutorial:
                 OnBoardingView()
-            // case .cameraSkinTone:
-            //     CameraSkinToneView()
+            case .cameraSkinTone:
+                 CameraView()
             // case .skinToneLoading:
             //     SkinToneLoadingView()
             // case .skinToneFailed:
