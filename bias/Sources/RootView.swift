@@ -11,7 +11,7 @@ struct RootView: View {
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
                         
-            OnBoardingView()
+            ChooseSkintoneView()
                 .navigationDestination(for: Router.Route.self) { route in
                     destinationView(for: route)
                 }
