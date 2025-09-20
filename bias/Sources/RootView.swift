@@ -11,6 +11,25 @@ struct RootView: View {
     @StateObject private var chooseUndertoneViewModel = ChooseUndertoneViewModel()
     @StateObject private var quizUndertoneViewModel = QuizUndertoneViewModel()
     @StateObject private var cameraViewModel = CameraViewmodel()
+    @StateObject private var detailShadeVM = DetailShadeViewModel(
+           recommendation: ShadeRecommendation(
+               id: UUID(),
+               shade: Shade(
+                   id: UUID(),
+                   name: "120 C (Neutral Undertone)",
+                   brand: "YSL",
+                   product: "Foundation",
+                   description: "Test description",
+                   image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
+                   undertone: .neutral,
+                   hexShade: "#D7A377"
+               ),
+               skinTone: SkinTone(id: UUID(), name: "Medium", hex: "#EFBF96"),
+               undertone: .neutral,
+               notes: "Test note",
+               percentage: 85
+           )
+       )
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
@@ -19,7 +38,7 @@ struct RootView: View {
                 .navigationDestination(for: Router.Route.self) { route in
                     destinationView(for: route)
                 }
-                .navigationBarHidden(true)
+//                .navigationBarHidden(true)
         }
         .environmentObject(router)
         .environmentObject(chooseBrandViewModel)
@@ -27,6 +46,7 @@ struct RootView: View {
         .environmentObject(chooseUndertoneViewModel)
         .environmentObject(quizUndertoneViewModel)
         .environmentObject(cameraViewModel)
+        .environmentObject(detailShadeVM)
     }
     
     @ViewBuilder
