@@ -83,3 +83,20 @@ struct HeaderView: View {
         .padding(.bottom, 10)
     }
 }
+
+#Preview {
+    struct PreviewContainer: View {
+        @State var searchText = "Searxhj"
+        @FocusState var isFocused: Bool
+        var body: some View {
+            HeaderView(
+                searchText: $searchText,
+                isFocused: $isFocused,
+                onCancel: {},
+                onToggleAll: {},
+                isAllSelected: true
+            )
+        }
+    }
+    return PreviewContainer()
+}

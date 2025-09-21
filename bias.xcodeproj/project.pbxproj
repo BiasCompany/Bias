@@ -215,6 +215,10 @@
 		FE7F9C2595BF58B22CD1A732 /* shade_recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shade_recommendation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		ED1EA9442E809437006A3B6B /* DiscoverRecomendationView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DiscoverRecomendationView; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		290DF05130A5AB6ECB1863BA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -465,6 +469,7 @@
 		ACA16D9FD91E499003DD599A /* Presentation  */ = {
 			isa = PBXGroup;
 			children = (
+				ED1EA9442E809437006A3B6B /* DiscoverRecomendationView */,
 				B9A706CD6B4F9B44C2BC733D /* AllShadeRecommendationView */,
 				F0D472673B6B13075CEE75DE /* CameraView */,
 				CB98C3DD7AEE9EC97879353F /* ChooseBrandView */,
@@ -497,8 +502,6 @@
 			isa = PBXGroup;
 			children = (
 				160544195A1727A92CFE79A1 /* AlphabetIndexBar.swift */,
-				E1FF6FB6910BB659F0A4BC8C /* BrandRow.swift */,
-				4A4460E3271F3869C4DBD3B7 /* HeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				9E83D7988E73CF969D726604 /* CleanVideoPlayerView.swift */,
 				08079D15F634652477F5D242 /* CustomButton.swift */,
 				0FFD82A2AB9E51F19D2D055E /* WhiteGradientView.swift */,
+				4A4460E3271F3869C4DBD3B7 /* HeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -693,6 +697,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				ED1EA9442E809437006A3B6B /* DiscoverRecomendationView */,
 			);
 			name = bias;
 			packageProductDependencies = (
