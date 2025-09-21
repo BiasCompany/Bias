@@ -28,8 +28,7 @@
 		36FF21982561C6CF5CA337F1 /* skinTonePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08B0ABF6AEA448802CBC7CC /* skinTonePanel.swift */; };
 		3A11108C0C4E017467F1053A /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199D2E32B50120AE60F087AD /* Overlay.swift */; };
 		3BCD3C601240EDE5E02030FC /* SkinAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DD98FEC7DF3CF6450D0FE0 /* SkinAnalysisService.swift */; };
-		459D69082E8038B70078C5DA /* ShadeHistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459D69062E8038940078C5DA /* ShadeHistoryListView.swift */; };
-		45EBB7352E80AC4F00117831 /* MatchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBB7342E80AC4100117831 /* MatchBarView.swift */; };
+		45EBB7492E80B5B500117831 /* FavoriteEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBB7482E80B5AA00117831 /* FavoriteEmptyStateView.swift */; };
 		4652CEC7F717CB590C6F809E /* ChooseSkintoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103E12EA872E7D67DF94BDA2 /* ChooseSkintoneView.swift */; };
 		46F4516AD73F636F63E9545D /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0D57119C256BC9D25E7591 /* FavoriteService.swift */; };
 		4734AEACD1656D62CAD48C63 /* KingFisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EF0ADAD6CA1566A24EC66 /* KingFisherManager.swift */; };
@@ -143,8 +142,7 @@
 		40EBD6AEA8CF068C719D3EA0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		418D4A99ACD64406E01BF0CE /* UndertoneSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndertoneSlideView.swift; sourceTree = "<group>"; };
 		437825415BE627C8AD0C782F /* CameraViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewmodel.swift; sourceTree = "<group>"; };
-		459D69062E8038940078C5DA /* ShadeHistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadeHistoryListView.swift; sourceTree = "<group>"; };
-		45EBB7342E80AC4100117831 /* MatchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBarView.swift; sourceTree = "<group>"; };
+		45EBB7482E80B5AA00117831 /* FavoriteEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEmptyStateView.swift; sourceTree = "<group>"; };
 		47E0015CE97FA583D0CF4141 /* NotesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesService.swift; sourceTree = "<group>"; };
 		48D3C671BE5C305B319DE296 /* TuistBundle+Bias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+Bias.swift"; sourceTree = "<group>"; };
 		4A4460E3271F3869C4DBD3B7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -532,10 +530,9 @@
 		C398F08941B9228F6B290326 /* FavoriteView */ = {
 			isa = PBXGroup;
 			children = (
-				459D68F62E8037100078C5DA /* Components */,
+				45EBB7482E80B5AA00117831 /* FavoriteEmptyStateView.swift */,
 				CDB9E2DB9DFCA4632BC99C3C /* FavoriteView.swift */,
 				61D2810A2196B9833ED4D16F /* FavoriteViewmodel.swift */,
-				459D69062E8038940078C5DA /* ShadeHistoryListView.swift */,
 			);
 			path = FavoriteView;
 			sourceTree = "<group>";
@@ -652,7 +649,6 @@
 		F12035FDB6FEDEECE62C8226 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				45EBB7342E80AC4100117831 /* MatchBarView.swift */,
 				A08C4D1A11663329E32CEA44 /* BlackGradientView.swift */,
 				9E83D7988E73CF969D726604 /* CleanVideoPlayerView.swift */,
 				08079D15F634652477F5D242 /* CustomButton.swift */,
@@ -810,6 +806,7 @@
 				EF349A49FC2479D01CEE3A6C /* EdgeFades.swift in Sources */,
 				459D69082E8038B70078C5DA /* ShadeHistoryListView.swift in Sources */,
 				63A5EADB4764BAEF4BAA68E5 /* GradientWhite.swift in Sources */,
+				45EBB7492E80B5B500117831 /* FavoriteEmptyStateView.swift in Sources */,
 				36CA5B6648E1660777E89CB5 /* InfoBanner.swift in Sources */,
 				5995C8B730A7052E5A3F6E79 /* UndertoneCarousel.swift in Sources */,
 				0313E6108301F5FF6F942EF9 /* UndertonePeekLebel.swift in Sources */,
