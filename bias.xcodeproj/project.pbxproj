@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,7 +28,8 @@
 		36FF21982561C6CF5CA337F1 /* skinTonePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08B0ABF6AEA448802CBC7CC /* skinTonePanel.swift */; };
 		3A11108C0C4E017467F1053A /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199D2E32B50120AE60F087AD /* Overlay.swift */; };
 		3BCD3C601240EDE5E02030FC /* SkinAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DD98FEC7DF3CF6450D0FE0 /* SkinAnalysisService.swift */; };
-		40686DC4168F22E4E2DE620F /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC52D2A95E04B8D36D7B34 /* SplashViewModel.swift */; };
+		459D69082E8038B70078C5DA /* ShadeHistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459D69062E8038940078C5DA /* ShadeHistoryListView.swift */; };
+		45EBB7352E80AC4F00117831 /* MatchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBB7342E80AC4100117831 /* MatchBarView.swift */; };
 		4652CEC7F717CB590C6F809E /* ChooseSkintoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103E12EA872E7D67DF94BDA2 /* ChooseSkintoneView.swift */; };
 		46F4516AD73F636F63E9545D /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0D57119C256BC9D25E7591 /* FavoriteService.swift */; };
 		4734AEACD1656D62CAD48C63 /* KingFisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EF0ADAD6CA1566A24EC66 /* KingFisherManager.swift */; };
@@ -59,7 +60,6 @@
 		91D8CAAE2E3782B12DB1E03F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF33441E1D3E53DC470705 /* Error.swift */; };
 		965E1D20011E94D33D03FA9E /* DetailShadeViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB72D19CAB7FD4192C879CA7 /* DetailShadeViewmodel.swift */; };
 		A2E7C34B5030F899D99056F0 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E3107880CBDD616728E5D /* NotesView.swift */; };
-		A523D5545E7B8B01E6B4012D /* ResultQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B191DD1EE661002512D1DC83 /* ResultQuizView.swift */; };
 		A630A8AC02A84C3AE550A17A /* CleanVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83D7988E73CF969D726604 /* CleanVideoPlayerView.swift */; };
 		A69D92E10686C6B7AE80CD25 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08079D15F634652477F5D242 /* CustomButton.swift */; };
 		A726CF0D9B471BA0BE07D78A /* ResultAnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C65C99F3053FE8287E1148 /* ResultAnalyzeView.swift */; };
@@ -67,19 +67,16 @@
 		AA0757D641183C2011A60418 /* NotesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0015CE97FA583D0CF4141 /* NotesService.swift */; };
 		AB8B2496DFD954C1C442ADD6 /* QuizUndertoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ACC5B5BCCDAD020E17A0D9 /* QuizUndertoneViewModel.swift */; };
 		AF2F2E03AA513962B3DC8A9D /* biasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE0DCF1F6F2C8546E88D63 /* biasApp.swift */; };
-		AF581A208FEC7A8B774FF1AC /* QuizUndertoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0A3601A9F2C5F91B0B096A /* QuizUndertoneView.swift */; };
 		B5BDBC3B70F4F7E31E722BCA /* BlackGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08C4D1A11663329E32CEA44 /* BlackGradientView.swift */; };
 		B9656AB0C5F1638E2BB2113D /* SkinAnalysisRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FC70FA5E4E086401A2DBA5 /* SkinAnalysisRepository.swift */; };
 		BA2BB08F04A42845A3699EA7 /* ShadeRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECC1295B369A99705C2A81F /* ShadeRecommendationView.swift */; };
 		BA407D7D6162A71F562833EA /* shade_recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F9C2595BF58B22CD1A732 /* shade_recommendation.swift */; };
 		BE5D4A6F0D6B5E02FF2797CA /* TuistAssets+Bias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE01DCD53067B8255FDAAA9 /* TuistAssets+Bias.swift */; };
 		BFF9ED9D2F3157EEC6A5A236 /* AllShadeRecommendationViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7E40E608BE9D911ABED45F /* AllShadeRecommendationViewmodel.swift */; };
-		C285264C0AAF01B32F75DBFD /* CSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D9C988817EC5FFE6292112 /* CSVParser.swift */; };
 		C497228FF20215075A27B80F /* DetailShadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E62F7D1B5E34A16027AE8 /* DetailShadeView.swift */; };
 		C63B94F067D9B61C8DF00281 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 5493CBD95081E708E9706331 /* Kingfisher_Kingfisher.bundle */; };
 		C7AB884390C96172CBACC18F /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2602E08E7A13CE1494AC84 /* CameraView.swift */; };
 		CF3D8FF686223669A3ACE92A /* FavoriteViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D2810A2196B9833ED4D16F /* FavoriteViewmodel.swift */; };
-		D050C1A1E65A111A01FB723B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD834893720F38C05B4597B /* SplashView.swift */; };
 		D0A29E24248FCF41C6CE8CE6 /* UndertoneQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A889DE86F9D93A672ED5BF /* UndertoneQuiz.swift */; };
 		D343F748BD5CA54E42DE1F03 /* CameraViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437825415BE627C8AD0C782F /* CameraViewmodel.swift */; };
 		D4AE102F61ACBB84932D9CED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B19B109E68680874EE326788 /* Alamofire.framework */; };
@@ -146,6 +143,8 @@
 		40EBD6AEA8CF068C719D3EA0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		418D4A99ACD64406E01BF0CE /* UndertoneSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndertoneSlideView.swift; sourceTree = "<group>"; };
 		437825415BE627C8AD0C782F /* CameraViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewmodel.swift; sourceTree = "<group>"; };
+		459D69062E8038940078C5DA /* ShadeHistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadeHistoryListView.swift; sourceTree = "<group>"; };
+		45EBB7342E80AC4100117831 /* MatchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBarView.swift; sourceTree = "<group>"; };
 		47E0015CE97FA583D0CF4141 /* NotesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesService.swift; sourceTree = "<group>"; };
 		48D3C671BE5C305B319DE296 /* TuistBundle+Bias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+Bias.swift"; sourceTree = "<group>"; };
 		4A4460E3271F3869C4DBD3B7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -162,7 +161,6 @@
 		67922FA8849F88FFB74E1757 /* allShades.csv */ = {isa = PBXFileReference; path = allShades.csv; sourceTree = "<group>"; };
 		68302473D21B8A190DA22FC4 /* InitialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialService.swift; sourceTree = "<group>"; };
 		6A8A3DAA68F7F21E45AC8606 /* skintoneinstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = skintoneinstruction.swift; sourceTree = "<group>"; };
-		6BD834893720F38C05B4597B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		6F7E40E608BE9D911ABED45F /* AllShadeRecommendationViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllShadeRecommendationViewmodel.swift; sourceTree = "<group>"; };
 		71614C16145AAFBC3517E921 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
 		77DD98FEC7DF3CF6450D0FE0 /* SkinAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinAnalysisService.swift; sourceTree = "<group>"; };
@@ -216,7 +214,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ED1EA9442E809437006A3B6B /* DiscoverRecomendationView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DiscoverRecomendationView; sourceTree = "<group>"; };
+		459D68F62E8037100078C5DA /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,8 +532,10 @@
 		C398F08941B9228F6B290326 /* FavoriteView */ = {
 			isa = PBXGroup;
 			children = (
+				459D68F62E8037100078C5DA /* Components */,
 				CDB9E2DB9DFCA4632BC99C3C /* FavoriteView.swift */,
 				61D2810A2196B9833ED4D16F /* FavoriteViewmodel.swift */,
+				459D69062E8038940078C5DA /* ShadeHistoryListView.swift */,
 			);
 			path = FavoriteView;
 			sourceTree = "<group>";
@@ -575,7 +575,6 @@
 				67922FA8849F88FFB74E1757 /* allShades.csv */,
 				E1683BBF197E5692479491A7 /* Assets.xcassets */,
 				1E88C976F12C3B4DDA19928D /* razia.mp4 */,
-				459D68E42E7F6FEF0078C5DA /* sparkle-progress.riv */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -653,11 +652,11 @@
 		F12035FDB6FEDEECE62C8226 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				45EBB7342E80AC4100117831 /* MatchBarView.swift */,
 				A08C4D1A11663329E32CEA44 /* BlackGradientView.swift */,
 				9E83D7988E73CF969D726604 /* CleanVideoPlayerView.swift */,
 				08079D15F634652477F5D242 /* CustomButton.swift */,
 				0FFD82A2AB9E51F19D2D055E /* WhiteGradientView.swift */,
-				4A4460E3271F3869C4DBD3B7 /* HeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -699,7 +698,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				ED1EA9442E809437006A3B6B /* DiscoverRecomendationView */,
+				459D68F62E8037100078C5DA /* Components */,
 			);
 			name = bias;
 			packageProductDependencies = (
@@ -748,7 +747,6 @@
 				89486A84E74AA3A21BC5A330 /* Assets.xcassets in Resources */,
 				60F0446B38F5F4E2356B0B87 /* Preview Assets.xcassets in Resources */,
 				008D173C3513CC897D9F6170 /* allShades.csv in Resources */,
-				459D68E52E7F6FEF0078C5DA /* sparkle-progress.riv in Resources */,
 				0319D2F5BADA886C079AA2E3 /* razia.mp4 in Resources */,
 				FB4C3D1755BE9E5DF2016A91 /* Alamofire_Alamofire.bundle in Resources */,
 				6FCA10C006426CF0C05251C8 /* Kingfisher_Kingfisher.bundle in Resources */,
@@ -780,6 +778,7 @@
 				4DC34B1F609B573459B7F2E9 /* app_data.swift in Sources */,
 				6E3D125812B9DE329456B200 /* brand.swift in Sources */,
 				28B291C36093B6E6558CB79F /* note.swift in Sources */,
+				45EBB7352E80AC4F00117831 /* MatchBarView.swift in Sources */,
 				A84ED00D789CAC603A00F273 /* shade.swift in Sources */,
 				BA407D7D6162A71F562833EA /* shade_recommendation.swift in Sources */,
 				57BA6C73AA4B9DCF0E634E6F /* skin_tone.swift in Sources */,
@@ -809,13 +808,15 @@
 				715537BDFE1E4FBC4D2C3EFB /* ChooseUndertoneViewModel.swift in Sources */,
 				4F03721D00E93CE3F60D28DC /* ButtonActions.swift in Sources */,
 				EF349A49FC2479D01CEE3A6C /* EdgeFades.swift in Sources */,
+				459D69082E8038B70078C5DA /* ShadeHistoryListView.swift in Sources */,
 				63A5EADB4764BAEF4BAA68E5 /* GradientWhite.swift in Sources */,
 				36CA5B6648E1660777E89CB5 /* InfoBanner.swift in Sources */,
 				5995C8B730A7052E5A3F6E79 /* UndertoneCarousel.swift in Sources */,
 				0313E6108301F5FF6F942EF9 /* UndertonePeekLebel.swift in Sources */,
 				F98E72921046E5881C90954F /* UndertoneSlideView.swift in Sources */,
+				ACED026C4F737E59E161B185 /* QuizUndertoneView.swift in Sources */,
+				5EDCD5B242273E79EDE0C337 /* ResultQuizView.swift in Sources */,
 				B5BDBC3B70F4F7E31E722BCA /* BlackGradientView.swift in Sources */,
-				459D68F12E7F98810078C5DA /* SkinToneFailedView.swift in Sources */,
 				A630A8AC02A84C3AE550A17A /* CleanVideoPlayerView.swift in Sources */,
 				A69D92E10686C6B7AE80CD25 /* CustomButton.swift in Sources */,
 				DF59EB149EC977A384A2E3BD /* WhiteGradientView.swift in Sources */,
@@ -827,15 +828,10 @@
 				1FC02F252E3AD526693157D7 /* NotesViewmodel.swift in Sources */,
 				E0C0A1A9BADC6B15A4585311 /* OnBoardingView.swift in Sources */,
 				8FE8A4C67C74158C3819A34E /* OnBoardingViewmodel.swift in Sources */,
-				AF581A208FEC7A8B774FF1AC /* QuizUndertoneView.swift in Sources */,
-				AB8B2496DFD954C1C442ADD6 /* QuizUndertoneViewModel.swift in Sources */,
 				A726CF0D9B471BA0BE07D78A /* ResultAnalyzeView.swift in Sources */,
 				6D436550C0FF09B31419E65F /* ResultAnalyzeViewmodel.swift in Sources */,
-				A523D5545E7B8B01E6B4012D /* ResultQuizView.swift in Sources */,
 				BA2BB08F04A42845A3699EA7 /* ShadeRecommendationView.swift in Sources */,
 				1597040CEECF3ADE9AFB6A81 /* ShadeRecommendationViewmodel.swift in Sources */,
-				D050C1A1E65A111A01FB723B /* SplashView.swift in Sources */,
-				40686DC4168F22E4E2DE620F /* SplashViewModel.swift in Sources */,
 				0C0D96FCF2184FFC480BA044 /* RootView.swift in Sources */,
 				F1129CA0CA9C40B77B7439FE /* Extensions.swift in Sources */,
 				AF2F2E03AA513962B3DC8A9D /* biasApp.swift in Sources */,
