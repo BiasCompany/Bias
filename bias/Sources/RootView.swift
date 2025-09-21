@@ -30,6 +30,7 @@ struct RootView: View {
                percentage: 85
            )
        )
+    @StateObject private var resultAnalyzeViewModel = ResultAnalyzeViewmodel()
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
@@ -47,6 +48,7 @@ struct RootView: View {
         .environmentObject(quizUndertoneViewModel)
         .environmentObject(cameraViewModel)
         .environmentObject(detailShadeVM)
+        .environmentObject(resultAnalyzeViewModel)
     }
     
     @ViewBuilder
@@ -68,10 +70,12 @@ struct RootView: View {
                  CameraView()
             // case .skinToneLoading:
             //     SkinToneLoadingView()
-            // case .skinToneFailed:
-            //     SkinToneFailedView()
-            // case .skinToneResult:
-            //     SkinToneResultView()
+             case .skinToneFailed:
+                SkinToneFailedView{
+                    router.navigateBack()
+                }
+             case .skinToneResult:
+                 SkinToneResultView()
             // case .base:
             //     BaseView()
             // case .recommendation:
