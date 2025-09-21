@@ -77,8 +77,15 @@ struct DetailShadeView: View {
                         .foregroundColor(.black)
                     }
                     .padding(.bottom, 8)
-                    Text(viewModel.recommendation.notes.isEmpty ? "No Notes for this product..." : viewModel.recommendation.notes  )
-                        .foregroundColor(viewModel.recommendation.notes.isEmpty ? .gray : .black)
+                    if viewModel.isEditingNotes {
+                        TextField("Enter your notes here...", text: $viewModel.editedNotes, axis: .vertical)
+                            
+                            .foregroundStyle(.black)
+                            
+                    }else {
+                        Text(viewModel.recommendation.notes.isEmpty ? "No Notes for this product..." : viewModel.recommendation.notes  )
+                            .foregroundColor(viewModel.recommendation.notes.isEmpty ? .gray : .black)
+                    }
                     
                     
                 }
