@@ -48,4 +48,6 @@ struct ChooseUndertoneView: View {
     }
 }
 
-#Preview { ChooseUndertoneView() }
+#Preview {
+    let vm = ChooseUndertoneViewModel()
+    ChooseUndertoneView().environmentObject(vm) }
