@@ -14,6 +14,7 @@ final class ResultAnalyzeViewmodel: ObservableObject {
     @Published var selectedSkinTone: String = ""
     @Published var detectedSkinTone: String = "MEDIUM" // TODO: ganti hasil deteksi beneran
     @Published var isAnalyzingVisible: Bool = true
+    @Published var selectedPointId: Int? = nil
 
     // MARK: - Hardcoded Detection Points (TODO: Replace with actual face detection)
     @Published var detectionPoints: [DetectionPoint] = [
@@ -52,10 +53,12 @@ final class ResultAnalyzeViewmodel: ObservableObject {
 
     func selectDetectionPoint(_ pointId: Int) {
         if let point = detectionPoints.first(where: { $0.id == pointId }) {
+            selectedPointId = point.id
             selectedSkinTone = getSkinToneFromColor(point.color)
             analysisState = .result
         }
     }
+
 
     private func startAnalysis() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
@@ -94,10 +97,6 @@ extension ResultAnalyzeViewmodel {
 
     var currentSkinToneText: String {
         selectedSkinTone.isEmpty ? detectedSkinTone : selectedSkinTone
-    }
-
-    var selectedPointId: Int? {
-        detectionPoints.first { getSkinToneFromColor($0.color) == selectedSkinTone }?.id
     }
 
     var panelBackgroundColor: Color {
