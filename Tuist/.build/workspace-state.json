@@ -38,10 +38,7 @@
         },
         "subpath" : "Kingfisher"
       }
-    ],
-    "prebuilts" : [
-
     ]
   },
-  "version" : 7
+  "version" : 6
 }
