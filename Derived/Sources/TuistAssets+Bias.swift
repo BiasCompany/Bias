@@ -20,7 +20,12 @@
 public enum BiasAsset: Sendable {
   public enum Assets {
   public static let accentColor = BiasColors(name: "AccentColor")
+<<<<<<< HEAD
     public static let cool = BiasImages(name: "cool")
+=======
+    public static let cool = BiasImages(name: "Cool")
+//    public static let cool = BiasImages(name: "cool")
+>>>>>>> 9019869 (slicing notesview)
     public static let neutral = BiasImages(name: "neutral")
     public static let onboardOne = BiasImages(name: "onboard_one")
     public static let onboardThree = BiasImages(name: "onboard_three")
