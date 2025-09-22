@@ -6,6 +6,7 @@
 //
 
 protocol NotesService {
+    
 }
 
 class NotesServiceImpl: NotesService {
