@@ -216,7 +216,7 @@ struct OnBoardingView: View {
                             withAnimation {
                                 goToPreviousPage()
                             }
-                        }, isDense: true, isFilled: true, isIconOnly: true, iconName: "star",
+                        }, isDense: true, isFilled: true, isIconOnly: true, iconName: "star"
                     )
 
                     CustomButton(

@@ -20,7 +20,7 @@ struct ButtonRetake: View {
             CustomButton(title: "RETAKE", action: onRetake, isFilled: true)
                 .frame(maxWidth: .infinity)
 
-            CustomButton(title: "START ANALYSIS", action: onStartAnalysis, isFilled: false)
+            CustomButton(title: "ANALYSIS", action: onStartAnalysis, isFilled: false)
                 .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, horizontalPadding)
