@@ -7,13 +7,13 @@ import PackageDescription
     let packageSettings = PackageSettings(
         // Customize the product types for specific package product
         // Default is .staticFramework
-        // productTypes: ["Alamofire": .framework,] 
+        // productTypes: ["Alamofire": .framework,]
         productTypes: [:]
     )
 #endif
 
 let package = Package(
-    name: "bias",
+    name: "lumi",
     dependencies: [
         // Add your own dependencies here:
         .package(url: "https://github.com/Alamofire/Alamofire", from: "5.10.2"),
