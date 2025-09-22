@@ -74,10 +74,7 @@
         },
         "subpath" : "rive-ios"
       }
-    ],
-    "prebuilts" : [
-
     ]
   },
-  "version" : 7
+  "version" : 6
 }
