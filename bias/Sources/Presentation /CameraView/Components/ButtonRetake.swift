@@ -17,10 +17,10 @@ struct ButtonRetake: View {
 
     var body: some View {
         HStack(spacing: spacing) {
-            CustomButton(title: "RETAKE", isFilled: true, action: onRetake)
+            CustomButton(title: "RETAKE", action: onRetake, isFilled: true)
                 .frame(maxWidth: .infinity)
 
-            CustomButton(title: "START ANALYSIS", isFilled: false, action: onStartAnalysis)
+            CustomButton(title: "START ANALYSIS", action: onStartAnalysis, isFilled: false)
                 .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, horizontalPadding)

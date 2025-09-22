@@ -45,7 +45,7 @@ struct Incomplete: View {
         }
         .safeAreaInset(edge: .bottom) {
             HStack {
-                CustomButton(title: "RETAKE", isFilled: false, action: onRetake)
+                CustomButton(title: "RETAKE", action: onRetake, isFilled: false)
                     .frame(maxWidth: .infinity)
             }
             .padding(.horizontal, 32)
