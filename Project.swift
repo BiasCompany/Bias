@@ -40,6 +40,7 @@ let project = Project(
             dependencies: [
                 .external(name: "Alamofire"),
                 .external(name: "Kingfisher"),
+                .external(name: "rive-ios"),
             ],
             settings: .settings(
                 configurations: [
