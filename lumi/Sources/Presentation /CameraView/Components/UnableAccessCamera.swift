@@ -13,8 +13,19 @@ struct UnableAccessCamera: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            BackButton(isWhite: true)
-                .padding(.horizontal, 16)
+            HStack {
+                Button(action: { onBack?() }) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(12)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .padding(.leading, 12)
+                .padding(.top, 8)
+                Spacer()
+            }
 
             Spacer(minLength: 0)
 
@@ -43,13 +54,11 @@ struct UnableAccessCamera: View {
                 )
                 .padding(.horizontal, 24)
             }
-            .padding(.bottom, 28)
+            .padding(.bottom, 40)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.ignoresSafeArea())
     }
-
-    // MARK: - Actions
 
     private func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -67,11 +76,9 @@ struct UnableAccessCamera: View {
     }
 
     private func openCameraSettings() {
-        #if DEBUG
-            _ = openSystemCameraPrivacyPageIfPossible()
-        #else
+        if !openSystemCameraPrivacyPageIfPossible() {
             openAppSettings()
-        #endif
+        }
     }
 }
 

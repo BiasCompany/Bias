@@ -30,114 +30,100 @@ struct CameraPreview: UIViewRepresentable {
     }
 }
 
+
 struct CameraView: View {
     @EnvironmentObject var viewModel: CameraViewmodel
     @Environment(\.dismiss) private var dismiss
-
+    
+    private var accessoriesOK: Bool {
+        viewModel.faceDetected && !viewModel.accessoriesDetected
+    }
+    
     var body: some View {
         ZStack {
-            if viewModel.cameraSessionRunning {
+            if viewModel.cameraPermissionDenied {
+                UnableAccessCamera(onBack: { dismiss() })
+            } else if viewModel.cameraSessionRunning {
                 CameraPreview(viewModel: viewModel)
                     .ignoresSafeArea()
             } else {
                 Color.black.ignoresSafeArea()
-                Text("Camera Not Running")
-                    .foregroundColor(.white)
+                Text("Camera Not Running").foregroundColor(.white)
             }
 
-            CameraOverlay()
-                .ignoresSafeArea()
-
-            VStack {
-                HStack {
-                    Spacer()
-                    if !viewModel.showResultView {
-                        ButtonX {
-                            dismiss()
-                        }
-                        .padding(.trailing, 20)
-                    }
-                }
-                .padding(.top, 10)
-
-                Spacer()
-
-                if !viewModel.showResultView {
-                    CaptureStatusWithGuidance(
-                        face: viewModel.faceDetected ? .good : .bad,
-                        light: viewModel.lightAdequate ? .good : .bad,
-                        accessories: viewModel.accessoriesDetected ? .bad : .good
-                    )
-                    .padding(.bottom, 30)
-                }
+            if !viewModel.cameraPermissionDenied {
+                CameraOverlay()
+                    .ignoresSafeArea()
             }
 
-            if viewModel.isCapturing && !viewModel.showResultView {
-                CaptureView {
-
-                }
-                .frame(width: 330, height: 330)
-                .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
-            }
-
-            if viewModel.showResultView, let image = viewModel.capturedImage {
+            if !viewModel.cameraPermissionDenied {
                 VStack {
                     Spacer()
-
-                    Text("YOUR PHOTO RESULT")
-                        .font(.system(size: 20, weight: .semibold, design: .monospaced))
-                        .foregroundColor(.white)
-                        .padding(.bottom, 20)
-
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    if !viewModel.showResultView {
+                        CaptureStatusWithGuidance(
+                            face: viewModel.faceDetected ? .good : .bad,
+                            light: viewModel.lightAdequate ? .good : .bad,
+                            accessories: accessoriesOK ? .good : .bad
+                        )
                         .padding(.bottom, 30)
-
-                    ButtonRetake(
-                        onRetake: {
-                            viewModel.retakePhoto()
-                        },
-                        onStartAnalysis: {
-                            viewModel.startAnalysis()
-                        }
-                    )
+                    }
                 }
-                .ignoresSafeArea()
-                .background(Color.black.opacity(0.9))
+            }
+            
+            if !viewModel.cameraPermissionDenied && viewModel.isCapturing && !viewModel.showResultView {
+                CaptureView()
+                    .frame(width: 330, height: 330)
+                    .position(x: UIScreen.main.bounds.width / 2,
+                              y: UIScreen.main.bounds.height / 2)
+                    .offset(y: -(UIScreen.main.bounds.height * 0.20))
+                    .zIndex(2)
+            }
+
+            if !viewModel.cameraPermissionDenied && viewModel.isHolding && !viewModel.showResultView {
+                VStack {
+                    Spacer()
+                    Text("HOLD STILL")
+                        .font(.system(.title3, design: .monospaced, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.bottom, 250)
+                }
+                .zIndex(2)
+            }
+            if !viewModel.cameraPermissionDenied && viewModel.showResultView, let image = viewModel.capturedImage {
+                PhotoResult(
+                    image: image,
+                    onRetake: { viewModel.retakePhoto() },
+                    onStartAnalysis: { viewModel.startAnalysis() }
+                )
+                .ignoresSafeArea() 
+                .overlay(alignment: .bottom) {
+                    ButtonRetake(
+                        onRetake: { viewModel.retakePhoto() },
+                        onStartAnalysis: { viewModel.startAnalysis() }
+                    )
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .padding(.bottom, 12)
+                }
                 .transition(.opacity)
+                .zIndex(3)
+            }
+
+        }
+        .overlay(alignment: .topTrailing) {
+            if !viewModel.cameraPermissionDenied && !viewModel.showResultView {
+                ButtonX(onClose: { dismiss() })
+                    .padding(.trailing, 16)
+                    .padding(.top, 10)
+                    .zIndex(10)
             }
         }
-        .onAppear {
-            viewModel.startCameraSession()
-        }
-        .onDisappear {
-            viewModel.stopCameraSession()
-        }
-        .onChange(of: viewModel.faceDetected) { _, _ in
-            checkReadyForCapture()
-        }
-        .onChange(of: viewModel.lightAdequate) { _, _ in
-            checkReadyForCapture()
-        }
-        .onChange(of: viewModel.accessoriesDetected) { _, _ in
-            checkReadyForCapture()
-        }
+        .onAppear { viewModel.startCameraSession() }
+        .onDisappear { viewModel.stopCameraSession() }
+        .onChange(of: viewModel.faceDetected) { _, _ in viewModel.considerStartFlow() }
+        .onChange(of: viewModel.lightAdequate) { _, _ in viewModel.considerStartFlow() }
+        .onChange(of: viewModel.accessoriesDetected) { _, _ in viewModel.considerStartFlow() }
     }
 
-    private func checkReadyForCapture() {
-        if !viewModel.isCapturing && !viewModel.showResultView && viewModel.faceDetected
-            && viewModel.lightAdequate && !viewModel.accessoriesDetected
-        {
-            viewModel.triggerCapture()
-        }
-    }
 }
-
-//struct CameraView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CameraView()
-//    }
-//}
