@@ -6,6 +6,22 @@ struct QuizUndertoneView: View {
 
     var body: some View {
         VStack {
+            HStack {
+                BackButton(
+                    onTap: {
+                        if (viewModel.currentStep == 0) {
+                            router.navigateBack()
+                        } else {
+                            viewModel.prevStep()
+                        }
+                    }
+                )
+                Spacer()
+                Text("Quiz \(viewModel.currentStep + 1) of \(viewModel.questions.count)")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(.gray)
+                    .padding(.trailing, 20)
+            }
             ProgressView(
                 value: Double(viewModel.currentStep + 1), total: Double(viewModel.questions.count)
             )
@@ -16,16 +32,17 @@ struct QuizUndertoneView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     Text(viewModel.questions[viewModel.currentStep].title)
                         .font(.system(size: 22, weight: .bold, design: .monospaced))
+                        .padding(.top, 20)
 
-                    HStack(spacing: 10) {
+                    HStack {
                         Image(systemName: "info.circle")
                             .font(.caption.weight(.regular))
                         Text(viewModel.questions[viewModel.currentStep].tip)
                             .font(.caption2.weight(.regular))
+                        Spacer()
                     }
                     .padding(12)
                     .background(Color(ColorResource.creamLabel))
-                    .cornerRadius(8)
 
                     VStack(spacing: 16) {
                         ForEach(viewModel.questions[viewModel.currentStep].options, id: \.self) {
@@ -38,6 +55,8 @@ struct QuizUndertoneView: View {
                                     .font(.callout.weight(.regular))
                                     .padding(12)
                                     .frame(maxWidth: .infinity)
+                                    .background( viewModel.answers[viewModel.currentStep]
+                                                 == option ? Color(ColorResource.creamLabel) : Color.clear)
                                     .overlay(
                                         Rectangle()
                                             .stroke(
@@ -64,17 +83,11 @@ struct QuizUndertoneView: View {
             )
             .padding(.horizontal, 20)
         }
+        .navigationBarBackButtonHidden()
         .padding(.bottom, 20)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Text("Quiz \(viewModel.currentStep + 1) of \(viewModel.questions.count)")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundColor(.gray)
-            }
-        }
         .onChange(of: viewModel.showResult) { oldValue, newValue in
             if newValue {
-                router.navigate(to: .undertoneQuizResult)
+                router.replaceNavigationPath(with: [.brandPreference, .chooseUndertone,.undertoneQuizResult])
             }
         }
     }
@@ -82,4 +95,6 @@ struct QuizUndertoneView: View {
 
 #Preview {
     QuizUndertoneView()
+        .environmentObject(QuizUndertoneViewModel())
+        .environmentObject(Router())
 }

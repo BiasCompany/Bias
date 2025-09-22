@@ -9,9 +9,9 @@ final class ChooseSkintoneViewModel: ObservableObject {
     
     private var cancellables: AnyCancellable?
     
-    init(videoName: String, videoType: String = "mp4") {
+    init() {
         setupSteps()
-        setupPlayer(videoName: videoName, videoType: videoType)
+        setupPlayer(videoName: "razia", videoType: "mp4")
         startTimer()
     }
     

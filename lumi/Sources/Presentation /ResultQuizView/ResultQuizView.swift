@@ -13,6 +13,12 @@ struct ResultQuizView: View {
 
     var body: some View {
         VStack(spacing: 24) {
+            BackButton(
+                onTap: {
+                    viewModel.resetState()
+                    router.navigateBack()
+                }
+            )
 
             Spacer()
             Text("Your Undertone Result".uppercased())
@@ -52,9 +58,11 @@ struct ResultQuizView: View {
                 title: "Continue",
                 action: {
                     router.navigate(to: .skinToneTutorial)
+                    viewModel.resetState()
                 }, isFilled: true)
         }
         .padding()
+        .navigationBarBackButtonHidden()
     }
 }
 

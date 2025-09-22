@@ -13,19 +13,8 @@ struct UnableAccessCamera: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Button(action: { onBack?() }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                    }
-                }
-                .tint(.blue)
-                .font(.system(size: 17, weight: .regular))
-                .padding(.top, 8)
-                .padding(.leading, 16)
-                Spacer()
-            }
+            BackButton(isWhite: true)
+                .padding(.horizontal, 16)
 
             Spacer(minLength: 0)
 
