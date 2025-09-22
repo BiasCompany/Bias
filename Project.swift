@@ -26,6 +26,7 @@ let project = Project(
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],
+                    "NSCameraUsageDescription": "We need access to your camera to capture your photo. This will allow the app to analyze your skin tone and suggest the right foundation shade. Your photo is only used for analysis and won’t be stored or shared",
                     "UISupportedInterfaceOrientations~ipad": [
                         "UIInterfaceOrientationPortrait",
                         "UIInterfaceOrientationPortraitUpsideDown",
