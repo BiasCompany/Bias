@@ -1,22 +1,34 @@
 import Combine
 import SwiftUI
 
+@MainActor
 final class QuizUndertoneViewModel: ObservableObject {
     @Published var currentStep: Int = 0
     @Published var answers: [String]
     @Published var showResult: Bool = false
-    @Published private(set) var result: String = ""
+    @Published private(set) var result: Undertone = .unknown
+    @Published var skinAnalysisService: SkinAnalysisService = DIContainer.shared.skinAnalysisService
 
-    private let resultImage: [String: String] = [
-        "Cool": "cool",
-        "Warm": "warm",
-        "Netral": "neutral",
+    func saveUndertone() {
+        Task {
+            do {
+                try await skinAnalysisService.saveUndertone(result)
+            } catch {
+                print("Error saving undertone:", error)
+            }
+        }
+    }
+
+    private let resultImage: [Undertone: String] = [
+        .cool: "cool",
+        .warm: "warm",
+        .neutral: "neutral",
     ]
 
-    private let resultDescription: [String: String] = [
-        "Cool": "With cool undertones, your skin has pink, red, and bluish hues.",
-        "Warm": "With warm undertones, your skin has peachy, golden, or yellow hues.",
-        "Netral":
+    private let resultDescription: [Undertone: String] = [
+        .cool: "With cool undertones, your skin has pink, red, and bluish hues.",
+        .warm: "With warm undertones, your skin has peachy, golden, or yellow hues.",
+        .neutral:
             "With Netral undertones, warm and cool tones balance, revealing your skin’s natural shade.",
     ]
 
@@ -77,48 +89,49 @@ final class QuizUndertoneViewModel: ObservableObject {
         let q3 = answers[2]
         let q4 = answers[3]
 
-        var score = ["cool": 0, "warm": 0, "Netral": 0]
+        var score = [Undertone.cool: 0, Undertone.warm: 0, Undertone.neutral: 0]
 
         if ["Purple", "Blue"].contains(q1) {
-            score["cool", default: 0] += 1
+            score[Undertone.cool, default: 0] += 1
         } else if q1 == "Green" {
-            score["warm", default: 0] += 1
+            score[Undertone.warm, default: 0] += 1
         } else if q1 == "Bluish-green" || q1 == "I don’t know" {
-            score["Netral", default: 0] += 1
+            score[Undertone.neutral, default: 0] += 1
         }
 
         if q2 == "My skin looks yellowish" {
-            score["warm", default: 0] += 1
+            score[Undertone.warm, default: 0] += 1
         } else if q2 == "My skin looks pinkish or bluish" {
-            score["cool", default: 0] += 1
+            score[Undertone.cool, default: 0] += 1
         } else if q2 == "My skin looks neither too yellow or pink" {
-            score["Netral", default: 0] += 1
+            score[Undertone.neutral, default: 0] += 1
         }
 
         if q3 == "Silver" {
-            score["cool", default: 0] += 1
+            score[Undertone.cool, default: 0] += 1
         } else if q3 == "Gold" {
-            score["warm", default: 0] += 1
+            score[Undertone.warm, default: 0] += 1
         } else if q3 == "Both" {
-            score["Netral", default: 0] += 1
+            score[Undertone.neutral, default: 0] += 1
         }
 
         if q4 == "Pure White flatters me more" {
-            score["cool", default: 0] += 1
+            score[Undertone.cool, default: 0] += 1
         } else if q4 == "Cream flatters me more" {
-            score["warm", default: 0] += 1
+            score[Undertone.warm, default: 0] += 1
         } else if q4 == "Both look equally good" {
-            score["Netral", default: 0] += 1
+            score[Undertone.neutral, default: 0] += 1
         }
 
-        if score["cool"]! > score["warm"]! && score["cool"]! >= score["Netral"]! {
-            result = "Cool"
-        } else if score["warm"]! > score["cool"]! && score["warm"]! >= score["Netral"]! {
-            result = "Warm"
+        if score[Undertone.cool]! > score[Undertone.warm]! && score[Undertone.cool]! >= score[Undertone.neutral]! {
+            result = Undertone.cool
+        } else if score[Undertone.warm]! > score[Undertone.cool]! && score[Undertone.warm]! >= score[Undertone.neutral]! {
+            result = Undertone.warm
         } else {
-            result = "Netral"
+            result = Undertone.neutral
         }
 
+        saveUndertone()
         showResult = true
     }
 

@@ -27,7 +27,7 @@ final class DIContainer {
     lazy var productService: ProductService = ProductServiceImpl(repo: productRepository)
     lazy var favoriteService: FavoriteService = FavoriteServiceImpl()
     lazy var notesService: NotesService = NotesServiceImpl()
-    lazy var skinAnalysisService: SkinAnalysisService = SkinAnalysisServiceImpl()
+    lazy var skinAnalysisService: SkinAnalysisService = SkinAnalysisServiceImpl(repo: skinAnalysisRepository)
     
     // Singleton instance to ensure centralized DI management
     static let shared: DIContainer = {

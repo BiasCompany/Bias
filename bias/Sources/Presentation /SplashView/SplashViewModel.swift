@@ -23,6 +23,4 @@ final class SplashViewModel: ObservableObject {
         }
     }
     
-    
-    
 }
