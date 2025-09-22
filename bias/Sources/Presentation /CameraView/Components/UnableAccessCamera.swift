@@ -49,8 +49,8 @@ struct UnableAccessCamera: View {
             VStack(spacing: 12) {
                 CustomButton(
                     title: "OPEN SETTINGS",
-                    isFilled: false,
-                    action: openCameraSettings
+                    action: openCameraSettings,
+                    isFilled: false
                 )
                 .padding(.horizontal, 24)
             }

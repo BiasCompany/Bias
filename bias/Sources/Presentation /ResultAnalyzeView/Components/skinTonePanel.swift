@@ -27,8 +27,8 @@ struct SkinTonePanel: View {
 
             CustomButton(
                 title: "FIND MY SHADE",
+                action: onFindShade,
                 isFilled: true,
-                action: onFindShade
             )
         }
         .padding(.horizontal, 24)
