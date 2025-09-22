@@ -41,13 +41,9 @@ public enum BiasAsset: Sendable {
     public static let glassRed = BiasImages(name: "glassRed")
     public static let gradientB = BiasColors(name: "gradientB")
     public static let green = BiasColors(name: "green")
-<<<<<<< HEAD
     public static let greyText = BiasColors(name: "greyText")
     public static let hands = BiasImages(name: "hands")
     public static let iconnobrand = BiasImages(name: "iconnobrand")
-=======
-    public static let hands = BiasImages(name: "hands")
->>>>>>> ceeff1c (feat: done slicing card best matches)
     public static let lampGreen = BiasImages(name: "lampGreen")
     public static let lampRed = BiasImages(name: "lampRed")
     public static let overlayCamera = BiasImages(name: "overlayCamera")
