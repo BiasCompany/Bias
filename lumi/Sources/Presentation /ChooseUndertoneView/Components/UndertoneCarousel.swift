@@ -13,18 +13,18 @@ struct UndertoneCarousel: View {
     var body: some View {
         TabView(selection: $vm.selected) {
             UndertoneSlideView(
-                title: "WARM", subtitle: "Your veins color is green or olive", imageAsset: "warm",
+                title: "WARM", subtitle: "Your veins color is green or olive", imageAsset: "warm"
             )
             .tag(Undertone.warm as Undertone)
 
             UndertoneSlideView(
                 title: "NEUTRAL", subtitle: "Your veins color is green and blue",
-                imageAsset: "neutral",
+                imageAsset: "neutral"
             )
             .tag(Undertone.neutral as Undertone)
 
             UndertoneSlideView(
-                title: "COOL", subtitle: "Your veins color is purple or blue", imageAsset: "cool",
+                title: "COOL", subtitle: "Your veins color is purple or blue", imageAsset: "cool"
             )
             .tag(Undertone.cool as Undertone)
         }

@@ -6,11 +6,12 @@
 //
 
 import AVFoundation
+import AudioToolbox
 import Combine
 import Foundation
 import SwiftUI
 
-final class CameraViewmodel: NSObject, ObservableObject {
+final class CameraViewmodel: ObservableObject {
 
     @Published var faceDetected: Bool = false
     @Published var lightAdequate: Bool = false
@@ -18,170 +19,206 @@ final class CameraViewmodel: NSObject, ObservableObject {
     @Published var capturedImage: UIImage?
     @Published var showResultView: Bool = false
     @Published var isCapturing: Bool = false
+    @Published var isHolding: Bool = false
     @Published var cameraSessionRunning: Bool = false
+    @Published var cameraPermissionDenied: Bool = false
+    @Published var accessoryStatus: AccessoryStatus = .unknown
     @Published var previewLayer: AVCaptureVideoPreviewLayer?
 
-    private let captureSession = AVCaptureSession()
-    private let videoDataOutput = AVCaptureVideoDataOutput()
-    private let photoOutput = AVCapturePhotoOutput()
-    private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
-    private var cancellables = Set<AnyCancellable>()
+    private let service: FaceDetectionService
+    private var pollTimer: Timer?
     private var captureTimer: Timer?
+    private var holdTimer: Timer?
+    private let pollInterval: TimeInterval = 0.25
     private let captureDuration: TimeInterval = 3.0
 
-    override init() {
-        super.init()
-        setupCameraSession()
-    }
+    private(set) var lastAnalysis: FaceAnalysis?
 
-    private func setupCameraSession() {
-        captureSession.sessionPreset = .photo
-
-        guard
-            let camera = AVCaptureDevice.default(
-                .builtInWideAngleCamera, for: .video, position: .front)
-        else {
-            print("Failed to get front camera")
-            return
-        }
-
-        do {
-            let cameraInput = try AVCaptureDeviceInput(device: camera)
-
-            captureSession.beginConfiguration()
-
-            if captureSession.canAddInput(cameraInput) {
-                captureSession.addInput(cameraInput)
-            }
-
-            if captureSession.canAddOutput(videoDataOutput) {
-                captureSession.addOutput(videoDataOutput)
-                videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-            }
-
-            if captureSession.canAddOutput(photoOutput) {
-                captureSession.addOutput(photoOutput)
-            }
-
-            captureSession.commitConfiguration()
-
-            let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            previewLayer.videoGravity = .resizeAspectFill
-            self.previewLayer = previewLayer
-
-        } catch {
-            print("Error setting up camera: \(error)")
-        }
+    init(service: FaceDetectionService = FaceDetectionService()) {
+        self.service = service
     }
 
     func startCameraSession() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            if !self.captureSession.isRunning {
-                self.captureSession.startRunning()
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            startSession()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                guard let self = self else { return }
                 DispatchQueue.main.async {
-                    self.cameraSessionRunning = true
+                    if granted { self.startSession() }
+                    else {
+                        self.cameraSessionRunning = false
+                        self.cameraPermissionDenied = true
+                        self.resetCaptureState()
+                    }
                 }
             }
+        default:
+            cameraSessionRunning = false
+            cameraPermissionDenied = true
+            resetCaptureState()
+        }
+    }
+
+    private func startSession() {
+        do {
+            try service.start()
+            if previewLayer == nil {
+                let layer = AVCaptureVideoPreviewLayer(session: service.captureSession)
+                layer.videoGravity = .resizeAspectFill
+                layer.connection?.videoOrientation = .portrait
+                self.previewLayer = layer
+            } else {
+                previewLayer?.connection?.videoOrientation = .portrait
+            }
+            cameraSessionRunning = true
+            startPolling()
+        } catch {
+            print("Camera start error: \(error)")
+            cameraSessionRunning = false
         }
     }
 
     func stopCameraSession() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        stopPolling()
+        service.stop()
+        cameraSessionRunning = false
+    }
+
+    private func startPolling() {
+        stopPolling()
+        pollTimer = Timer.scheduledTimer(withTimeInterval: pollInterval, repeats: true) { [weak self] _ in
+            self?.updateDetectionStatus()
+        }
+        RunLoop.main.add(pollTimer!, forMode: .common)
+    }
+
+    private func stopPolling() {
+        pollTimer?.invalidate()
+        pollTimer = nil
+    }
+
+    private func updateDetectionStatus() {
+        let light = service.checkLight()
+        lightAdequate = (light == .good)
+
+        let vis = service.checkFaceVisibility()
+        faceDetected = vis.visible
+        lastAnalysis = vis.analysis
+
+        if faceDetected {
+            accessoryStatus = service.checkAccessoriesExist()
+        } else {
+            accessoryStatus = .unknown
+        }
+        accessoriesDetected = (accessoryStatus != .none)
+
+        let allGood = faceDetected && lightAdequate && !accessoriesDetected
+        if !allGood {
+            cancelHold()
+        }
+    }
+
+
+    func considerStartFlow() {
+        if showResultView { return }
+        let allGood = faceDetected && lightAdequate && !accessoriesDetected
+        if allGood {
+            if !isHolding && !isCapturing { startHold() }
+        } else {
+            cancelHold()
+            cancelCapture()
+        }
+    }
+
+    private func startHold() {
+        isHolding = true
+        holdTimer?.invalidate()
+        holdTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
             guard let self = self else { return }
-            if self.captureSession.isRunning {
-                self.captureSession.stopRunning()
-                DispatchQueue.main.async {
-                    self.cameraSessionRunning = false
-                }
+            let allGood = self.faceDetected && self.lightAdequate && !self.accessoriesDetected
+            if allGood {
+                self.startCountdown()
+            } else {
+                self.isHolding = false
             }
         }
+        if let holdTimer { RunLoop.main.add(holdTimer, forMode: .common) }
     }
 
-    func updateDetectionStatus() {
-        // TODO: Implement real face detection, lighting, and accessories detection
-        faceDetected = true
-        lightAdequate = true
-        accessoriesDetected = false
-    }
-
-    func triggerCapture() {
-        guard !isCapturing, faceDetected, lightAdequate, !accessoriesDetected else { return }
-
+    private func startCountdown() {
+        isHolding = false
         isCapturing = true
-
-        captureTimer = Timer.scheduledTimer(withTimeInterval: captureDuration, repeats: false) {
-            [weak self] _ in
+        print("[Camera] Countdown started (")
+        captureTimer?.invalidate()
+        captureTimer = Timer.scheduledTimer(withTimeInterval: captureDuration, repeats: false) { [weak self] _ in
             guard let self = self else { return }
-            self.performPhotoCapture()
+            print("[Camera] Countdown finished → capturing photo...")
+            Task { await self.performPhotoCapture() }
         }
-        RunLoop.main.add(captureTimer!, forMode: .common)
+        if let captureTimer { RunLoop.main.add(captureTimer, forMode: .common) }
     }
 
-    private func performPhotoCapture() {
-        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-        photoOutput.capturePhoto(with: settings, delegate: self)
+    @MainActor
+    private func performPhotoCapture() async {
+        defer { resetCaptureState() }
+        do {
+            print("[Camera] captureImage() begin")
+            let image = try await service.captureImage()
+            self.capturedImage = image
+            playCaptureFeedback()
+            self.showResultView = true
+//            self.stopCameraSession()
+            print("[Camera] captureImage() success → showResultView = true")
+        } catch {
+            print("Photo capture error: \(error.localizedDescription)")
+            self.capturedImage = nil
+            self.showResultView = false
+        }
+    }
+
+    private func playCaptureFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.prepare()
+        generator.notificationOccurred(.success)
+        AudioServicesPlaySystemSound(1108)
     }
 
     func retakePhoto() {
         capturedImage = nil
         showResultView = false
         resetCaptureState()
+//        startCameraSession()
     }
 
     func startAnalysis() {
-        // TODO: Implement navigation to skin analysis result
+        // Navigasi ke hasil analisis; gunakan `capturedImage` & `lastAnalysis` bila diperlukan
         print("Starting analysis with captured image.")
     }
 
     private func resetCaptureState() {
         isCapturing = false
+        isHolding = false
         captureTimer?.invalidate()
         captureTimer = nil
+        holdTimer?.invalidate()
+        holdTimer = nil
     }
-}
 
-extension CameraViewmodel: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(
-        _ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
-        from connection: AVCaptureConnection
-    ) {
-        // TODO: Implement real detection logic here
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            if !self.isCapturing && !self.showResultView {
-                self.updateDetectionStatus()
-            }
+    private func cancelHold() {
+        if isHolding {
+            isHolding = false
+            holdTimer?.invalidate()
+            holdTimer = nil
         }
     }
-}
 
-extension CameraViewmodel: AVCapturePhotoCaptureDelegate {
-    func photoOutput(
-        _ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto,
-        error: Error?
-    ) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-
-            self.isCapturing = false
-
-            if let error = error {
-                print("Photo capture error: \(error.localizedDescription)")
-                self.capturedImage = nil
-                self.showResultView = false
-                self.resetCaptureState()
-            } else if let imageData = photo.fileDataRepresentation(),
-                let image = UIImage(data: imageData)
-            {
-                self.capturedImage = image
-                self.showResultView = true
-            } else {
-                print("Failed to create image from photo data")
-                self.capturedImage = nil
-                self.showResultView = false
-                self.resetCaptureState()
-            }
+    private func cancelCapture() {
+        if isCapturing {
+            isCapturing = false
+            captureTimer?.invalidate()
+            captureTimer = nil
         }
     }
 }

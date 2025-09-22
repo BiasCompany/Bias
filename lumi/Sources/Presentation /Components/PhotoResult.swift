@@ -23,21 +23,39 @@ struct PhotoResult: View {
     }
 
     var body: some View {
-        ZStack {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-        }
-        .safeAreaInset(edge: .top) {
-            Text("YOUR  PHOTO  RESULT")
-                .font(.system(size: 20, weight: .heavy, design: .monospaced))
-                .kerning(1)
-                .foregroundColor(.white)
-                .shadow(color: .black.opacity(0.6), radius: 4, x: 0, y: 2)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.vertical, 8)
-                .background(Color.clear)
+        GeometryReader { geo in
+            ZStack(alignment: .top) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(
+                        width: geo.size.width,
+                        height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
+                    )
+                    .clipped()
+                    .ignoresSafeArea()
+
+                LinearGradient(
+                    stops: [
+                        .init(color: .black, location: 0.00),
+                        .init(color: Color(white: 0.85).opacity(0), location: 1.00),
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: geo.size.height * 0.28)
+                .allowsHitTesting(false)
+                .ignoresSafeArea(edges: .top)
+
+                Text("YOUR  PHOTO  RESULT")
+                    .font(.system(size: 20, weight: .heavy, design: .monospaced))
+                    .kerning(1)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 8)
+                    .padding(.top, geo.safeAreaInsets.top + geo.size.height * 0.1)
+            }
+            .frame(width: geo.size.width, height: geo.size.height)
         }
     }
 }

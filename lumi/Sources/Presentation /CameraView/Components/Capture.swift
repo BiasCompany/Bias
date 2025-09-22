@@ -18,7 +18,6 @@ public struct CaptureView: View {
 
     public var body: some View {
         ZStack {
-            CameraOverlay(onClose: onClose)
             VStack {
                 ZStack {
                     Circle()
@@ -45,15 +44,7 @@ public struct CaptureView: View {
                         .rotationEffect(.degrees(-90))
                         .animation(.linear(duration: 3.0), value: progress)
                 }
-
-                Spacer()
-
-                Text("HOLD STILL")
-                    .font(.system(.title3, design: .monospaced, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.bottom, 250)
             }
-            .padding(.top, 100)
         }
         .onAppear {
             startCountdown()
@@ -62,6 +53,7 @@ public struct CaptureView: View {
     }
 
     private func startCountdown() {
+        progress = 0
         withAnimation(.linear(duration: 3.0)) {
             progress = 1.0
         }
