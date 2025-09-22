@@ -18,27 +18,19 @@ struct BottomActionButtons: View {
             VStack(spacing: 12) {
                 CustomButton(
                     title: "I DON’T KNOW MY UNDERTONE",
-<<<<<<< HEAD
                     action:  {
                         router.navigate(to: .undertoneQuiz)
                     },
                     isFilled: false
-=======
-                    action: onIDK, isFilled: false
->>>>>>> 91b7919 (feat: adding empty state favorite)
                 )
                 CustomButton(
                     title: "CONTINUE",
-<<<<<<< HEAD
                     action: {
                         vm.saveUndertone()
                         router.navigate(to: .skinToneTutorial)
                     }
                     ,
                     isFilled: true
-=======
-                    action: onContinue, isFilled: true
->>>>>>> 91b7919 (feat: adding empty state favorite)
                 )
             }
             .padding(.horizontal, 16)
