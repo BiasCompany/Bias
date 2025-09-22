@@ -131,26 +131,8 @@ struct DetailShadeView: View {
 }
 
 
-
 #Preview {
-    let shade = Shade(id: UUID(),
-                      name: "120 C (Neutral Undertone)",
-                      brand: "WARDAH",
-                      product: "All Hour Foundation",
-                      description: "Test description",
-                      image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
-                      undertone: Undertone(rawValue: "cool") ?? .neutral,
-                      hexShade: "#D7A377")
-    let skinTone = SkinTone(id: UUID(), name: "Medium", hex: "#EFBF96")
-    let recommendation = ShadeRecommendation(
-        id: UUID(),
-        shade: shade,
-        skinTone: skinTone,
-        undertone: .neutral,
-        notes: "Ini product oke sih, shade nya oke, texture nya juga okay, ga gampang oksidasi, udah punya juga kok",
-        percentage: 85
-    )
-    let vm = DetailShadeViewModel(recommendation: recommendation)
+    let vm = DetailShadeViewModel()
     
     DetailShadeView()
         .environmentObject(vm)

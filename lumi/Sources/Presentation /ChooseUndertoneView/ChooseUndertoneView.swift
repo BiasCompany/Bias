@@ -8,20 +8,8 @@ struct ChooseUndertoneView: View {
         ZStack {
             VStack(spacing: 0) {
                 // Nav
-                HStack {
-                    Button(action: { router.navigateBack() }) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.black)
-                            .frame(width: 44, height: 44)
-                            .contentShape(Rectangle())
-                            .accessibilityLabel("Back")
-                    }
-                    .buttonStyle(.plain)
-
-                    Spacer()
-                }
-                .padding(.horizontal, 16)
+                BackButton()
+                .padding(.horizontal, 4)
                 .padding(.top, 8)
 
                 // Title

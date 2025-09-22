@@ -2,7 +2,8 @@ import SwiftUI
 import AVKit
 
 struct ChooseSkintoneView: View {
-    @StateObject var viewModel = ChooseSkintoneViewModel(videoName: "razia")
+    @EnvironmentObject var router: Router
+    @EnvironmentObject var viewModel: ChooseSkintoneViewModel
     
     var body: some View {
         ZStack {
@@ -14,6 +15,10 @@ struct ChooseSkintoneView: View {
             }
             
             VStack(alignment: .leading) {
+                BackButton(isWhite: true)
+                .padding(.leading, -20)
+                .padding(.top, 8)
+                
                 Spacer()
                 
                 
@@ -42,7 +47,7 @@ struct ChooseSkintoneView: View {
                     CustomButton(
                         title: "Start Capture",
                         action: {
-                            print("Go to next screen")
+                            router.navigate(to: .cameraSkinTone)
                         }, isFilled:false,
                         variant: .active
                     )
@@ -52,9 +57,12 @@ struct ChooseSkintoneView: View {
             }
             .padding(.horizontal, 32)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
 #Preview {
     ChooseSkintoneView()
+        .environmentObject(ChooseSkintoneViewModel())
+        .environmentObject(Router())
 }

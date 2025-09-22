@@ -10,32 +10,15 @@ struct RootView: View {
     @StateObject private var splashViewModel = SplashViewModel()
     @StateObject private var chooseUndertoneViewModel = ChooseUndertoneViewModel()
     @StateObject private var quizUndertoneViewModel = QuizUndertoneViewModel()
+    @StateObject private var chooseSkintoneViewModel = ChooseSkintoneViewModel()
     @StateObject private var cameraViewModel = CameraViewmodel()
-    @StateObject private var detailShadeVM = DetailShadeViewModel(
-           recommendation: ShadeRecommendation(
-               id: UUID(),
-               shade: Shade(
-                   id: UUID(),
-                   name: "120 C (Neutral Undertone)",
-                   brand: "YSL",
-                   product: "Foundation",
-                   description: "Test description",
-                   image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
-                   undertone: .neutral,
-                   hexShade: "#D7A377"
-               ),
-               skinTone: SkinTone(id: UUID(), name: "Medium", hex: "#EFBF96"),
-               undertone: .neutral,
-               notes: "Test note",
-               percentage: 85
-           )
-       )
+    @StateObject private var detailShadeVM = DetailShadeViewModel()
     @StateObject private var resultAnalyzeViewModel = ResultAnalyzeViewmodel()
     
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
                         
-          NoBrandView()
+          SplashView()
                 .navigationDestination(for: Router.Route.self) { route in
                     destinationView(for: route)
                 }
@@ -49,6 +32,7 @@ struct RootView: View {
         .environmentObject(cameraViewModel)
         .environmentObject(detailShadeVM)
         .environmentObject(resultAnalyzeViewModel)
+        .environmentObject(chooseSkintoneViewModel)
     }
     
     @ViewBuilder
@@ -65,15 +49,9 @@ struct RootView: View {
              case .undertoneQuizResult:
                  ResultQuizView()
              case .skinToneTutorial:
-                OnBoardingView()
+                ChooseSkintoneView()
             case .cameraSkinTone:
                  CameraView()
-            // case .skinToneLoading:
-            //     SkinToneLoadingView()
-             case .skinToneFailed:
-                SkinToneFailedView{
-                    router.navigateBack()
-                }
              case .skinToneResult:
                  SkinToneResultView()
             // case .base:

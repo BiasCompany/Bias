@@ -8,7 +8,14 @@ final class QuizUndertoneViewModel: ObservableObject {
     @Published var showResult: Bool = false
     @Published private(set) var result: Undertone = .unknown
     @Published var skinAnalysisService: SkinAnalysisService = DIContainer.shared.skinAnalysisService
-
+ 
+    func resetState() {
+        currentStep = 0
+        answers = []
+        showResult = false
+        self.answers = Array(repeating: "", count: questions.count)
+    }
+    
     func saveUndertone() {
         Task {
             do {
@@ -80,6 +87,12 @@ final class QuizUndertoneViewModel: ObservableObject {
             currentStep += 1
         } else {
             calculateResult()
+        }
+    }
+    
+    func prevStep() {
+        if currentStep > 0 {
+            currentStep -= 1
         }
     }
 
