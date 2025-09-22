@@ -3,8 +3,8 @@ import ProjectDescription
 // Get COMPANY_ID from environment variable, fallback to "app.adit" if not set
 let companyId = Environment.companyId.getString(default: "ada.il")
 let teamId = Environment.teamId.getString(default: "32T8HNVYGX")
-let appName = "Bias"
-let appBundleId = "bias"
+let appName = "Lumi"
+let appBundleId = "lumi"
 
 let project = Project(
     name: appName,
@@ -32,11 +32,11 @@ let project = Project(
                         "UIInterfaceOrientationLandscapeLeft",
                         "UIInterfaceOrientationLandscapeRight",
                     ],
-                    "ITSAppUsesNonExemptEncryption": false
+                    "ITSAppUsesNonExemptEncryption": false,
                 ]
             ),
-            sources: ["bias/Sources/**"],
-            resources: ["bias/Resources/**"],
+            sources: ["lumi/Sources/**"],
+            resources: ["lumi/Resources/**"],
             dependencies: [
                 .external(name: "Alamofire"),
                 .external(name: "Kingfisher"),
@@ -61,9 +61,9 @@ let project = Project(
                             "DEVELOPMENT_TEAM": .string(teamId),
                             "IPHONEOS_DEPLOYMENT_TARGET": .string("17.0"),
                         ]
-                    )
+                    ),
                 ]
             )
-        ),
+        )
     ]
 )
