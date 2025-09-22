@@ -9,10 +9,25 @@ final class DetailShadeViewModel: ObservableObject {
     @Published var showUnfavoriteDialog : Bool = false
     @Published var isEditingNotes : Bool = false
     @Published var editedNotes : String = ""
-    let recommendation: ShadeRecommendation
+    let recommendation: ShadeRecommendation = ShadeRecommendation(
+        id: UUID(),
+        shade: Shade(
+            id: UUID(),
+            name: "120 C (Neutral Undertone)",
+            brand: "YSL",
+            product: "Foundation",
+            description: "Test description",
+            image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
+            undertone: .neutral,
+            hexShade: "#D7A377"
+        ),
+        skinTone: SkinTone(id: UUID(), name: "Medium", hex: "#EFBF96"),
+        undertone: .neutral,
+        notes: "Test note",
+        percentage: 85
+    )
 
-    init(recommendation: ShadeRecommendation) {
-        self.recommendation = recommendation
+    init() {
         self.editedNotes = recommendation.notes
     }
 

@@ -71,7 +71,8 @@ struct OnBoardingView: View {
         stopProgressAnimation()
             if currentPage == 2 && showButton {
                 showButton = false
-                currentPage = 1
+                currentPage = 2
+                startProgressAnimation()
             } else if currentPage > 0 {
                 currentPage -= 1
             }
