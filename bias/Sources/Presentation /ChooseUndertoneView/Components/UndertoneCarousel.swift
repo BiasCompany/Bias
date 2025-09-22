@@ -8,24 +8,32 @@
 import SwiftUI
 
 struct UndertoneCarousel: View {
-    typealias U = ChooseUndertoneViewModel.Undertone
-    @Binding var selected: U
+    @EnvironmentObject var vm: ChooseUndertoneViewModel
     
     var body: some View {
-        TabView(selection: $selected) {
-            ForEach(U.allCases, id: \.self) { opt in
-                UndertoneSlideView(undertone: opt)
-                    .tag(opt)
-            }
+        TabView(selection: $vm.selected) {
+            UndertoneSlideView(
+                title: "WARM", subtitle: "Your veins color is green or olive", imageAsset: "warm",
+            )
+            .tag(Undertone.warm as Undertone)
+            
+            UndertoneSlideView(
+                title: "NEUTRAL", subtitle: "Your veins color is green and blue", imageAsset: "neutral",
+            )
+            .tag(Undertone.neutral as Undertone)
+            
+            UndertoneSlideView(
+                title: "COOL", subtitle: "Your veins color is purple or blue", imageAsset: "cool",
+            )
+            .tag(Undertone.cool as Undertone)
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .indexViewStyle(.page(backgroundDisplayMode: .never))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay(alignment: .top) {
-            UndertonePeekLabels(current: selected) { picked in
-                withAnimation(.easeInOut) { selected = picked }
-            }
+            UndertonePeekLabels()
         }
         .overlay { EdgeFades() }
     }
+
 }

@@ -9,7 +9,7 @@ struct CustomButton: View {
     
     let title: String
     let action: () -> Void
-    
+    var isDense: Bool = false
     var isFilled: Bool = true
     var isIconOnly: Bool = false
     var isLoading: Bool = false
@@ -51,10 +51,14 @@ struct CustomButton: View {
                     Image(systemName: "arrow.left")
                 } else {
                     Text(title)
+                        .lineLimit(1)
+                        .clipped()
                 }
             }
             .font(.system(size: 16, weight: .medium, design: .monospaced))
-            .frame(maxWidth: .infinity, minHeight: 48)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 20)
+            .frame(maxWidth: isDense ? nil : .infinity, maxHeight: 48)
             .background(isFilled ? backgroundColor : Color.white)
             .foregroundColor(foregroundColor)
             .overlay(
@@ -63,6 +67,7 @@ struct CustomButton: View {
             )
             
         }
+        
         .disabled(variant == .disabled || isLoading)
     }
 }

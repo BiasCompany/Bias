@@ -9,6 +9,7 @@ struct HeaderView: View {
 
     private let side: CGFloat = 16
     var showCancel: Bool { isFocused.wrappedValue || !searchText.isEmpty }
+    
     var body: some View {
         
         VStack(alignment: .leading, spacing: 12) {

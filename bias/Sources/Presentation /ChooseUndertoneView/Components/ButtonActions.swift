@@ -8,34 +8,33 @@
 import SwiftUI
 
 struct BottomActionButtons: View {
-    let onIDK: () -> Void
-    let onContinue: () -> Void
-
-    private let buttonHeight: CGFloat = 48
-    private let buttonsSpacing: CGFloat = 12
-    private let bottomPadding: CGFloat = 20
+    @EnvironmentObject var router: Router
+    @EnvironmentObject var vm: ChooseUndertoneViewModel
 
     var body: some View {
         ZStack(alignment: .bottom) {
             ButtonBackdropGradient(plumeHeight: 170, bottomCap: 14)
 
-            VStack(spacing: buttonsSpacing) {
+            VStack(spacing: 12) {
                 CustomButton(
                     title: "I DON’T KNOW MY UNDERTONE",
-                    action: onIDK,
+                    action:  {
+                        router.navigate(to: .undertoneQuiz)
+                    },
                     isFilled: false
                 )
-                .frame(height: buttonHeight)
-
                 CustomButton(
                     title: "CONTINUE",
-                    action: onContinue,
+                    action: {
+                        vm.saveUndertone()
+                        router.navigate(to: .skinToneTutorial)
+                    }
+                    ,
                     isFilled: true
                 )
-                .frame(height: buttonHeight)
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, bottomPadding)
+            .padding(.bottom, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
     }

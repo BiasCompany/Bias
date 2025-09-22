@@ -16,9 +16,9 @@ struct ResultQuizView: View {
         VStack(spacing: 24) {
             
             Spacer()
-            Text("Your Undertone Result")
+            Text("Your Undertone Result".uppercased())
                 .font(.system(.title3, design: .monospaced).weight(.semibold))
-            Text(viewModel.result)
+            Text(viewModel.result.rawValue.uppercased())
                 .font(.system(.title, design: .monospaced).weight(.bold))
                 .foregroundColor(.black)
             if let description = viewModel.undertoneDescription {
@@ -51,7 +51,7 @@ struct ResultQuizView: View {
             
             
             CustomButton(title: "Continue", action: {
-                router.navigate(to: .onboarding)
+                router.navigate(to: .skinToneTutorial)
             }, isFilled: true)
         }
         .padding()

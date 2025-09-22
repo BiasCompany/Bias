@@ -11,18 +11,12 @@ struct AlphabetIndexBar: View {
 
     @State private var activeIndex: Int? = nil
     @State private var isTouching = false
+    
     private let haptic = UISelectionFeedbackGenerator()
 
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .trailing) {
-                if isTouching {
-                    Capsule()
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 28)
-                        .padding(.vertical, 4)
-                }
-
                 // Letters
                 VStack(spacing: letterSpacing) {
                     ForEach(letters.indices, id: \.self) { i in
@@ -36,7 +30,6 @@ struct AlphabetIndexBar: View {
                     }
                 }
                 .padding(.vertical, 6)
-                .padding(.trailing, 2)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
             .contentShape(Rectangle())
@@ -62,7 +55,6 @@ struct AlphabetIndexBar: View {
             )
         }
         .frame(width: hitWidth)
-        .padding(.trailing, 6)
         .accessibilityElement(children: .contain)
     }
 

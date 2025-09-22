@@ -4,13 +4,6 @@ struct ChooseUndertoneView: View {
     @EnvironmentObject var router: Router
     @EnvironmentObject var vm: ChooseUndertoneViewModel
 
-    private var selectedBinding: Binding<ChooseUndertoneViewModel.Undertone> {
-        Binding(
-            get: { vm.selected },
-            set: { vm.select($0) }
-        )
-    }
-
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -42,15 +35,12 @@ struct ChooseUndertoneView: View {
                 .padding(.top, 8)
 
                 // Info card
-                InfoBanner(text: vm.infoText)
+                InfoBanner()
                     .padding(.horizontal, 16)
                     .padding(.top, 10)
-                UndertoneCarousel(selected: selectedBinding)
+                UndertoneCarousel()
             }
-            BottomActionButtons(
-                onIDK: { router.navigate(to: .undertoneQuiz) },
-                onContinue: { }
-            )
+            BottomActionButtons()
         }
         .animation(.easeInOut, value: vm.selected)
         .navigationBarBackButtonHidden()

@@ -40,8 +40,8 @@ struct RootView: View {
                 QuizUndertoneView()
              case .undertoneQuizResult:
                  ResultQuizView()
-            // case .skinToneTutorial:
-            //     SkinToneTutorialView()
+             case .skinToneTutorial:
+                OnBoardingView()
             // case .cameraSkinTone:
             //     CameraSkinToneView()
             // case .skinToneLoading:
