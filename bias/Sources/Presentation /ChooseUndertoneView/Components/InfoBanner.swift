@@ -7,7 +7,6 @@
 import SwiftUI
 
 struct InfoBanner: View {
-    let text: String
 
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
@@ -15,7 +14,7 @@ struct InfoBanner: View {
                 .font(.system(size: 18, weight: .semibold))
                 .frame(width: 22, height: 22, alignment: .center)
 
-            Text(text)
+            Text("Check your wrist veins to determine your undertone, preferably under natural light for precise result.")
                 .font(.system(size: 11, weight: .regular))
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)

@@ -1,65 +1,57 @@
 import SwiftUI
 
 struct UndertonePeekLabels: View {
-    typealias U = ChooseUndertoneViewModel.Undertone
-    let current: U
-    var onSelect: (U) -> Void
+    @EnvironmentObject var vm: ChooseUndertoneViewModel
 
     // HARUS match dengan header di slide
     private let titleFont = Font.system(size: 28, weight: .bold, design: .monospaced)
     private let subtitleFont = Font.system(size: 13, weight: .regular)
     private let titleSubtitleSpacing: CGFloat = 6
-    private let headerHeight: CGFloat = 64     // tinggi total header (title+subtitle)
+    private let headerHeight: CGFloat = 64  // tinggi total header (title+subtitle)
     private let headerTopPadding: CGFloat = 8  // padding atas header
 
     // Slot tetap (agar tidak geser)
-    private let slotWidth: CGFloat = 110
+    private let slotWidth: CGFloat = 60
     private let partialWidth: CGFloat = 64
     private let sidePadding: CGFloat = 16
 
     var body: some View {
-        let all = U.allCases
-        let idx = all.firstIndex(of: current)!
-        let left: U?  = idx > 0 ? all[idx - 1] : nil
-        let right: U? = idx < all.count - 1 ? all[idx + 1] : nil
+        let all = [Undertone.warm, Undertone.neutral, Undertone.cool]
+        let idx = all.firstIndex(of: vm.selected)!
+        let left: Undertone? = idx > 0 ? all[idx - 1] : nil
+        let right: Undertone? = idx < all.count - 1 ? all[idx + 1] : nil
 
         HStack(spacing: 0) {
             // LEFT slot (tetap lebarnya)
             Group {
                 if let l = left {
-                    let showNeutralTail = (current == .warm && l == .neutral)
-                    VStack(spacing: titleSubtitleSpacing) {
-                        // TITLE (peek / full)
-                        HStack(spacing: 0) {
-                            if showNeutralTail {
-                                Spacer(minLength: 0)
-                                Text(l.label)
-                                    .font(titleFont)
-                                    .foregroundColor(.black.opacity(0.25))
-                                    .lineLimit(1)
-                                    .fixedSize(horizontal: true, vertical: false)
-                                    .frame(width: partialWidth, alignment: .trailing)
-                                    .clipped()
-                            } else {
-                                Text(l.label)
-                                    .font(titleFont)
-                                    .foregroundColor(.black.opacity(0.25))
-                                    .lineLimit(1)
-                                    .fixedSize(horizontal: true, vertical: false)
-                                    .frame(width: slotWidth, alignment: .leading)
-                                    .clipped()
-                            }
+                    ZStack {
+                        VStack(spacing: titleSubtitleSpacing) {
+                            Text(getTitle(undertone: l))
+                                .font(titleFont)
+                                .foregroundColor(.black.opacity(0.25))
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
+                                .frame(width: slotWidth, alignment: .trailing)
+                                .clipped()
+                            Text(" ")
+                                .font(subtitleFont)
+                                .opacity(0)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        // GHOST SUBTITLE (kosong, hanya untuk menyamai tinggi)
-                        Text(" ")
-                            .font(subtitleFont)
-                            .opacity(0)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        LinearGradient(
+                            gradient: Gradient(colors: [.white, .white.opacity(0)]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .allowsHitTesting(false)
                     }
-                    .frame(width: slotWidth, alignment: .leading)
+                    .frame(width: slotWidth, alignment: .trailing)
                     .padding(.leading, sidePadding)
                     .contentShape(Rectangle())
-                    .onTapGesture { onSelect(l) }
+                    .onTapGesture {
+                        withAnimation(.easeInOut) { vm.select(l) }
+                    }
                 } else {
                     Color.clear.frame(width: slotWidth)
                 }
@@ -70,37 +62,33 @@ struct UndertonePeekLabels: View {
             // RIGHT slot (tetap lebarnya)
             Group {
                 if let r = right {
-                    let showNeutralHead = (current == .cool && r == .neutral)
-                    VStack(spacing: titleSubtitleSpacing) {
-                        HStack(spacing: 0) {
-                            if showNeutralHead {
-                                Text(r.label)
-                                    .font(titleFont)
-                                    .foregroundColor(.black.opacity(0.25))
-                                    .lineLimit(1)
-                                    .fixedSize(horizontal: true, vertical: false)
-                                    .frame(width: partialWidth, alignment: .leading)
-                                    .clipped()
-                                Spacer(minLength: 0)
-                            } else {
-                                Text(r.label)
-                                    .font(titleFont)
-                                    .foregroundColor(.black.opacity(0.25))
-                                    .lineLimit(1)
-                                    .fixedSize(horizontal: true, vertical: false)
-                                    .frame(width: slotWidth, alignment: .trailing)
-                                    .clipped()
-                            }
+                    ZStack {
+                        VStack(spacing: titleSubtitleSpacing) {
+                            Text(getTitle(undertone: r))
+                                .font(titleFont)
+                                .foregroundColor(.black.opacity(0.25))
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
+                                .frame(width: slotWidth, alignment: .leading)
+                                .clipped()
+                            Text(" ")
+                                .font(subtitleFont)
+                                .opacity(0)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        Text(" ")
-                            .font(subtitleFont)
-                            .opacity(0)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        LinearGradient(
+                            gradient: Gradient(colors: [.white.opacity(0), .white]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .allowsHitTesting(false)
                     }
-                    .frame(width: slotWidth, alignment: .trailing)
+                    .frame(width: slotWidth, alignment: .leading)
                     .padding(.trailing, sidePadding)
                     .contentShape(Rectangle())
-                    .onTapGesture { onSelect(r) }
+                    .onTapGesture {
+                        withAnimation(.easeInOut) { vm.select(r) }
+                    }
                 } else {
                     Color.clear.frame(width: slotWidth)
                 }
@@ -110,4 +98,19 @@ struct UndertonePeekLabels: View {
         .padding(.top, headerTopPadding)
         .allowsHitTesting(true)
     }
+
+    func getTitle(undertone: Undertone) -> String {
+        switch undertone {
+        case .cool: return "COOL"
+        case .neutral: return "NEUTRAL"
+        case .warm: return "WARM"
+        case .unknown: return "UNKNOWN"
+        }
+    }
+
+}
+
+#Preview {
+    UndertonePeekLabels()
+        .environmentObject(ChooseUndertoneViewModel())
 }

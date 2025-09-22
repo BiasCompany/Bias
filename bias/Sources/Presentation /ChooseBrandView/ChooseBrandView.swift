@@ -13,69 +13,8 @@ struct ChooseBrandView: View {
     @FocusState private var isSearchFocused: Bool
     @State private var isScrolled = false
     
-    private let selectedBg = Color(red: 250/255, green: 248/255, blue: 246/255)
-
     var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
-                            if vm.sections.isEmpty {
-                                Text("No results found")
-                                    .font(.callout)
-                                    .foregroundStyle(.secondary)
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, 24)
-                            }
-
-                            ForEach(vm.sections, id: \.key) { section in
-                                Section {
-                                    ForEach(section.values, id: \.self) { brand in let isSelected = vm.selectedBrands.contains(brand)
-                                        HStack {
-                                            Text(brand)
-                                                .font(.body)
-                                                .foregroundStyle(.primary)
-                                                .lineLimit(1)
-                                                .truncationMode(.tail)
-                                            Spacer()
-                                            if vm.selectedBrands.contains(brand) {
-                                                Image(systemName: "checkmark")
-                                                    .font(.body.weight(.semibold))
-                                            }
-                                        }
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(isSelected ? selectedBg : Color.white)
-                                        .contentShape(Rectangle())
-                                        .padding(.horizontal, 16)
-                                        .onTapGesture { vm.toggleSelection(brand) }
-
-                                        Divider()
-                                            .padding(.leading, 16)
-                                    }
-                                }
-                                header: {
-                                    ZStack(alignment: .leading) {
-                                        Color(red: 0.95, green: 0.93, blue: 0.91)
-                                        Text(section.key)
-                                            .font(.system(size: 22, weight: .bold, design: .monospaced))
-                                            .foregroundColor(.black)
-                                            .padding(.horizontal, 16)
-                                    }
-                                    .frame(height: 36)
-                                    .id(section.key)
-                                }
-                            }
-                        }
-                        .background(Color.white)
-                    }
-                    .overlay(alignment: .trailing) {
-                        AlphabetIndexBar(letters: vm.sectionTitles) { letter in
-                            withAnimation(.easeInOut) { proxy.scrollTo(letter, anchor: .top) }
-                        }
-                        .padding(.trailing, 6)
-                    }
-                }
-        .safeAreaInset(edge: .top) {
+        VStack {
             HeaderView(
                 searchText: $vm.searchText,
                 isFocused: $isSearchFocused,
@@ -86,62 +25,69 @@ struct ChooseBrandView: View {
                 onToggleAll: { vm.toggleSelectAll() },
                 isAllSelected: vm.isAllSelectedInCurrentView
             )
+            .background(.white)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
+                        if vm.sections.isEmpty {
+                            Text("No results found")
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding(.top, 24)
+                        }
+                        
+                        ForEach(vm.sections, id: \.key) { section in
+                            Section {
+                                ForEach(section.values, id: \.self) { brand in
+                                    let isSelected = vm.selectedBrands.contains(brand)
+                                    BrandRow(title: brand, isSelected: isSelected)
+                                        .frame(maxWidth: .infinity)
+                                        .background(isSelected ? Color("selectedCard") : Color.white)
+                                        .contentShape(Rectangle())
+                                        .onTapGesture { vm.toggleSelection(brand) }
+                                    Divider()
+                                }
+                            }
+                            header: {
+                                ZStack(alignment: .leading) {
+                                    Color("pinedTitleCard")
+                                    Text(section.key)
+                                        .font(.system(size: 22, weight: .bold, design: .monospaced))
+                                        .foregroundColor(.black)
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 12)
+                                }
+                                .id(section.key)
+                            }
+                        }
+                    }
+                    .background(Color.white)
+                    .padding(.horizontal, 16)
+                }
+                .overlay(alignment: .trailing) {
+                    AlphabetIndexBar(letters: vm.sectionTitles) { letter in
+                        withAnimation(.easeInOut) { proxy.scrollTo(letter, anchor: .top) }
+                    }
+                }
+            }
             
-        .background(Color(red: 0.95, green: 0.93, blue: 0.91))
-    }
-
-    .safeAreaInset(edge: .bottom) {
-        VStack {
-            Button {
+            CustomButton(title: "CONTINUE") {
                 vm.saveSelection()
                 router.navigate(to: .chooseUndertone)
-            } label: {
-                Text("CONTINUE")
-                    .font(.headline.monospaced().weight(.bold))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .foregroundStyle(.white)
-                    .background(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 8)
-    }
+        .navigationBarBackButtonHidden()
         
-        }
-}
-
-// MARK: - Row
-private struct BrandRow: View {
-    let title: String
-    let isSelected: Bool
-
-    var body: some View {
-        HStack {
-            Text(title)
-                .foregroundStyle(.primary)
-            Spacer()
-            if isSelected {
-                Image(systemName: "checkmark")
-                    .font(.body.weight(.semibold))
-            }
-        }
-        .padding(.vertical, 8)
     }
 }
 
-//#if DEBUG
-//import SwiftUI
-//
-//struct ChooseBrandView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationStack {
-//            ChooseBrandView(repo: MockProductRepository()) { selected in
-//                print("Selected:", selected)
-//            }
-//        }
-//    }
-//}
-//#endif
+
+struct ChooseBrandView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChooseBrandView()
+            .environmentObject(ChooseBrandViewModel())
+    }
+}
