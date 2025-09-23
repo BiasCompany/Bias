@@ -40,9 +40,10 @@ struct BottomActionButtons: View {
         .onChange(of: vm.isLoading) { prevValue, newValue in
             if !newValue {
                 if isEdit {
-                    router.navigate(to: .skinToneTutorial)
-                } else {
                     router.replaceNavigationPath(with: [.recommendation, .skinAnalysis])
+                } else {
+                    router.replaceNavigationPath(with: [.recommendation])
+//                    router.navigate(to: .skinToneTutorial)
                 }
             }
         }
