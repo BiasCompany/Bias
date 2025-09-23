@@ -85,7 +85,7 @@ struct ChooseBrandView: View {
                             if isEdit {
                                 router.replaceNavigationPath(with: [.recommendation])
                             } else {
-                                router.navigate(to: .chooseUndertone)
+                                router.navigate(to: .chooseUndertone (isEdit: true))
                             }
                         }
                     } catch {

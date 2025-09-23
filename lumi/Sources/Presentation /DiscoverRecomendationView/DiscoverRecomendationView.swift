@@ -9,6 +9,7 @@ import Kingfisher
 import SwiftUI
 
 struct DiscoverRecomendationView: View {
+    @EnvironmentObject var router: Router
     @EnvironmentObject var vm: DiscoverRecomendationViewModel
     @FocusState private var isFocused: Bool
     var body: some View {
@@ -73,6 +74,9 @@ struct DiscoverRecomendationView: View {
                                 }
                                 .frame(height: 6)
 
+                            }
+                            .onTapGesture {
+                                router.navigate(to: .detailShade(shadeRecommendation: discover))
                             }
                             .padding(.vertical, 12)
 

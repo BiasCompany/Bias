@@ -35,10 +35,10 @@ final class ChooseUndertoneViewModel: ObservableObject {
             do {
                 isLoading = true
                 try await skinAnalysisService.saveUndertone(selected)
-                try await skinAnalysisService.saveSkinTone(
-                    SkinTone(id: UUID(), name: "Light", hex: "#ffdbac")
-                )
-                try await productService.calculateMatches()
+//                try await skinAnalysisService.saveSkinTone(
+//                    SkinTone(id: UUID(), name: "Light", hex: "#ffdbac")
+//                )
+//                try await productService.calculateMatches()
                 isLoading = false
             } catch {
                 isLoading = false

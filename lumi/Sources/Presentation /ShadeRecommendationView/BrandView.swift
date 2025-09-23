@@ -55,6 +55,9 @@ struct BrandView: View {
                 TabView(selection: $currentIndex) {
                     ForEach(Array(dataSource.enumerated()), id: \.offset) { index, match in
                         BestMatch(product: match)
+                            .onTapGesture {
+                                router.navigate(to: .detailShade(shadeRecommendation: match))
+                            }
                             .tag(index)
                     }
                 }
@@ -122,12 +125,15 @@ struct BrandView: View {
                             skinToneColor: item.skinToneColor,
                             shadeColor: item.shadeColor
                         )
+                        .onTapGesture {
+                            router.navigate(to: .detailShade(shadeRecommendation: item))
+                        }
                         .frame(width: UIScreen.main.bounds.width * 0.72)
                         .padding(.vertical, 12)
                         .padding(.horizontal, 16)
                     }
                 }
-                .padding(.vertical, 4)
+                .padding(.top, 4)
             }
             .padding(.horizontal, -16)
         }

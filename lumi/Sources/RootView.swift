@@ -18,6 +18,7 @@ struct RootView: View {
     @StateObject private var discoverRecomendationViewModel = DiscoverRecomendationViewModel()
     @StateObject private var favoriteViewModel = FavoriteViewModel()
     @StateObject private var notesViewModel = NotesViewModel()
+    @StateObject private var skinAnalysisViewModel = SkinAnalysisViewModel()
     
     var skinAnalysisService: SkinAnalysisService = DIContainer.shared.skinAnalysisService
     
@@ -43,6 +44,7 @@ struct RootView: View {
         .environmentObject(discoverRecomendationViewModel)
         .environmentObject(favoriteViewModel)
         .environmentObject(notesViewModel)
+        .environmentObject(skinAnalysisViewModel)
     }
     
     @ViewBuilder
@@ -52,12 +54,12 @@ struct RootView: View {
                 OnBoardingView()
         case .brandPreference(let isEdit):
             ChooseBrandView(isEdit: isEdit)
-             case .chooseUndertone:
-                 ChooseUndertoneView()
-             case .undertoneQuiz:
-                QuizUndertoneView()
-             case .undertoneQuizResult:
-                 ResultQuizView()
+             case .chooseUndertone(let isEdit):
+            ChooseUndertoneView(isEdit: isEdit)
+             case .undertoneQuiz(let isEdit):
+                QuizUndertoneView(isEdit: isEdit)
+             case .undertoneQuizResult(let isEdit):
+                 ResultQuizView(isEdit: isEdit)
              case .skinToneTutorial:
                 ChooseSkintoneView()
             case .cameraSkinTone:
@@ -74,10 +76,10 @@ struct RootView: View {
             //     NotesView()
              case .allShades:
                 DiscoverRecomendationView()
-            // case .detailShade:
-            //     DetailShadeView()
-            // case .skinAnalysis:
-            //     SkinAnalysisView()
+             case .detailShade(let shadeRecommendation):
+                 DetailShadeView(shadeRecommendation: shadeRecommendation)
+            case .skinAnalysis:
+                SkinAnalysisView()
         default:
             OnBoardingView()
         }

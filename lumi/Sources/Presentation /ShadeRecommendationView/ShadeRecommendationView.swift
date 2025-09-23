@@ -2,6 +2,7 @@ import SwiftUI
 import Kingfisher
 
 struct ShadeRecommendationView: View {
+    @EnvironmentObject var router: Router
     @EnvironmentObject var viewModel: ShadeRecommendationViewModel
     @State private var segment: MySegment = .brands
     
@@ -15,6 +16,9 @@ struct ShadeRecommendationView: View {
                     .foregroundStyle(.black)
                     .frame(width: 30, height: 30)
                     .padding(.top, 16)
+                    .onTapGesture {
+                        router.navigate(to: .skinAnalysis)
+                    }
             }
             
             CustomSegmentedControl(selectedSegment: $segment)
