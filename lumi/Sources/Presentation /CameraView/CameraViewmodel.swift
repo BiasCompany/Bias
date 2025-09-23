@@ -26,6 +26,8 @@ final class CameraViewmodel: ObservableObject {
     @Published var previewLayer: AVCaptureVideoPreviewLayer?
 
     private let service: FaceDetectionService
+    private weak var router: Router?
+    private weak var resultVM: ResultAnalyzeViewmodel?
     private var pollTimer: Timer?
     private var captureTimer: Timer?
     private var holdTimer: Timer?
@@ -34,8 +36,10 @@ final class CameraViewmodel: ObservableObject {
 
     private(set) var lastAnalysis: FaceAnalysis?
 
-    init(service: FaceDetectionService = FaceDetectionService()) {
+    init(service: FaceDetectionService = FaceDetectionService(), router: Router? = nil, resultVM: ResultAnalyzeViewmodel? = nil) {
         self.service = service
+        self.router = router
+        self.resultVM = resultVM
     }
 
     func startCameraSession() {
@@ -159,17 +163,21 @@ final class CameraViewmodel: ObservableObject {
         }
         if let captureTimer { RunLoop.main.add(captureTimer, forMode: .common) }
     }
-
     @MainActor
     private func performPhotoCapture() async {
         defer { resetCaptureState() }
         do {
             print("[Camera] captureImage() begin")
-            let image = try await service.captureImage()
-            self.capturedImage = image
+            let raw = try await service.captureImage()
+
+            // Jika orientation mengandung mirror, unmirror. Sekalian normalize orientation.
+            let shouldUnmirror = raw.isMirroredOrientation
+            let normalized = raw.fixedOrientation()
+            let finalImage = shouldUnmirror ? normalized.unmirroredHorizontally() : normalized
+
+            self.capturedImage = finalImage
             playCaptureFeedback()
             self.showResultView = true
-//            self.stopCameraSession()
             print("[Camera] captureImage() success → showResultView = true")
         } catch {
             print("Photo capture error: \(error.localizedDescription)")
@@ -177,6 +185,7 @@ final class CameraViewmodel: ObservableObject {
             self.showResultView = false
         }
     }
+
 
     private func playCaptureFeedback() {
         let generator = UINotificationFeedbackGenerator()
@@ -192,9 +201,17 @@ final class CameraViewmodel: ObservableObject {
 //        startCameraSession()
     }
 
+    @MainActor
     func startAnalysis() {
-        // Navigasi ke hasil analisis; gunakan `capturedImage` & `lastAnalysis` bila diperlukan
-        print("Starting analysis with captured image.")
+        guard let image = capturedImage
+        else {
+            print("[Camera] startAnalysis called without image")
+            return
+        }
+        print("[Camera] startAnalysis: handoff image to ResultAnalyzeViewmodel")
+        showResultView = false
+        stopCameraSession()
+        router?.navigate(to: .skinToneResult(image: image))
     }
 
     private func resetCaptureState() {
@@ -222,3 +239,36 @@ final class CameraViewmodel: ObservableObject {
         }
     }
 }
+
+private extension UIImage {
+    var isMirroredOrientation: Bool {
+        switch imageOrientation {
+        case .upMirrored, .downMirrored, .leftMirrored, .rightMirrored:
+            return true
+        default:
+            return false
+        }
+    }
+
+    func fixedOrientation() -> UIImage {
+        if imageOrientation == .up { return self }
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(in: CGRect(origin: .zero, size: size))
+        let normalized = UIGraphicsGetImageFromCurrentImageContext() ?? self
+        UIGraphicsEndImageContext()
+        return normalized
+    }
+
+    func unmirroredHorizontally() -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = self.scale
+        let renderer = UIGraphicsImageRenderer(size: self.size, format: format)
+        return renderer.image { ctx in
+            let cg = ctx.cgContext
+            cg.translateBy(x: self.size.width, y: 0)
+            cg.scaleBy(x: -1, y: 1)
+            self.draw(in: CGRect(origin: .zero, size: self.size))
+        }
+    }
+}
+
