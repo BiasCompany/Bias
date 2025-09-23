@@ -75,7 +75,7 @@ class CSVParser {
 
             if char == "\"" {
                 insideQuotes.toggle()
-            } else if char == ";" && !insideQuotes {
+            } else if char == "," && !insideQuotes {
                 components.append(currentComponent)
                 currentComponent = ""
             } else {

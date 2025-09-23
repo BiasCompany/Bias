@@ -131,6 +131,12 @@ struct SkinAnalysisView: View {
                             .font(.system(size: 12, weight: .regular))
                             .italic()
                             .foregroundStyle(.gray)
+                            .onTapGesture {
+                                Task {
+                                    try await vm.reset()
+                                    router.replaceNavigationPath(with: [.onboarding])
+                                }
+                            }
 
                         // Disclaimer
                         VStack(alignment: .leading, spacing: 12) {
@@ -184,6 +190,9 @@ struct SkinAnalysisView: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .background(Color.white.ignoresSafeArea())
         .navigationBarBackButtonHidden()
+        .onAppear() {
+            vm.load()
+        }
     }
 }
 

@@ -18,7 +18,6 @@ final class ChooseBrandViewModel: ObservableObject {
 
     init() {
         productService = DIContainer.shared.productService
-        load()
     }
 
     func load() {

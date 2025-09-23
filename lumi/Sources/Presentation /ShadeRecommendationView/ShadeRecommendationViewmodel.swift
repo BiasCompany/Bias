@@ -25,8 +25,11 @@ final class ShadeRecommendationViewModel: ObservableObject {
             guard let self else { return }
             do {
                 self.isLoading = true
+                print("hereeee")
                 // Recalculate matches based on current skin tone / undertone and catalog
                 try await self.productService.calculateMatches()
+                
+                print("hereeeeefljejlf")
 
                 // Fetch all recommendations
                 let all = try await self.productService.getAllShadesRecommendation()
@@ -34,7 +37,7 @@ final class ShadeRecommendationViewModel: ObservableObject {
                 let byBrand = try await self.productService.getShadeRecommendationFromPreferences()
 
                 self.shadesRecommendation = all
-                self.shadesRecommendationBrandPreference = byBrand
+                self.shadesRecommendationBrandPreference = if byBrand.isEmpty { shadesRecommendation } else { byBrand }
             } catch {
                 print("Error loading recommendations:", error)
                 // In case of error, clear lists to avoid stale UI

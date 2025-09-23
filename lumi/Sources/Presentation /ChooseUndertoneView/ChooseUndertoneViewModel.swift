@@ -13,7 +13,6 @@ final class ChooseUndertoneViewModel: ObservableObject {
     init() {
         skinAnalysisService = DIContainer.shared.skinAnalysisService
         productService = DIContainer.shared.productService
-        load()
     }
 
     func load() {
@@ -36,10 +35,10 @@ final class ChooseUndertoneViewModel: ObservableObject {
                 isLoading = true
                 try await skinAnalysisService.saveUndertone(selected)
                 // test only
-                try await skinAnalysisService.saveSkinTone(
-                    SkinTone(id: UUID(), name: "Light", hex: "#ffdbac")
-                )
-                try await productService.calculateMatches()
+//                try await skinAnalysisService.saveSkinTone(
+//                    SkinTone(id: UUID(), name: "Light", hex: "#ffdbac")
+//                )
+//                try await productService.calculateMatches()
                 
                 
                 isLoading = false

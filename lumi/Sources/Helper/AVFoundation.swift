@@ -15,10 +15,14 @@ final class AVFoundationHelper: NSObject {
     private let videoOutput = AVCaptureVideoDataOutput()
     private var currentPhotoDelegate: PhotoDelegate?
     private var currentPhotoContinuation: CheckedContinuation<Data, Error>?
+    private var isConfigured = false
     
     var onSampleBuffer: ((CMSampleBuffer) -> Void)?
     
     func configure(sessionPreset: AVCaptureSession.Preset = .high) throws {
+        // Only configure if not already configured
+        guard !isConfigured else { return }
+        
         session.beginConfiguration()
         session.sessionPreset = sessionPreset
         
@@ -29,14 +33,23 @@ final class AVFoundationHelper: NSObject {
         videoDevice = device
         
         let input = try AVCaptureDeviceInput(device: device)
-        guard session.canAddInput(input) else { throw NSError(domain:"Camera", code:2, userInfo:[NSLocalizedDescriptionKey:"Cannot add input"]) }
+        guard session.canAddInput(input) else { 
+            session.commitConfiguration()
+            throw NSError(domain:"Camera", code:2, userInfo:[NSLocalizedDescriptionKey:"Cannot add input"]) 
+        }
         session.addInput(input)
         
-        guard session.canAddOutput(photoOutput) else { throw NSError(domain:"Camera", code:3, userInfo:[NSLocalizedDescriptionKey:"Cannot add photo output"]) }
+        guard session.canAddOutput(photoOutput) else { 
+            session.commitConfiguration()
+            throw NSError(domain:"Camera", code:3, userInfo:[NSLocalizedDescriptionKey:"Cannot add photo output"]) 
+        }
         session.addOutput(photoOutput)
 //        photoOutput.isHighResolutionCaptureEnabled = true
         
-        guard session.canAddOutput(videoOutput) else { throw NSError(domain:"Camera", code:4, userInfo:[NSLocalizedDescriptionKey:"Cannot add video output"]) }
+        guard session.canAddOutput(videoOutput) else { 
+            session.commitConfiguration()
+            throw NSError(domain:"Camera", code:4, userInfo:[NSLocalizedDescriptionKey:"Cannot add video output"]) 
+        }
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "video.sample.queue"))
@@ -44,10 +57,25 @@ final class AVFoundationHelper: NSObject {
         videoOutput.connection(with: .video)?.videoOrientation = .portrait
         
         session.commitConfiguration()
+        isConfigured = true
     }
     
     func start() { if !session.isRunning { session.startRunning() } }
     func stop()  { if  session.isRunning { session.stopRunning()  } }
+    
+    func reset() {
+        stop()
+        isConfigured = false
+        // Clear any existing inputs and outputs
+        session.beginConfiguration()
+        for input in session.inputs {
+            session.removeInput(input)
+        }
+        for output in session.outputs {
+            session.removeOutput(output)
+        }
+        session.commitConfiguration()
+    }
     
     func captureJPEGData() async throws -> Data {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])

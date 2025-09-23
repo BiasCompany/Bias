@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct SkinTonePanel: View {
+    @EnvironmentObject var router: Router
+    @EnvironmentObject var viewModel: ResultAnalyzeViewmodel
     var toneText: String
     var background: Color
-    var onFindShade: () -> Void
 
     var body: some View {
         VStack(spacing: 16) {
@@ -27,7 +28,10 @@ struct SkinTonePanel: View {
 
             CustomButton(
                 title: "FIND MY SHADE",
-                action: onFindShade, isFilled: true
+                action: {
+                    viewModel.findMyShade()
+                }, isFilled: true,
+                isLoading: viewModel.isLoading
             )
         }
         .padding(.horizontal, 24)
@@ -40,16 +44,20 @@ struct SkinTonePanel: View {
                 .stroke(Color.black, lineWidth: 2)
                 .ignoresSafeArea(edges: .bottom)
         )
+        .onChange(of: viewModel.isLoading) { prevValue, newValue in
+            if !newValue {
+                router.replaceNavigationPath(with: [.recommendation])
+            }
+            
+        }
     }
 }
 
-#Preview("Panel only") {
-    SkinTonePanel(
-        toneText: "MEDIUM",
-        background: Color(red: 210 / 255, green: 170 / 255, blue: 150 / 255)
-    ) {
-        print("Find my shade tapped")
-    }
-    .previewLayout(.sizeThatFits)
-    .padding(.vertical, 8)
-}
+//#Preview("Panel only") {
+//    SkinTonePanel(
+//        toneText: "MEDIUM",
+//        background: Color(red: 210 / 255, green: 170 / 255, blue: 150 / 255)
+//    )
+//    .previewLayout(.sizeThatFits)
+//    .padding(.vertical, 8)
+//}

@@ -119,6 +119,18 @@ final class LocalDataSource: ObservableObject {
         root.noteShadeList.removeAll()
         try context.save()
     }
+    
+    func resetState() throws {
+        let root = try getOrCreateAppData()
+        root.isFirstTime = true
+        root.userPreferenceBrands = []
+        root.userUndertone = .neutral
+        root.userSkinTone = nil
+        root.shadeRecommendationList.removeAll()
+        root.favoriteShadeList.removeAll()
+        root.noteShadeList.removeAll()
+        try context.save()
+    }
 
     // MARK: - Favorites
 

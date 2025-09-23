@@ -9,6 +9,7 @@ import Foundation
 
 protocol InitialService {
     func initialize() async throws
+    func resetAllState() async throws
 }
 
 class InitialServiceImpl: InitialService {
@@ -56,5 +57,9 @@ class InitialServiceImpl: InitialService {
         } else {
             print("ℹ️ Shades already exist locally")
         }
+    }
+    
+    func resetAllState() async throws {
+        try await repo.resetAllState()
     }
 }

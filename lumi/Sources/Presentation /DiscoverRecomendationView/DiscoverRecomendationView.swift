@@ -89,6 +89,10 @@ struct DiscoverRecomendationView: View {
 
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            vm.load()
+            vm.filterRecommendations()
+        }
     }
 }
 

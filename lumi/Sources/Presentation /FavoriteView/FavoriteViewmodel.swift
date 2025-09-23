@@ -16,7 +16,6 @@ final class FavoriteViewModel: ObservableObject {
 
     init() {
         service = DIContainer.shared.favoriteService
-        load()
 //        // Dummy data sementara (ganti nanti dengan fetch dari SwiftData)
 //        favorite = [
 //            ShadeRecommendation(

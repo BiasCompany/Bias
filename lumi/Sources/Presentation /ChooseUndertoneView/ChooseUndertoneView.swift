@@ -34,6 +34,9 @@ struct ChooseUndertoneView: View {
         .animation(.easeInOut, value: vm.selected)
         .navigationBarBackButtonHidden()
         .toolbar(.hidden)
+        .onAppear {
+            vm.load()
+        }
     }
 }
 

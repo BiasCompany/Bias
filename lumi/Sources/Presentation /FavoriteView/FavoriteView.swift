@@ -31,6 +31,9 @@ struct FavoriteView: View {
                 }
                 .padding(.vertical, 16)
             }
+            .onAppear {
+                viewModel.load()
+            }
         }
     }
 }

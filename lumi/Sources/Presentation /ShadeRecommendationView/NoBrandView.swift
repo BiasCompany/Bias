@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NoBrandView: View {
+    @EnvironmentObject var router: Router
     var body: some View {
         VStack(spacing: 20) {
             
@@ -20,6 +21,12 @@ struct NoBrandView: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+            
+            CustomButton(title: "RECHECK SKIN TONE") {
+                router.navigate(to: .skinToneTutorial)
+            }
+            .padding(.top, 20)
+            .padding(.horizontal, 32)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

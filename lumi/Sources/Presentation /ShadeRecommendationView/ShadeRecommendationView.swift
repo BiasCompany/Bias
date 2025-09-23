@@ -35,6 +35,9 @@ struct ShadeRecommendationView: View {
         }
         .padding(.horizontal, 16)
         .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.load()
+        }
     }
 }
 

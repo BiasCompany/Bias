@@ -58,16 +58,21 @@ struct ResultQuizView: View {
             CustomButton(
                 title: "Continue",
                 action: {
-                    if isEdit {
-                        router.replaceNavigationPath(with: [.recommendation, .skinAnalysis])
-                    } else {
-                        router.navigate(to: .skinToneTutorial)
-                    }
-                    viewModel.resetState()
+                    viewModel.saveUndertone()
                 }, isFilled: true)
         }
         .padding()
         .navigationBarBackButtonHidden()
+        .onChange(of: viewModel.isLoading) { prev, current in
+            if !current {
+                if isEdit {
+                    router.replaceNavigationPath(with: [.recommendation, .skinAnalysis])
+                } else {
+                    router.navigate(to: .skinToneTutorial)
+                }
+                viewModel.resetState()
+            }
+        }
     }
 }
 

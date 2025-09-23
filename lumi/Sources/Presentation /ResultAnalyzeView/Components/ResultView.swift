@@ -64,9 +64,6 @@ import Vision
             SkinTonePanel(
                 toneText: "\(classifySkinTone(hex: "\(viewModel.currentSkinToneText)"))",
                 background: viewModel.panelBackgroundColor,
-                onFindShade: {
-                    viewModel.findMyShade()
-                }
             )
         }
     }

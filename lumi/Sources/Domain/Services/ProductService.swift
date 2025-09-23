@@ -46,13 +46,16 @@ class ProductServiceImpl: ProductService {
     }
     
     func calculateMatches() async throws {
+        print("herekrkere")
         let undertone = try await skinAnalysisRepo.getUndertone()
         // get skintone
         guard let skinTone = try await skinAnalysisRepo.getSkinTone() else {
+            print("hereeeedsd")
             return
         }
         
         guard let skinLab = ColorMath.hexToLab(skinTone.hex) else {
+            print("ewjfhewkj")
             return
         }
         
@@ -75,6 +78,7 @@ class ProductServiceImpl: ProductService {
         
         try await repo.deleteAllRecommendations()
         try await repo.insertAllRecommendation(filteredAndSorted)
+        print("ewljhgewljgjvlewjlge")
     }
     
     func getShadeRecommendationFromPreferences() async throws -> [ShadeRecommendation] {

@@ -20,6 +20,8 @@ protocol ProductRepository {
     func insertAllRecommendation(_ recommendations: [ShadeRecommendation]) async throws
     func getRecommendations() async throws -> [ShadeRecommendation]
     func deleteAllRecommendations() async throws
+    
+    func resetAllState() async throws
 }
 
 class ProductRepositoryImpl: ProductRepository {
@@ -59,6 +61,10 @@ class ProductRepositoryImpl: ProductRepository {
 
     func insertBrandPreference(_ brands: [Brand]) async throws {
         try ds.setUserPreferenceBrands(brands)
+    }
+    
+    func resetAllState() async throws {
+        try ds.resetState()
     }
 
     // MARK: - Recommendations

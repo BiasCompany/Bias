@@ -13,6 +13,7 @@ protocol FaceDetectionServiceProtocol: AnyObject {
         var captureSession: AVCaptureSession { get }
         func start() throws
         func stop()
+        func reset()
         func checkLight() -> LightingStatus
         func checkFaceVisibility() -> (visible: Bool, analysis: FaceAnalysis?)
         func checkAccessoriesExist() -> AccessoryStatus
@@ -77,6 +78,13 @@ class FaceDetectionService: FaceDetectionServiceProtocol {
     
     public func stop() {
         camera.stop()
+    }
+    
+    public func reset() {
+        camera.reset()
+        latestSampleBuffer = nil
+        lastFaceAnalysis = nil
+        lastVisible = false
     }
     
     

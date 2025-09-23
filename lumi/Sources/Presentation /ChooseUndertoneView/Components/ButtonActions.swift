@@ -42,8 +42,8 @@ struct BottomActionButtons: View {
                 if isEdit {
                     router.replaceNavigationPath(with: [.recommendation, .skinAnalysis])
                 } else {
-                    router.replaceNavigationPath(with: [.recommendation])
-//                    router.navigate(to: .skinToneTutorial)
+//                    router.replaceNavigationPath(with: [.recommendation])
+                    router.navigate(to: .skinToneTutorial)
                 }
             }
         }

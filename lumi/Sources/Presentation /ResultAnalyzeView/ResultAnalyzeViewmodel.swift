@@ -11,9 +11,11 @@ import Vision
 
 @MainActor
 final class ResultAnalyzeViewmodel: ObservableObject {
+    var skinAnalysisService = DIContainer.shared.skinAnalysisService
+    var productService = DIContainer.shared.productService
+    @Published var isLoading = false
     @Published var analysisState: AnalysisState = .analyzing
-    @Published var selectedSkinTone: String = ""
-    @Published var detectedSkinTone: String = "MEDIUM"  // TODO: replace with real detection
+    @Published var selectedSkinTone: String = ""  // TODO: replace with real detection
     @Published var panelBackgroundColor: Color = .gray
     @Published var currentSkinToneText: String = ""
 
@@ -187,7 +189,28 @@ final class ResultAnalyzeViewmodel: ObservableObject {
     }
 
     func findMyShade() {
-        onFindShade?()
+        Task {
+            await MainActor.run {
+                isLoading = true
+            }
+            
+            do {
+                
+                try await skinAnalysisService.saveSkinTone(
+                    SkinTone(id: UUID(), name: classifySkinTone(hex: currentSkinToneText).rawValue, hex: panelBackgroundColor.toHexString())
+                )
+                try await productService.calculateMatches()
+                
+                await MainActor.run {
+                    isLoading = false
+                }
+            } catch {
+                print("Error in findMyShade: \(error)")
+                await MainActor.run {
+                    isLoading = false
+                }
+            }
+        }
     }
 
     func retakePhoto() {
@@ -254,7 +277,4 @@ struct DetectionPoint: Identifiable {
     var label: String? = nil
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> f7f9b6e (feat: add vision and image colorpicker)

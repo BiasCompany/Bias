@@ -1,11 +1,13 @@
 import Combine
 import SwiftUI
 
+@MainActor
 final class QuizUndertoneViewModel: ObservableObject {
     @Published var currentStep: Int = 0
     @Published var answers: [String]
     @Published var showResult: Bool = false
     @Published private(set) var result: Undertone = .unknown
+    @Published private(set) var isLoading: Bool = false
     @Published var skinAnalysisService: SkinAnalysisService
     
     init() {
@@ -22,10 +24,20 @@ final class QuizUndertoneViewModel: ObservableObject {
     
     func saveUndertone() {
         Task {
+            await MainActor.run {
+                isLoading = true
+            }
+            
             do {
                 try await skinAnalysisService.saveUndertone(result)
+                
+                await MainActor.run {
+                    isLoading = false
+                }
             } catch {
-                print("Error saving undertone:", error)
+                await MainActor.run {
+                    isLoading = false
+                }
             }
         }
     }
@@ -143,8 +155,6 @@ final class QuizUndertoneViewModel: ObservableObject {
         } else {
             result = Undertone.neutral
         }
-
-        saveUndertone()
         showResult = true
     }
 

@@ -43,6 +43,9 @@ final class CameraViewmodel: ObservableObject {
     }
 
     func startCameraSession() {
+        // Reset any previous state
+        resetCameraState()
+        
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             startSession()
@@ -88,6 +91,27 @@ final class CameraViewmodel: ObservableObject {
         stopPolling()
         service.stop()
         cameraSessionRunning = false
+    }
+    
+    private func resetCameraState() {
+        // Reset all camera-related state
+        faceDetected = false
+        lightAdequate = false
+        accessoriesDetected = false
+        capturedImage = nil
+        showResultView = false
+        isCapturing = false
+        isHolding = false
+        cameraSessionRunning = false
+        cameraPermissionDenied = false
+        accessoryStatus = .unknown
+        lastAnalysis = nil
+        
+        // Reset timers
+        resetCaptureState()
+        
+        // Reset the service
+        service.reset()
     }
 
     private func startPolling() {

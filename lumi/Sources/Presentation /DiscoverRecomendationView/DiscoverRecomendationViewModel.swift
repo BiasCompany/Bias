@@ -27,8 +27,6 @@ final class DiscoverRecomendationViewModel: ObservableObject {
 
     init () {
         productService = DIContainer.shared.productService
-        load()
-        filterRecommendations()
     }
     
     func load() {
@@ -43,7 +41,7 @@ final class DiscoverRecomendationViewModel: ObservableObject {
     
     /// Filters recommendations by product based on `searchText`.
     /// If `searchText` is empty, shows all recommendations.
-    private func filterRecommendations() {
+    func filterRecommendations() {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else {
             discoverRecomendation = allRecommendations
