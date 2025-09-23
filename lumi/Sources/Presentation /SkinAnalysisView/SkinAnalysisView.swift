@@ -112,7 +112,7 @@ struct SkinAnalysisView: View {
                             Rectangle()
                                 .fill(
                                     selectedTab == .skinTone
-                                        ? Color("creamMedium") : Color("creamLabel")
+                                    ? Color(hex: vm.skinTone?.hex ?? "") : Color("creamLabel")
                                 )
                                 .frame(maxWidth: 393, minHeight: 100)
                                 .clipShape(RoundedRectangle(cornerRadius: 0))
@@ -143,40 +143,39 @@ struct SkinAnalysisView: View {
                         }
                         .font(.system(size: 12))
                         .foregroundStyle(.black.opacity(0.9))
-
-                        Spacer(minLength: 0)
-
-                        // Link tutorial
-                        Button {
-                            // open tutorial
-                        } label: {
-                            Text("See tutorial here")
-                                .underline()
-                                .font(.system(size: 12, weight: .regular))
-                                .foregroundStyle(.black)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-
-                        // Save button
-                        Button {
-                            // simpan perubahan
-                        } label: {
-                            Text("SAVE CHANGES")
-                                .font(.system(size: 16, weight: .semibold, design: .monospaced))
-                                .kerning(0)
-                                .foregroundStyle(.white)
-                                .frame(maxWidth: .infinity, minHeight: 48)
-                                .background(.black)
-                                .clipShape(RoundedRectangle(cornerRadius: 0))
-                        }
-                        .padding(.top, 0)
-                        .padding(.horizontal, 0)
-                        .padding(.bottom, 20)
+//
+//                        // Link tutorial
+//                        Button {
+//                            // open tutorial
+//                        } label: {
+//                            Text("See tutorial here")
+//                                .underline()
+//                                .font(.system(size: 12, weight: .regular))
+//                                .foregroundStyle(.black)
+//                        }
+//                        .frame(maxWidth: .infinity, alignment: .center)
+//
+//                        // Save button
+//                        Button {
+//                            // simpan perubahan
+//                        } label: {
+//                            Text("SAVE CHANGES")
+//                                .font(.system(size: 16, weight: .semibold, design: .monospaced))
+//                                .kerning(0)
+//                                .foregroundStyle(.white)
+//                                .frame(maxWidth: .infinity, minHeight: 48)
+//                                .background(.black)
+//                                .clipShape(RoundedRectangle(cornerRadius: 0))
+//                        }
+//                        .padding(.top, 0)
+//                        .padding(.horizontal, 0)
+//                        .padding(.bottom, 20)
                     }
                     .padding(24)
                     .background(
                         Rectangle()
                             .fill(Color("creamLabel")))
+                    .frame(maxHeight: .infinity)
 
                 }
             }

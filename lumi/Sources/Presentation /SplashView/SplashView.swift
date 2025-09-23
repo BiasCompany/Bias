@@ -12,16 +12,21 @@ struct SplashView: View {
     @EnvironmentObject var splashViewModel: SplashViewModel
     
     var body: some View {
-        IconAppRiveView()
-                .padding(.horizontal, 80)
-        .onChange(of: splashViewModel.isLoading) { oldValue, newValue in
-            if !newValue {
-                if splashViewModel.isFirstTime {
-                    router.replaceNavigationPath(with: [.onboarding])
-                } else {
-                    router.replaceNavigationPath(with: [.recommendation])
+        VStack {
+            IconAppRiveView()
+                    .padding(.horizontal, 80)
+            .onChange(of: splashViewModel.isLoading) { oldValue, newValue in
+                if !newValue {
+                    if splashViewModel.isFirstTime {
+                        router.replaceNavigationPath(with: [.onboarding])
+                    } else {
+                        router.replaceNavigationPath(with: [.recommendation])
+                    }
                 }
             }
+            
+            Text("LOADING DATA")
+                .foregroundStyle(.gray)
         }
     }
 }

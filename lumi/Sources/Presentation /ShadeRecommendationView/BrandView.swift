@@ -53,7 +53,7 @@ struct BrandView: View {
             }
             
                 TabView(selection: $currentIndex) {
-                    ForEach(Array(dataSource.enumerated()), id: \.offset) { index, match in
+                    ForEach(Array(dataSource.prefix(5).enumerated()), id: \.offset) { index, match in
                         BestMatch(product: match)
                             .onTapGesture {
                                 router.navigate(to: .detailShade(shadeRecommendation: match))
@@ -83,7 +83,7 @@ struct BrandView: View {
 
                 // Dots indicator
                 HStack(spacing: 6) {
-                    ForEach(dataSource.indices, id: \.self) { index in
+                    ForEach(dataSource.prefix(5).indices, id: \.self) { index in
                         Rectangle()
                             .fill(index == currentIndex ? Color.black : Color.gray.opacity(0.3))
                             .frame(width: 6, height: 6)
