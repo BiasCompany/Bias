@@ -16,14 +16,14 @@ class FavoriteRepositoryImpl: FavoriteRepository {
     init(localDataSource: LocalDataSource) { self.ds = localDataSource }
 
     func saveFavorite(_ favorite: ShadeRecommendation) async throws {
-        try await ds.saveFavorite(favorite)
+        try ds.saveFavorite(favorite)
     }
 
     func getFavorites() async throws -> [ShadeRecommendation] {
-        return try await ds.getFavorites()
+        return try ds.getFavorites()
     }
 
     func deleteFavorite(_ favorite: ShadeRecommendation) async throws {
-        try await ds.deleteFavorite(favorite)
+        try ds.deleteFavorite(favorite)
     }
 }

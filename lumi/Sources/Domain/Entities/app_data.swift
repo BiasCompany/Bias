@@ -12,7 +12,7 @@ class AppData {
     var userSkinTone: SkinTone?
     var shadeRecommendationList: [ShadeRecommendation]
     var favoriteShadeList: [ShadeRecommendation]
-    var noteShadeList: [ShadeRecommendation]
+    var noteShadeList: [Shade]
 
     init(
         isFirstTime: Bool = true,
@@ -23,7 +23,7 @@ class AppData {
         userSkinTone: SkinTone? = nil,
         shadeRecommendationList: [ShadeRecommendation] = [],
         favoriteShadeList: [ShadeRecommendation] = [],
-        noteShadeList: [ShadeRecommendation] = []
+        noteShadeList: [Shade] = []
     ) {
         self.isFirstTime = isFirstTime
         self.brands = brands

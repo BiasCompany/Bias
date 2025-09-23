@@ -25,26 +25,28 @@ class InitialServiceImpl: InitialService {
 
     func saveBrandList() async throws {
         // Check if brands already exist locally
-        let existingBrands = try await repo.getBrands()
+        let existingBrands = try await repo.getBrand()
 
-        if existingBrands.isEmpty {
-            // Parse CSV to get brands
-            let (brands, _) = try CSVParser.parseAllShades()
-            let brandArray = Array(brands)
+        if existingBrands == nil {
+            // Parse CSV to get brands off the main actor
+            let brandArray: [String] = try await Task.detached(priority: .userInitiated) {
+                let (brands, _) = try CSVParser.parseAllShades()
+                return Array(brands)
+            }.value
 
             // Insert all brands
             try await repo.insertAllBrand(brandArray)
             print("✅ Inserted \(brandArray.count) brands from CSV")
         } else {
-            print("ℹ️ Brands already exist locally (\(existingBrands.count) brands)")
+            print("ℹ️ Brands already exist locally")
         }
     }
 
     func saveShadeList() async throws {
         // Check if shades already exist locally
-        let existingShades = try await repo.getShades()
+        let existingShades = try await repo.getShade()
 
-        if existingShades.isEmpty {
+        if existingShades == nil {
             // Parse CSV to get shades
             let (_, shades) = try CSVParser.parseAllShades()
 
@@ -52,7 +54,7 @@ class InitialServiceImpl: InitialService {
             try await repo.insertAllShade(shades)
             print("✅ Inserted \(shades.count) shades from CSV")
         } else {
-            print("ℹ️ Shades already exist locally (\(existingShades.count) shades)")
+            print("ℹ️ Shades already exist locally")
         }
     }
 }

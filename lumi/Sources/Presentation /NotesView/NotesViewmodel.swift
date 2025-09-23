@@ -1,10 +1,13 @@
 import SwiftUI
 
+@MainActor
 final class NotesViewModel: ObservableObject {
-    @Published var notes: [ShadeRecommendation]
+    @Published var notes: [Shade]
     
-    init(recommendations: [ShadeRecommendation]) {
-        self.notes = recommendations
+    init() {
+        self.notes = [
+            .dummy
+        ]
     }
     
     

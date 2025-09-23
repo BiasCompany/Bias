@@ -3,6 +3,7 @@
 import SwiftUI
 import SwiftData
 
+@MainActor
 final class DetailShadeViewModel: ObservableObject {
     @Published var showUnfavoriteAlert: Bool = false
     @Published var isFavorite: Bool = false
@@ -19,16 +20,16 @@ final class DetailShadeViewModel: ObservableObject {
             description: "Test description",
             image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
             undertone: .neutral,
-            hexShade: "#D7A377"
+            hexShade: "#D7A377",
+            note: "Test note",
         ),
         skinTone: SkinTone(id: UUID(), name: "Medium", hex: "#EFBF96"),
         undertone: .neutral,
-        notes: "Test note",
         percentage: 85
     )
 
     init() {
-        self.editedNotes = recommendation.notes
+        self.editedNotes = recommendation.shade.note
     }
 
 
@@ -56,12 +57,12 @@ final class DetailShadeViewModel: ObservableObject {
 
     func startEditingNotes(){
         isEditingNotes = true
-        editedNotes = recommendation.notes
+        editedNotes = recommendation.shade.note
 
     }
 
     func savenotes(){
-        recommendation.notes = editedNotes
+        recommendation.shade.note = editedNotes
         isEditingNotes = false
     }
 
