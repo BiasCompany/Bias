@@ -24,7 +24,7 @@ class Shade {
         undertone: Undertone,
         hexShade: String,
         note: String = "",
-        lastUpdatedNote: Date = .now,
+        lastUpdatedNote: Date = .now
     ) {
         self.id = id
         self.name = name

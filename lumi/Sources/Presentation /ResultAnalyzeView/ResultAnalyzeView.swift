@@ -11,6 +11,7 @@ import SwiftUI
 import Vision
 
 struct SkinToneResultView: View {
+    var image: UIImage
     @EnvironmentObject var viewModel: ResultAnalyzeViewmodel
     @Environment(\.dismiss) private var dismiss
     
@@ -33,6 +34,9 @@ struct SkinToneResultView: View {
             }
             
             AnalyzingOverlay(isVisible: $viewModel.isAnalyzingVisible)
+        }
+        .onAppear() {
+            viewModel.setImage(image: image)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -188,41 +192,41 @@ struct SkinToneResultView: View {
 
 
 
-
-// MARK: - Previews
-#Preview("SkinToneResultView – Analyzing") {
-    let vm = ResultAnalyzeViewmodel()
-    vm.analysisState = .analyzing
-    vm.isAnalyzingVisible = true
-    return SkinToneResultView()
-        .environmentObject(vm)
-}
-
-#Preview("SkinToneResultView – Photo Result") {
-    let vm = ResultAnalyzeViewmodel()
-    vm.analysisState = .photoResult
-    vm.isAnalyzingVisible = false
-    return SkinToneResultView()
-        .environmentObject(vm)
-}
-
-#Preview("SkinToneResultView – Result") {
-    let vm = ResultAnalyzeViewmodel()
-    
-    vm.analysisState = .result
-    vm.selectedSkinTone = "MEDIUM"
-    vm.isAnalyzingVisible = false
-    return SkinToneResultView()
-        .environmentObject(vm)
-}
-
-#Preview("SkinToneResultView – Incomplete") {
-    let vm = ResultAnalyzeViewmodel()
-    vm.analysisState = .incomplete
-    vm.isAnalyzingVisible = false
-    return SkinToneResultView()
-        .environmentObject(vm)
-}
+//
+//// MARK: - Previews
+//#Preview("SkinToneResultView – Analyzing") {
+//    let vm = ResultAnalyzeViewmodel()
+//    vm.analysisState = .analyzing
+//    vm.isAnalyzingVisible = true
+//    return SkinToneResultView()
+//        .environmentObject(vm)
+//}
+//
+//#Preview("SkinToneResultView – Photo Result") {
+//    let vm = ResultAnalyzeViewmodel()
+//    vm.analysisState = .photoResult
+//    vm.isAnalyzingVisible = false
+//    return SkinToneResultView()
+//        .environmentObject(vm)
+//}
+//
+//#Preview("SkinToneResultView – Result") {
+//    let vm = ResultAnalyzeViewmodel()
+//    
+//    vm.analysisState = .result
+//    vm.selectedSkinTone = "MEDIUM"
+//    vm.isAnalyzingVisible = false
+//    return SkinToneResultView()
+//        .environmentObject(vm)
+//}
+//
+//#Preview("SkinToneResultView – Incomplete") {
+//    let vm = ResultAnalyzeViewmodel()
+//    vm.analysisState = .incomplete
+//    vm.isAnalyzingVisible = false
+//    return SkinToneResultView()
+//        .environmentObject(vm)
+//}
 
 
 

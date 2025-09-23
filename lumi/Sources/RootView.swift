@@ -11,7 +11,7 @@ struct RootView: View {
     @StateObject private var chooseUndertoneViewModel = ChooseUndertoneViewModel()
     @StateObject private var quizUndertoneViewModel = QuizUndertoneViewModel()
     @StateObject private var chooseSkintoneViewModel = ChooseSkintoneViewModel()
-    @StateObject private var cameraViewModel = CameraViewmodel()
+    @StateObject private var cameraViewModel: CameraViewmodel
     @StateObject private var detailShadeVM = DetailShadeViewModel()
     @StateObject private var resultAnalyzeViewModel = ResultAnalyzeViewmodel()
     @StateObject private var shadeRecommendationViewModel = ShadeRecommendationViewModel()
@@ -22,9 +22,16 @@ struct RootView: View {
     
     var skinAnalysisService: SkinAnalysisService = DIContainer.shared.skinAnalysisService
     
+    init() {
+        let router = Router()
+        _router = StateObject(wrappedValue: router)
+        let resultVM = ResultAnalyzeViewmodel()
+        _resultAnalyzeViewModel = StateObject(wrappedValue: resultVM)
+        _cameraViewModel = StateObject(wrappedValue: CameraViewmodel(router: router, resultVM: resultVM))
+    }
+    
     var body: some View {
         NavigationStack(path: $router.navigationPath) {
-
                 SplashView()
                       .navigationDestination(for: Router.Route.self) { route in
                           destinationView(for: route)
@@ -64,8 +71,8 @@ struct RootView: View {
                 ChooseSkintoneView()
             case .cameraSkinTone:
                  CameraView()
-             case .skinToneResult:
-                 SkinToneResultView()
+             case .skinToneResult(let image):
+            SkinToneResultView(image: image)
             // case .base:
             //     BaseView()
              case .recommendation:

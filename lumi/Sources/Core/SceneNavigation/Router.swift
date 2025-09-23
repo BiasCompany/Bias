@@ -26,7 +26,7 @@ class Router: ObservableObject {
         case cameraSkinTone
         case skinToneLoading
         case skinToneFailed
-        case skinToneResult
+        case skinToneResult(image: UIImage)
 
         // Base Flow
         case base
