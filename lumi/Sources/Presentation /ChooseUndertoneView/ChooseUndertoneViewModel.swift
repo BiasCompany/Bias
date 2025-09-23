@@ -3,12 +3,16 @@ import SwiftUI
 
 @MainActor
 final class ChooseUndertoneViewModel: ObservableObject {
-    @Published var skinAnalysisService: SkinAnalysisService = DIContainer.shared.skinAnalysisService
+    @Published var skinAnalysisService: SkinAnalysisService
+    @Published var productService: ProductService
 
     @Published var selected: Undertone = .neutral
+    @Published var isLoading: Bool = false
     
     
     init() {
+        skinAnalysisService = DIContainer.shared.skinAnalysisService
+        productService = DIContainer.shared.productService
         load()
     }
 
@@ -29,8 +33,15 @@ final class ChooseUndertoneViewModel: ObservableObject {
     func saveUndertone() {
         Task {
             do {
+                isLoading = true
                 try await skinAnalysisService.saveUndertone(selected)
+                try await skinAnalysisService.saveSkinTone(
+                    SkinTone(id: UUID(), name: "Light", hex: "#ffdbac")
+                )
+                try await productService.calculateMatches()
+                isLoading = false
             } catch {
+                isLoading = false
                 print("Error saving undertone:", error)
             }
         }

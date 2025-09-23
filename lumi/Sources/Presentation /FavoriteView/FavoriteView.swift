@@ -13,18 +13,28 @@ struct FavoriteView: View {
     @EnvironmentObject var viewModel: FavoriteViewModel
 
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 20) {
-                ForEach(viewModel.favorite) { rec in
-                    FavoriteRow(rec: rec)
-                        .padding(.horizontal, 20)
+        if viewModel.isLoading {
+            ProgressView("Loading favorites…")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onAppear {
+                    viewModel.load()
                 }
+        } else if viewModel.favorites.isEmpty {
+            FavoriteEmptyStateView()
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 20) {
+                    ForEach(viewModel.favorites) { rec in
+                        FavoriteRow(rec: rec)
+                            .padding(.horizontal, 20)
+                    }
+                }
+                .padding(.vertical, 16)
             }
-            .padding(.vertical, 16)
         }
     }
 }
 
-#Preview("History Slicing") {
-    ShadeHistoryListView()
-}
+//#Preview("History Slicing") {
+//    ShadeHistoryListView()
+//}

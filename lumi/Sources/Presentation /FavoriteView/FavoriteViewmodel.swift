@@ -8,33 +8,48 @@
 import SwiftData
 import SwiftUI
 
+@MainActor
 final class FavoriteViewModel: ObservableObject {
-    @Published var favorite: [ShadeRecommendation] = []
+    var service: FavoriteService
+    @Published var isLoading: Bool = true
+    @Published var favorites: [ShadeRecommendation] = []
 
     init() {
-        // Dummy data sementara (ganti nanti dengan fetch dari SwiftData)
-        favorite = [
-            ShadeRecommendation(
-                id: UUID(),
-                shade: Shade.dummy,
-                skinTone: .medium,
-                undertone: .cool,
-                notes: "",
-                lastUpdatedNote: .now,
-                percentage: 96
-            ),
-            ShadeRecommendation(
-                id: UUID(),
-                shade: .dummy,
-                skinTone: .medium,
-                undertone: .neutral,
-                notes: "",
-                lastUpdatedNote: .now,
-                percentage: 91
-            ),
-        ]
+        service = DIContainer.shared.favoriteService
+        load()
+//        // Dummy data sementara (ganti nanti dengan fetch dari SwiftData)
+//        favorite = [
+//            ShadeRecommendation(
+//                id: UUID(),
+//                shade: Shade.dummy,
+//                skinTone: .medium,
+//                undertone: .cool,
+//                percentage: 96
+//            ),
+//            ShadeRecommendation(
+//                id: UUID(),
+//                shade: .dummy,
+//                skinTone: .medium,
+//                undertone: .neutral,
+//                percentage: 91
+//            ),
+//        ]
+    }
+    
+    
+    func load() {
+        Task {
+            do {
+                isLoading = true
+                favorites = try await service.getFavorites()
+            } catch {
+                print("Error loading brands:", error)
+            }
+            isLoading = false
+        }
     }
 }
+
 
 // MARK: - ShadeRecommendation Display Properties
 extension ShadeRecommendation {
@@ -78,7 +93,8 @@ extension Shade {
             description: "Medium skin tone",
             image: "https://images.ulta.com/is/image/Ulta/2300153sw?",
             undertone: .cool,
-            hexShade: "#D2B48C"
+            hexShade: "#D2B48C",
+            note: ""
         )
     }
 }

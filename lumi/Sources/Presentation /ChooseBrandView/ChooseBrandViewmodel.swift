@@ -10,13 +10,14 @@ import Foundation
 
 @MainActor
 final class ChooseBrandViewModel: ObservableObject {
-    @Published var productService: ProductService = DIContainer.shared.productService
+    @Published var productService: ProductService
     @Published var searchText: String = ""
     @Published var isLoading: Bool = true
     @Published var brands: [Brand] = []
     @Published var selectedBrands: Set<Brand> = []
 
     init() {
+        productService = DIContainer.shared.productService
         load()
     }
 
@@ -88,10 +89,10 @@ final class ChooseBrandViewModel: ObservableObject {
         }
     }
 
-    func saveSelection() {
-        Task {
+    func saveSelection() async throws {
+        
             try await productService.saveBrandPreference(Array(selectedBrands))
-        }
+        
     }
 
 }

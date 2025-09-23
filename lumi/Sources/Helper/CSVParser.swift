@@ -35,9 +35,9 @@ class CSVParser {
 
             let brand = components[1].trimmingCharacters(in: .whitespacesAndNewlines)
             let product = components[2].trimmingCharacters(in: .whitespacesAndNewlines)
-            let imgSrc = components[3].trimmingCharacters(in: .whitespacesAndNewlines)
+            let imgSrc = components[5].trimmingCharacters(in: .whitespacesAndNewlines)
             let description = components[4].trimmingCharacters(in: .whitespacesAndNewlines)
-            let name = components[7].trimmingCharacters(in: .whitespacesAndNewlines)
+            let name = components[7].trimmingCharacters(in: .whitespacesAndNewlines) + " " + components[8].trimmingCharacters(in: .whitespacesAndNewlines)
             let hex = components[10].trimmingCharacters(in: .whitespacesAndNewlines)
             let undertoneCategory = components[14].trimmingCharacters(in: .whitespacesAndNewlines)
 

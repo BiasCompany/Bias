@@ -1,14 +1,14 @@
 import Foundation
 import SwiftData
 
-@MainActor
 final class LocalDataSource: ObservableObject {
 
     let container: ModelContainer
-    var context: ModelContext { container.mainContext }
+    let context: ModelContext
 
     init(container: ModelContainer) {
         self.container = container
+        self.context = ModelContext(container)
     }
     // MARK: - AppData root
 
@@ -37,6 +37,10 @@ final class LocalDataSource: ObservableObject {
 
     func getBrandsCatalog() throws -> [Brand] {
         try getOrCreateAppData().brands
+    }
+    
+    func getBrandCatalog() throws -> Brand? {
+        try getOrCreateAppData().brands.first
     }
 
     func setUserPreferenceBrands(_ brands: [String]) throws {
@@ -70,6 +74,16 @@ final class LocalDataSource: ObservableObject {
         ])
         return try context.fetch(fd)
     }
+    
+    
+    func fetchShade() throws -> Shade? {
+        let fd = FetchDescriptor<Shade>(sortBy: [
+            SortDescriptor(\.brand, order: .forward),
+            SortDescriptor(\.product, order: .forward),
+            SortDescriptor(\.name, order: .forward)
+        ])
+        return try context.fetch(fd).first
+    }
 
     // MARK: - Recommendations
 
@@ -91,7 +105,6 @@ final class LocalDataSource: ObservableObject {
             FetchDescriptor<ShadeRecommendation>(
                 sortBy: [
                     SortDescriptor(\.percentage, order: .reverse),
-                    SortDescriptor(\.lastUpdatedNote, order: .reverse)
                 ]
             )
         )
@@ -129,20 +142,27 @@ final class LocalDataSource: ObservableObject {
 
     // MARK: - Notes
 
-    func saveNote(_ rec: ShadeRecommendation) throws {
+    func saveNote(_ rec: Shade) throws {
         let root = try getOrCreateAppData()
         if !root.noteShadeList.contains(rec) {
             root.noteShadeList.append(rec)
         }
-        rec.lastUpdatedNote = .now
+        rec.lastUpdateNote = .now
         try context.save()
     }
 
-    func getNotes() throws -> [ShadeRecommendation] {
+    func getNotes() throws -> [Shade] {
         try getOrCreateAppData().noteShadeList
     }
+    
+    func editNotes(_ note: Shade) throws {
+        let root = try getOrCreateAppData()
+        root.noteShadeList.removeAll { $0 == note }
+        root.noteShadeList.append(note)
+        try context.save()
+    }
 
-    func deleteNote(_ rec: ShadeRecommendation) throws {
+    func deleteNote(_ rec: Shade) throws {
         let root = try getOrCreateAppData()
         root.noteShadeList.removeAll { $0 == rec }
         try context.save()

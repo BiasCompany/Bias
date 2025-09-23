@@ -6,8 +6,19 @@
 //
 
 protocol FavoriteService {
+    func getFavorites() async throws -> [ShadeRecommendation]
 }
 
 class FavoriteServiceImpl: FavoriteService {
+    
+    var repo: FavoriteRepository
+    
+    init(repo: FavoriteRepository) {
+        self.repo = repo
+    }
+    
+    func getFavorites() async throws -> [ShadeRecommendation]  {
+        return try await repo.getFavorites()
+    }
 
 }

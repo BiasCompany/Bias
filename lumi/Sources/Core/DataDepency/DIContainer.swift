@@ -7,7 +7,6 @@
 
 import SwiftData
 
-@MainActor
 final class DIContainer {
 
     private let modelContainer: ModelContainer
@@ -24,17 +23,25 @@ final class DIContainer {
     lazy var skinAnalysisRepository: SkinAnalysisRepository = SkinAnalysisRepositoryImpl(localDataSource: localDataSource)
     
     lazy var initialService: InitialService = InitialServiceImpl(repo: productRepository)
-    lazy var productService: ProductService = ProductServiceImpl(repo: productRepository)
-    lazy var favoriteService: FavoriteService = FavoriteServiceImpl()
+    lazy var productService: ProductService = ProductServiceImpl(repo: productRepository, skinAnalysisRepo: skinAnalysisRepository)
+    lazy var favoriteService: FavoriteService = FavoriteServiceImpl(repo: favoriteRepository)
     lazy var notesService: NotesService = NotesServiceImpl()
     lazy var skinAnalysisService: SkinAnalysisService = SkinAnalysisServiceImpl(repo: skinAnalysisRepository)
     
     // Singleton instance to ensure centralized DI management
     static let shared: DIContainer = {
-        // Create a default ModelContainer on the main actor. Adjust models as needed.
-        let schema = Schema([AppData.self, ShadeRecommendation.self, Shade.self, SkinTone.self])
-        let configuration = ModelConfiguration(schema: schema)
-        let container = try! ModelContainer(for: schema, configurations: [configuration])
-        return DIContainer(modelContainer: container)
+        // Create a default ModelContainer. On failure (e.g., Previews), fall back to in-memory.
+
+        // Prefer a persistent store
+        if let persistentContainer = try? ModelContainer(for: AppData.self, ShadeRecommendation.self, Shade.self, SkinTone.self) {
+            return DIContainer(modelContainer: persistentContainer)
+        }
+
+        // Fallback for Previews/JIT environments
+        let inMemoryConfig = ModelConfiguration(isStoredInMemoryOnly: true)
+        let inMemoryContainer = try! ModelContainer(for: AppData.self, ShadeRecommendation.self, Shade.self, SkinTone.self, configurations: inMemoryConfig)
+        return DIContainer(modelContainer: inMemoryContainer)
     }()
 }
+
+    
