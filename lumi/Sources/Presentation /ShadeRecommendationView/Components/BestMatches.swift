@@ -176,7 +176,7 @@ struct BestMatches: View {
                 undertone: .neutral,
                 hexShade: "#D2B48C",
                 note: "",
-                lastUpdatedNote: Date.now,
+                lastUpdatedNote: Date.now
             ),
             skinTone: SkinTone(
                 id: UUID(),
@@ -206,7 +206,7 @@ struct BestMatches: View {
                 undertone: .neutral,
                 hexShade: "#D2B48C",
                 note: "",
-                lastUpdatedNote: Date.now,
+                lastUpdatedNote: Date.now
             ),
             skinTone: SkinTone(
                 id: UUID(),

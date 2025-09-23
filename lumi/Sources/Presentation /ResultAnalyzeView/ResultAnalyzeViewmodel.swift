@@ -31,14 +31,15 @@ final class ResultAnalyzeViewmodel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        if let img = UIImage(named: "syatria") {
-            self.capturedImage = img
-            detectSkinTonePoints(in: img)
-        }
-        startAnalysis()
+        
+        
     }
     
-
+    func setImage(image: UIImage) {
+        self.capturedImage = image
+        detectSkinTonePoints(in: image)
+        startAnalysis()
+    }
     
     func selectDetectionPoint(_ pointId: Int) {
         if let point = detectionPoints.first(where: { $0.id == pointId }) {
@@ -173,10 +174,9 @@ final class ResultAnalyzeViewmodel: ObservableObject {
         }
 
         let offset = y * bytesPerRow + x * bytesPerPixel
-        let r = Double(ptr[offset]) / 255.0
+        let b = Double(ptr[offset]) / 255.0
         let g = Double(ptr[offset+1]) / 255.0
-        let b = Double(ptr[offset+2]) / 255.0
-
+        let r = Double(ptr[offset+2]) / 255.0
         return Color(red: r, green: g, blue: b)
     }
 
@@ -253,5 +253,4 @@ struct DetectionPoint: Identifiable {
     var isDebug: Bool = false
     var label: String? = nil
 }
-
 

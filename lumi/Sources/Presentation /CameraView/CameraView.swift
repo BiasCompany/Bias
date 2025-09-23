@@ -30,7 +30,6 @@ struct CameraPreview: UIViewRepresentable {
     }
 }
 
-
 struct CameraView: View {
     @EnvironmentObject var viewModel: CameraViewmodel
     @Environment(\.dismiss) private var dismiss
