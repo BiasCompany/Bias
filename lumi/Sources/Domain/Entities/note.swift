@@ -1,3 +1,3 @@
 import SwiftUI
 
-typealias Note = ShadeRecommendation
+typealias Note = Shade

@@ -222,7 +222,7 @@ struct OnBoardingView: View {
                     CustomButton(
                         title: "LET'S GET STARTED",
                         action: {
-                            router.navigate(to: .brandPreference)
+                            router.navigate(to: .brandPreference(isEdit: false))
                         }, isFilled: true
                     )
                 }

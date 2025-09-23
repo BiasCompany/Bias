@@ -27,14 +27,19 @@ struct BottomActionButtons: View {
                     title: "CONTINUE",
                     action: {
                         vm.saveUndertone()
-                        router.navigate(to: .skinToneTutorial)
                     },
-                    isFilled: true
+                    isFilled: true,
+                    isLoading: vm.isLoading
                 )
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+        .onChange(of: vm.isLoading) { prevValue, newValue in
+            if !newValue {
+                router.navigate(to: .recommendation)
+            }
+        }
     }
 }

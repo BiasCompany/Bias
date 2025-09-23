@@ -83,8 +83,8 @@ struct DetailShadeView: View {
                             .foregroundStyle(.black)
                             
                     }else {
-                        Text(viewModel.recommendation.notes.isEmpty ? "No Notes for this product..." : viewModel.recommendation.notes  )
-                            .foregroundColor(viewModel.recommendation.notes.isEmpty ? .gray : .black)
+                        Text(viewModel.recommendation.shade.note.isEmpty ? "No Notes for this product..." : viewModel.recommendation.shade.note  )
+                            .foregroundColor(viewModel.recommendation.shade.note .isEmpty ? .gray : .black)
                     }
                     
                     

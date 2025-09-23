@@ -1,13 +1,17 @@
 import Combine
 import SwiftUI
 
-@MainActor
 final class QuizUndertoneViewModel: ObservableObject {
     @Published var currentStep: Int = 0
     @Published var answers: [String]
     @Published var showResult: Bool = false
     @Published private(set) var result: Undertone = .unknown
-    @Published var skinAnalysisService: SkinAnalysisService = DIContainer.shared.skinAnalysisService
+    @Published var skinAnalysisService: SkinAnalysisService
+    
+    init() {
+        skinAnalysisService = DIContainer.shared.skinAnalysisService
+        self.answers = Array(repeating: "", count: questions.count)
+    }
  
     func resetState() {
         currentStep = 0
@@ -73,10 +77,6 @@ final class QuizUndertoneViewModel: ObservableObject {
             ]
         ),
     ]
-
-    init() {
-        self.answers = Array(repeating: "", count: questions.count)
-    }
 
     func selectAnswer(_ option: String) {
         answers[currentStep] = option

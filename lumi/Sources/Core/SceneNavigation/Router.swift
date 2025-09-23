@@ -9,12 +9,12 @@ import SwiftUI
 class Router: ObservableObject {
     @Published var navigationPath = NavigationPath()
     
-    enum Route: Hashable, CaseIterable {
+    enum Route: Hashable {
         case splash
         // Onboarding Flow
         case onboarding
         
-        case brandPreference
+        case brandPreference(isEdit: Bool)
         
         // Choose Undertone Flow
         case chooseUndertone

@@ -87,7 +87,7 @@ struct QuizUndertoneView: View {
         .padding(.bottom, 20)
         .onChange(of: viewModel.showResult) { oldValue, newValue in
             if newValue {
-                router.replaceNavigationPath(with: [.brandPreference, .chooseUndertone,.undertoneQuizResult])
+                router.replaceNavigationPath(with: [.brandPreference(isEdit: false), .chooseUndertone,.undertoneQuizResult])
             }
         }
     }

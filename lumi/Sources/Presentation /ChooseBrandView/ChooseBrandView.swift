@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChooseBrandView: View {
+    var isEdit: Bool = false
     @EnvironmentObject var router: Router
     @EnvironmentObject var vm: ChooseBrandViewModel
     @FocusState private var isSearchFocused: Bool
@@ -15,6 +16,9 @@ struct ChooseBrandView: View {
 
     var body: some View {
         VStack {
+            if isEdit {
+                BackButton()
+            }
             HeaderView(
                 searchText: $vm.searchText,
                 isFocused: $isSearchFocused,
@@ -74,13 +78,29 @@ struct ChooseBrandView: View {
             }
 
             CustomButton(title: "CONTINUE") {
-                vm.saveSelection()
-                router.navigate(to: .chooseUndertone)
+                Task {
+                    do {
+                        try await vm.saveSelection()
+                        await MainActor.run {
+                            if isEdit {
+                                router.replaceNavigationPath(with: [.recommendation])
+                            } else {
+                                router.navigate(to: .chooseUndertone)
+                            }
+                        }
+                    } catch {
+                        // TODO: Surface this error to the user if needed
+                        print("Failed to save selection: \(error)")
+                    }
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            vm.load()
+        }
 
     }
 }

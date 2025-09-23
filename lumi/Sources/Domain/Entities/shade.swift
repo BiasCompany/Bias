@@ -11,6 +11,8 @@ class Shade {
     var image: String
     var undertone: Undertone
     var hexShade: String
+    var note: String
+    var lastUpdateNote: Date
 
     init(
         id: UUID,
@@ -20,7 +22,9 @@ class Shade {
         description: String,
         image: String,
         undertone: Undertone,
-        hexShade: String
+        hexShade: String,
+        note: String = "",
+        lastUpdatedNote: Date = .now,
     ) {
         self.id = id
         self.name = name
@@ -30,5 +34,7 @@ class Shade {
         self.image = image
         self.undertone = undertone
         self.hexShade = hexShade
+        self.note = note
+        self.lastUpdateNote = lastUpdatedNote
     }
 }

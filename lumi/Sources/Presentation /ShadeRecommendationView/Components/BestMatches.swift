@@ -10,20 +10,18 @@ import SwiftUI
 
 struct BestMatch: View {
     let product: ShadeRecommendation
-    @StateObject private var viewModel: ShadeRecommendationViewModel
+    @EnvironmentObject private var viewModel: ShadeRecommendationViewModel
 
     init(product: ShadeRecommendation) {
         self.product = product
-        self._viewModel = StateObject(
-            wrappedValue: ShadeRecommendationViewModel(recommendation: product))
     }
 
     private var skinToneColor: Color {
-        Color(hex: product.skinTone.hex) ?? .gray
+        Color(hex: product.skinTone.hex)
     }
 
     private var shadeColor: Color {
-        Color(hex: product.shade.hexShade) ?? .gray
+        Color(hex: product.shade.hexShade)
     }
 
     private var matchPercentage: Int {
@@ -38,7 +36,7 @@ struct BestMatch: View {
         HStack(spacing: 16) {
             VStack(spacing: 8) {
                 KFImage(URL(string: product.shade.image))
-                    .placeholder { Rectangle().fill(Color.gray) }
+                    .placeholder { Rectangle().fill(Color.clear) }
                     .resizable()
                     .scaledToFit()
                     .clipShape(Rectangle())
@@ -48,7 +46,7 @@ struct BestMatch: View {
                         .fill(skinToneColor)
                         .frame(height: 48)
                         .overlay(
-                            Text("Medium Skin Tone")
+                            Text(product.skinTone.name)
                                 .font(.system(.caption2))
                                 .fontWeight(.thin)
                                 .foregroundColor(.black)
@@ -59,7 +57,7 @@ struct BestMatch: View {
                         .fill(shadeColor)
                         .frame(height: 48)
                         .overlay(
-                            Text("\(product.shade.name) (\(undertoneText) Undertone)")
+                            Text("\(product.shade.name)")
                                 .font(.system(.caption2))
                                 .fontWeight(.thin)
                                 .foregroundColor(.black)
@@ -102,31 +100,31 @@ struct BestMatch: View {
                     .padding(.bottom, 28)
 
                     Spacer()
-                    Button {
-                        if viewModel.isFavorite {
-                            viewModel.showUnfavoriteAlert = true
-                        } else {
-                            viewModel.toggleFavorite()
-                        }
-                    } label: {
-                        Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                            .foregroundColor(viewModel.isFavorite ? .red : .black)
-                    }
-                    .padding(.bottom, 28)
-                    .confirmationDialog(
-                        "Remove Favorite?",
-                        isPresented: $viewModel.showUnfavoriteAlert,
-                        titleVisibility: .visible
-                    ) {
-                        Button("Remove", role: .destructive) {
-                            viewModel.confirmRemoveFavorite()
-                        }
-                        Button("Cancel", role: .cancel) {}
-                    } message: {
-                        Text(
-                            "If your skin tone changes, you might not be able to add this product again after deleting it."
-                        )
-                    }
+//                    Button {
+//                        if viewModel.isFavorite {
+//                            viewModel.showUnfavoriteAlert = true
+//                        } else {
+//                            viewModel.toggleFavorite()
+//                        }
+//                    } label: {
+//                        Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+//                            .foregroundColor(viewModel.isFavorite ? .red : .black)
+//                    }
+//                    .padding(.bottom, 28)
+//                    .confirmationDialog(
+//                        "Remove Favorite?",
+//                        isPresented: $viewModel.showUnfavoriteAlert,
+//                        titleVisibility: .visible
+//                    ) {
+//                        Button("Remove", role: .destructive) {
+//                            viewModel.confirmRemoveFavorite()
+//                        }
+//                        Button("Cancel", role: .cancel) {}
+//                    } message: {
+//                        Text(
+//                            "If your skin tone changes, you might not be able to add this product again after deleting it."
+//                        )
+//                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -176,21 +174,22 @@ struct BestMatches: View {
                 description: "Medium skin tone foundation",
                 image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
                 undertone: .neutral,
-                hexShade: "#D2B48C"
+                hexShade: "#D2B48C",
+                note: "",
+                lastUpdatedNote: Date.now,
             ),
             skinTone: SkinTone(
                 id: UUID(),
                 name: "Medium",
                 hex: "#E8B191",
-                date: .now
+                date: Date.now
             ),
             undertone: .neutral,
-            notes: "",
-            lastUpdatedNote: .now,
             percentage: 99
         )
     )
     .padding()
+    .environmentObject(ShadeRecommendationViewModel())
 }
 
 #Preview("Best Matches List") {
@@ -205,17 +204,17 @@ struct BestMatches: View {
                 description: "Medium skin tone foundation",
                 image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
                 undertone: .neutral,
-                hexShade: "#D2B48C"
+                hexShade: "#D2B48C",
+                note: "",
+                lastUpdatedNote: Date.now,
             ),
             skinTone: SkinTone(
                 id: UUID(),
                 name: "Medium",
                 hex: "#E8B191",
-                date: .now
+                date: Date.now
             ),
             undertone: .neutral,
-            notes: "",
-            lastUpdatedNote: .now,
             percentage: 99
         ),
         ShadeRecommendation(
@@ -228,19 +227,20 @@ struct BestMatches: View {
                 description: "Medium skin tone foundation",
                 image: "https://images.ulta.com/is/image/Ulta/2551437sw?$tn$",
                 undertone: .warm,
-                hexShade: "#D4B896"
+                hexShade: "#D4B896",
+                note: "",
+                lastUpdatedNote: Date.now
             ),
             skinTone: SkinTone(
                 id: UUID(),
                 name: "Medium",
                 hex: "#E8B191",
-                date: .now
+                date: Date.now
             ),
             undertone: .warm,
-            notes: "",
-            lastUpdatedNote: .now,
             percentage: 95
         ),
     ])
     .padding()
+    .environmentObject(ShadeRecommendationViewModel())
 }
