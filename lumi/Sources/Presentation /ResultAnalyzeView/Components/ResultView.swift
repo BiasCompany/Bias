@@ -26,10 +26,10 @@ import Vision
                                 let y = geo.size.height * (1 - point.position.y)
                                 
                                 if point.isDebug {
-                                    Circle()
-                                        .fill(Color.red)
-                                        .frame(width: 5, height: 5)
-                                        .position(x: x, y: y)
+//                                    Circle()
+//                                        .fill(Color.red)
+//                                        .frame(width: 5, height: 5)
+//                                        .position(x: x, y: y)
                                 } else {
                                     VStack(spacing: 2) {
                                         Circle()
@@ -62,7 +62,7 @@ import Vision
             Spacer()
             
             SkinTonePanel(
-                toneText: viewModel.currentSkinToneText,
+                toneText: "\(classifySkinTone(hex: "\(viewModel.currentSkinToneText)"))",
                 background: viewModel.panelBackgroundColor,
                 onFindShade: {
                     viewModel.findMyShade()

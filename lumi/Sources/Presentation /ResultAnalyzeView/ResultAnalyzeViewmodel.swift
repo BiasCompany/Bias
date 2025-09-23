@@ -82,7 +82,7 @@ final class ResultAnalyzeViewmodel: ObservableObject {
                 let rightCorner = rightEye.normalizedPoints[4]
                 let midX = (leftCorner.x + rightCorner.x) / 2
                 let midY = (leftCorner.y + rightCorner.y) / 2
-                let foreheadPoint = CGPoint(x: midX, y: min(midY + 0.25, 1.0))
+                let foreheadPoint = CGPoint(x: midX+0.07, y: min(midY + 0.25, 1.0))
                 let global = Self.mapToGlobal(foreheadPoint, in: boundingBox)
                 let color = self.sampleColor(at: global, in: image)
                 points.append(DetectionPoint(id: nextId, position: global, color: color))
@@ -94,8 +94,8 @@ final class ResultAnalyzeViewmodel: ObservableObject {
                let contour = landmarks.faceContour {
                 let noseTip = nose.normalizedPoints.last!
                 let cheekCandidate = contour.normalizedPoints[contour.pointCount / 4]
-                let cheekPoint = CGPoint(x: (noseTip.x + cheekCandidate.x) / 2,
-                                         y: (noseTip.y + cheekCandidate.y) / 2)
+                let cheekPoint = CGPoint(x: ((noseTip.x + cheekCandidate.x) / 2)+0.05,
+                                         y: ((noseTip.y + cheekCandidate.y) / 2)+0.05)
                 let global = Self.mapToGlobal(cheekPoint, in: boundingBox)
                 let color = self.sampleColor(at: global, in: image)
                 points.append(DetectionPoint(id: nextId, position: global, color: color))
@@ -105,7 +105,7 @@ final class ResultAnalyzeViewmodel: ObservableObject {
             // Chin (middle of contour, moved upward slightly)
             if let contour = landmarks.faceContour {
                 var chinPoint = contour.normalizedPoints[contour.pointCount / 2]
-                chinPoint.y += 0.05 // move upward
+                chinPoint.y += 0.1 // move upward
                 let global = Self.mapToGlobal(chinPoint, in: boundingBox)
                 let color = self.sampleColor(at: global, in: image)
                 points.append(DetectionPoint(id: nextId, position: global, color: color))

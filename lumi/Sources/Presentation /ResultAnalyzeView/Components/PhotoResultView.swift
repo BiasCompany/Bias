@@ -30,10 +30,10 @@ struct PhotoResultView: View {
                                     
                                     if point.isDebug {
                                         
-                                        Circle()
-                                            .fill(Color.red)
-                                            .frame(width: 5, height: 5)
-                                            .position(x: x, y: y)
+//                                        Circle()
+//                                            .fill(Color.red)
+//                                            .frame(width: 5, height: 5)
+//                                            .position(x: x, y: y)
                                     } else {
                                         
                                         VStack(spacing: 2) {
