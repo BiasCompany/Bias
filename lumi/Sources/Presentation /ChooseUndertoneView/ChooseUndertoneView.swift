@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ChooseUndertoneView: View {
+    var isEdit: Bool = false
     @EnvironmentObject var router: Router
     @EnvironmentObject var vm: ChooseUndertoneViewModel
 
@@ -28,7 +29,7 @@ struct ChooseUndertoneView: View {
                     .padding(.top, 10)
                 UndertoneCarousel()
             }
-            BottomActionButtons()
+            BottomActionButtons(isEdit: isEdit)
         }
         .animation(.easeInOut, value: vm.selected)
         .navigationBarBackButtonHidden()

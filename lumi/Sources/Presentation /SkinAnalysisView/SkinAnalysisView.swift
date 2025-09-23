@@ -62,17 +62,15 @@ struct PillSegmentedControl: View {
 
 // MARK: - Screen
 struct SkinAnalysisView: View {
-    // Data contoh — ganti dari modelmu nanti
+    @EnvironmentObject var vm: SkinAnalysisViewModel
+    @EnvironmentObject var router: Router
     @State private var selectedTab: AnalysisTab = .skinTone
-    @State private var skinTone: String = "Medium"
-    @State private var undertone: String = "Neutral"
-    @State private var lastUpdate: String = "12 August 2025"
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
+        ScrollView {
+            VStack {
+                BackButton()
                 VStack(alignment: .center, spacing: 40) {
-
                     // Title
                     Text("YOUR SKIN ANALYSIS")
                         .font(.system(size: 22, weight: .bold, design: .monospaced))
@@ -81,7 +79,7 @@ struct SkinAnalysisView: View {
                         .foregroundStyle(.black)
 
                     // Subtitle
-                    Text("You have \(skinTone) Skin Tone\nwith \(undertone) Undertone")
+                    Text("You have \(vm.skinTone?.name ?? "") Skin Tone\nwith \(vm.undertone) Undertone")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 16))
                         .foregroundStyle(.black.opacity(0.9))
@@ -99,7 +97,11 @@ struct SkinAnalysisView: View {
                                 .kerning(0)
                             Spacer()
                             Button("Recheck") {
-                                // action untuk re-scan / re-quiz
+                                if selectedTab == .skinTone {
+                                    router.navigate(to: .skinToneTutorial)
+                                } else {
+                                    router.navigate(to: .chooseUndertone(isEdit: true))
+                                }
                             }
                             .font(.system(size: 12, weight: .regular))
                             .foregroundStyle(.black)
@@ -116,8 +118,7 @@ struct SkinAnalysisView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 0))
 
                             Text(
-                                selectedTab == .skinTone
-                                    ? skinTone.uppercased() : undertone.uppercased()
+                                (selectedTab == .skinTone ? vm.skinTone?.name.uppercased() : vm.undertone.rawValue.uppercased()) ?? ""
                             )
                             .font(.system(size: 22, weight: .bold, design: .monospaced))
                             .kerning(0)
@@ -126,7 +127,7 @@ struct SkinAnalysisView: View {
                         }
 
                         // Last update
-                        Text("Last update: \(lastUpdate)")
+                        Text("Last update: \(vm.skinTone?.date.formatted() ?? "N/A")")
                             .font(.system(size: 12, weight: .regular))
                             .italic()
                             .foregroundStyle(.gray)
@@ -178,23 +179,12 @@ struct SkinAnalysisView: View {
                             .fill(Color("creamLabel")))
 
                 }
-
-            }
-
-            .frame(maxWidth: .infinity, alignment: .center)
-            .background(Color.white.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    // Back icon hitam seperti di mock
-                    Button(action: {}) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundStyle(.black)
-                    }
-                }
             }
         }
+
+        .frame(maxWidth: .infinity, alignment: .center)
+        .background(Color.white.ignoresSafeArea())
+        .navigationBarBackButtonHidden()
     }
 }
 

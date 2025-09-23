@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BottomActionButtons: View {
+    var isEdit: Bool = false
     @EnvironmentObject var router: Router
     @EnvironmentObject var vm: ChooseUndertoneViewModel
 
@@ -19,7 +20,7 @@ struct BottomActionButtons: View {
                 CustomButton(
                     title: "I DON’T KNOW MY UNDERTONE",
                     action: {
-                        router.navigate(to: .undertoneQuiz)
+                        router.navigate(to: .undertoneQuiz(isEdit: isEdit))
                     },
                     isFilled: false
                 )
@@ -38,7 +39,11 @@ struct BottomActionButtons: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .onChange(of: vm.isLoading) { prevValue, newValue in
             if !newValue {
-                router.navigate(to: .recommendation)
+                if isEdit {
+                    router.navigate(to: .skinToneTutorial)
+                } else {
+                    router.replaceNavigationPath(with: [.recommendation, .skinAnalysis])
+                }
             }
         }
     }

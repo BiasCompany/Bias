@@ -7,10 +7,21 @@
 
 import SwiftUI
 
-final class SkinAnalysisViewModel : Observable {
-     
+@MainActor
+final class SkinAnalysisViewModel : ObservableObject {
+    var service: SkinAnalysisService = DIContainer.shared.skinAnalysisService
+    @Published var undertone: Undertone = Undertone.unknown
+    @Published var skinTone: SkinTone?
+    
     init() {
-        
+        load()
+    }
+    
+    func load() {
+        Task {
+            skinTone = try await service.getSkinTone()
+            undertone = try await service.getUndertone()
+        }
     }
     
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResultQuizView: View {
+    var isEdit: Bool = false
     @EnvironmentObject private var router: Router
     @EnvironmentObject var viewModel: QuizUndertoneViewModel
 
@@ -57,7 +58,11 @@ struct ResultQuizView: View {
             CustomButton(
                 title: "Continue",
                 action: {
-                    router.navigate(to: .skinToneTutorial)
+                    if isEdit {
+                        router.replaceNavigationPath(with: [.recommendation, .skinAnalysis])
+                    } else {
+                        router.navigate(to: .skinToneTutorial)
+                    }
                     viewModel.resetState()
                 }, isFilled: true)
         }
