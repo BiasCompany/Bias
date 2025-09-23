@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct QuizUndertoneView: View {
+    var isEdit: Bool = false
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var viewModel: QuizUndertoneViewModel
 
@@ -87,7 +88,11 @@ struct QuizUndertoneView: View {
         .padding(.bottom, 20)
         .onChange(of: viewModel.showResult) { oldValue, newValue in
             if newValue {
-                router.replaceNavigationPath(with: [.brandPreference(isEdit: false), .chooseUndertone,.undertoneQuizResult])
+                if isEdit {
+                    router.replaceNavigationPath(with: [.recommendation, .chooseUndertone(isEdit: true), .undertoneQuizResult(isEdit: true)])
+                } else {
+                    router.replaceNavigationPath(with: [.brandPreference(isEdit: false), .chooseUndertone(isEdit: false),.undertoneQuizResult(isEdit: false)])
+                }
             }
         }
     }

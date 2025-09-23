@@ -17,9 +17,9 @@ class Router: ObservableObject {
         case brandPreference(isEdit: Bool)
         
         // Choose Undertone Flow
-        case chooseUndertone
-        case undertoneQuiz
-        case undertoneQuizResult
+        case chooseUndertone(isEdit: Bool)
+        case undertoneQuiz(isEdit: Bool)
+        case undertoneQuizResult(isEdit: Bool)
         
         // Skin Tone Flow
         case skinToneTutorial
@@ -36,7 +36,7 @@ class Router: ObservableObject {
 
         // All Shades Flow
         case allShades
-        case detailShade
+        case detailShade(shadeRecommendation: ShadeRecommendation)
         case skinAnalysis
     }
 
