@@ -33,7 +33,6 @@ let project = Project(
                         "UIInterfaceOrientationLandscapeLeft",
                         "UIInterfaceOrientationLandscapeRight",
                     ],
-                    "NSCameraUsageDescription": "Camera is used to analyze your skin tone.",
                     "ITSAppUsesNonExemptEncryption": false,
                 ]
             ),
