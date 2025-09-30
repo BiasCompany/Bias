@@ -6,7 +6,9 @@
 //
 
 protocol FavoriteService {
-    func getFavorites() async throws -> [ShadeRecommendation]
+    func getFavorites() throws -> [ShadeRecommendation]
+    func getFavorite(shadeRecommendation: ShadeRecommendation) throws -> ShadeRecommendation?
+    func toggleIsFavorite(shadeRecommendation: ShadeRecommendation, isFavorite: Bool) throws
 }
 
 class FavoriteServiceImpl: FavoriteService {
@@ -17,8 +19,20 @@ class FavoriteServiceImpl: FavoriteService {
         self.repo = repo
     }
     
-    func getFavorites() async throws -> [ShadeRecommendation]  {
-        return try await repo.getFavorites()
+    func getFavorites() throws -> [ShadeRecommendation]  {
+        return try repo.getFavorites()
+    }
+    
+    func getFavorite(shadeRecommendation: ShadeRecommendation) throws -> ShadeRecommendation? {
+        try repo.getFavorite(shadeRecommendation)
+    }
+    
+    func toggleIsFavorite(shadeRecommendation: ShadeRecommendation, isFavorite: Bool) throws {
+        if isFavorite {
+            try repo.saveFavorite(shadeRecommendation)
+        } else {
+            try repo.deleteFavorite(shadeRecommendation)
+        }
     }
 
 }

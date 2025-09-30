@@ -40,7 +40,7 @@ final class FavoriteViewModel: ObservableObject {
         Task {
             do {
                 isLoading = true
-                favorites = try await service.getFavorites()
+                favorites = try service.getFavorites()
             } catch {
                 print("Error loading brands:", error)
             }

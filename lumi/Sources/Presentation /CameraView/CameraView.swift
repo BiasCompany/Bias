@@ -118,6 +118,7 @@ struct CameraView: View {
                     .zIndex(10)
             }
         }
+        .navigationBarBackButtonHidden()
         .onAppear { viewModel.startCameraSession() }
         .onDisappear { viewModel.stopCameraSession() }
         .onChange(of: viewModel.faceDetected) { _, _ in viewModel.considerStartFlow() }

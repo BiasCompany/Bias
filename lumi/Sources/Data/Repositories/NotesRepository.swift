@@ -6,25 +6,35 @@
 //
 
 protocol NotesRepository {
-    func saveNote(_ note: Note) async throws
-    func getNotes() async throws -> [Note]
-    func deleteNote(_ note: Note) async throws
+    func saveNote(_ note: Note) throws
+    func getNotes() throws -> [Note]
+    func getNote(note: Note) throws -> Note?
+    func updateNote(_ note: Note) throws
+    func deleteNote(_ note: Note) throws
 }
 
 final class NotesRepositoryImpl: NotesRepository {
     private let ds: LocalDataSource
     init(localDataSource: LocalDataSource) { self.ds = localDataSource }
 
-    func saveNote(_ note: Note) async throws {
-        try await ds.saveNote(note)
+    func saveNote(_ note: Note) throws {
+        try ds.saveNote(note)
     }
 
-    func getNotes() async throws -> [Note] {
-        return try await ds.getNotes()
+    func getNotes() throws -> [Note] {
+        return try ds.getNotes()
+    }
+    
+    func getNote(note: Note) throws -> Note? {
+        return try ds.getNotes().filter { $0.id == note.id }.first
+    }
+    
+    func updateNote(_ note: Note) throws {
+        return try ds.editNotes(note)
     }
 
-    func deleteNote(_ note: Note) async throws {
-        try await ds.deleteNote(note)
+    func deleteNote(_ note: Note) throws {
+        try ds.deleteNote(note)
     }
 }
 

@@ -34,7 +34,7 @@ import Vision
                                     VStack(spacing: 2) {
                                         Circle()
                                             .fill(point.color)
-                                            .frame(width: 20, height: 20)
+                                            .frame(width: point.id == viewModel.selectedPointId ? 24 : 20, height: point.id == viewModel.selectedPointId ? 24 : 20)
                                             .overlay(Circle().stroke(.white, lineWidth: 2))
                                         if let label = point.label {
                                             Text(label)

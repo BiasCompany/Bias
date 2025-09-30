@@ -13,7 +13,7 @@
           "location" : "https://github.com/rive-app/rive-ios",
           "name" : "RiveRuntime"
         },
-        "path" : "/Users/muhammadrifqisyatria/IOS Project/Lumi/Tuist/.build/artifacts/rive-ios/RiveRuntime/RiveRuntime.xcframework",
+        "path" : "/Users/adithyafp_/Projects/Lumi/Tuist/.build/artifacts/rive-ios/RiveRuntime/RiveRuntime.xcframework",
         "source" : {
           "checksum" : "041c564897441e867dc1d7cd057ec46da61bdd296a8091c00508e126bf9d06e8",
           "type" : "remote",

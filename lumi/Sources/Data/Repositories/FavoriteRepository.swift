@@ -6,24 +6,36 @@
 //
 
 protocol FavoriteRepository {
-    func saveFavorite(_ favorite: ShadeRecommendation) async throws
-    func getFavorites() async throws -> [ShadeRecommendation]
-    func deleteFavorite(_ favorite: ShadeRecommendation) async throws
+    func saveFavorite(_ favorite: ShadeRecommendation) throws
+    func getFavorites() throws -> [ShadeRecommendation]
+    func getFavorite(_ favorite: ShadeRecommendation) throws -> ShadeRecommendation?
+    func updateFavorite(_ favorite: ShadeRecommendation) throws
+    func deleteFavorite(_ favorite: ShadeRecommendation) throws
 }
 
 class FavoriteRepositoryImpl: FavoriteRepository {
+    
     private let ds: LocalDataSource
     init(localDataSource: LocalDataSource) { self.ds = localDataSource }
-
-    func saveFavorite(_ favorite: ShadeRecommendation) async throws {
+    
+    func saveFavorite(_ favorite: ShadeRecommendation) throws {
         try ds.saveFavorite(favorite)
     }
-
-    func getFavorites() async throws -> [ShadeRecommendation] {
-        return try ds.getFavorites()
+    
+    func getFavorites() throws -> [ShadeRecommendation] {
+        try ds.getFavorites()
     }
-
-    func deleteFavorite(_ favorite: ShadeRecommendation) async throws {
+    
+    func getFavorite(_ favorite: ShadeRecommendation) throws -> ShadeRecommendation? {
+        try ds.getFavorites().filter { $0.id == favorite.id }.first
+    }
+    
+    func updateFavorite(_ favorite: ShadeRecommendation) throws {
+        return try ds.editFavorite(favorite)
+    }
+    
+    func deleteFavorite(_ favorite: ShadeRecommendation) throws {
         try ds.deleteFavorite(favorite)
     }
+
 }

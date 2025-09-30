@@ -4,6 +4,7 @@ import Kingfisher
 struct DetailShadeView: View {
     let shadeRecommendation: ShadeRecommendation
     @EnvironmentObject var viewModel: DetailShadeViewModel
+    @FocusState private var isNotesFocused: Bool
     
     var body: some View {
         if viewModel.recommendation == nil {
@@ -17,7 +18,9 @@ struct DetailShadeView: View {
             }
             .navigationBarBackButtonHidden()
         } else {
-            VStack {
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack {
                 HStack {
                     BackButton()
                     Spacer()
@@ -80,19 +83,22 @@ struct DetailShadeView: View {
                         Text(viewModel.recommendation!.shade.brand)
                             .font(.system(size: 12))
                             .fontWeight(.semibold)
-                        HStack{
+                        HStack(alignment: .top){
                             Text(viewModel.recommendation!.shade.product)
                                 .font(.system(size: 20))
                                 .fontWeight(.semibold)
                             Image(systemName: "document.on.document")
-                                .contextMenu {
-                                    Button{
-                                        UIPasteboard.general.string = viewModel.recommendation!.shade.product
-                                    } label: {
-                                        Image(systemName: "document.on.document")
-                                    }
-                                    }
+                                .onTapGesture {
+                                    UIPasteboard.general.string = viewModel.recommendation!.shade.product
+                                    viewModel.showCopyAlert = true
+                                }
                         }
+                        .alert("Copied to Clipboard", isPresented: $viewModel.showCopyAlert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("This Product name has been copied to clipboard")
+                        }
+                        .frame(alignment: .top)
                         Text(viewModel.recommendation!.shade.name)
                             .font(.system(size: 20))
                             .fontWeight(.light)
@@ -107,19 +113,27 @@ struct DetailShadeView: View {
                             .fontWeight(.semibold)
                         Spacer()
                         Button{
-                            viewModel.isEditingNotes = true
+                            if viewModel.isEditingNotes {
+                                viewModel.savenotes()
+                            } else {
+                                viewModel.startEditingNotes()
+                            }
                         }label: {
-                            Image(systemName: "square.and.pencil")
+                            if viewModel.isEditingNotes {
+                                Image(systemName: "checkmark")
+                            } else {
+                                Image(systemName: "square.and.pencil")
+                            }
                         }
                         .foregroundColor(.black)
                     }
                     .padding(.bottom, 8)
                     if viewModel.isEditingNotes {
                         TextField("Enter your notes here...", text: $viewModel.editedNotes, axis: .vertical)
-                            
+                            .focused($isNotesFocused)
+                            .id("notesField")
                             .foregroundStyle(.black)
-                            
-                    }else {
+                    } else {
                         Text(viewModel.recommendation!.shade.note.isEmpty ? "No Notes for this product..." : viewModel.recommendation!.shade.note  )
                             .foregroundColor(viewModel.recommendation!.shade.note .isEmpty ? .gray : .black)
                     }
@@ -130,11 +144,38 @@ struct DetailShadeView: View {
                 .padding(16)
                 
                 Spacer()
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    isNotesFocused = false
+                }
+                .onChange(of: viewModel.isEditingNotes) { prevValue, newValue in
+                    if newValue {
+                        isNotesFocused = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation {
+                                proxy.scrollTo("notesField", anchor: .bottom)
+                            }
+                        }
+                    } else {
+                        isNotesFocused = false
+                    }
+                }
+                .onChange(of: isNotesFocused) { prevValue, focused in
+                    if focused {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation {
+                                proxy.scrollTo("notesField", anchor: .bottom)
+                            }
+                        }
+                    }
+                }
+                .onAppear {
+                    viewModel.setRecommendation(recommendation: shadeRecommendation)
+                }
+                .navigationBarBackButtonHidden()
             }
-            .onAppear {
-                viewModel.setRecommendation(recommendation: shadeRecommendation)
-            }
-            .navigationBarBackButtonHidden()
         }
         
        

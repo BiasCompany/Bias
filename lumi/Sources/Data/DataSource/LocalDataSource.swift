@@ -115,12 +115,11 @@ final class LocalDataSource: ObservableObject {
         all.forEach { context.delete($0) }
         let root = try getOrCreateAppData()
         root.shadeRecommendationList.removeAll()
-        root.favoriteShadeList.removeAll()
-        root.noteShadeList.removeAll()
         try context.save()
     }
     
     func resetState() throws {
+        print("ewejwlgewk")
         let root = try getOrCreateAppData()
         root.isFirstTime = true
         root.userPreferenceBrands = []
@@ -135,18 +134,37 @@ final class LocalDataSource: ObservableObject {
     // MARK: - Favorites
 
     func saveFavorite(_ rec: ShadeRecommendation) throws {
+        print("felkfjeklfjkelwfjk")
         let root = try getOrCreateAppData()
         if !root.favoriteShadeList.contains(rec) {
             root.favoriteShadeList.append(rec)
+        } else {
+            root.favoriteShadeList.removeAll { $0.id == rec.id }
+            root.favoriteShadeList.append(rec)
         }
+        try context.save()
         try context.save()
     }
 
     func getFavorites() throws -> [ShadeRecommendation] {
-        try getOrCreateAppData().favoriteShadeList
+        let favorite = try getOrCreateAppData().favoriteShadeList
+        print("favorite.count")
+        print(favorite.count)
+        return favorite
+    }
+    
+    
+    func editFavorite(_ rec: ShadeRecommendation) throws {
+        print("ewljge")
+        let root = try getOrCreateAppData()
+        root.favoriteShadeList.removeAll { $0.id == rec.id }
+        root.favoriteShadeList.append(rec)
+        try context.save()
     }
 
+
     func deleteFavorite(_ rec: ShadeRecommendation) throws {
+        print("ekjwhgfkjewgje")
         let root = try getOrCreateAppData()
         root.favoriteShadeList.removeAll { $0 == rec }
         try context.save()
@@ -154,27 +172,35 @@ final class LocalDataSource: ObservableObject {
 
     // MARK: - Notes
 
-    func saveNote(_ rec: Shade) throws {
+    func saveNote(_ rec: Note) throws {
         let root = try getOrCreateAppData()
+        rec.lastUpdateNote = .now
         if !root.noteShadeList.contains(rec) {
             root.noteShadeList.append(rec)
+        } else {
+            root.noteShadeList.removeAll { $0.id == rec.id }
+            root.noteShadeList.append(rec)
         }
-        rec.lastUpdateNote = .now
         try context.save()
     }
 
-    func getNotes() throws -> [Shade] {
-        try getOrCreateAppData().noteShadeList
+    func getNotes() throws -> [Note] {
+        let notes = try getOrCreateAppData().noteShadeList
+        print("notes.count")
+        print(notes.count)
+        return notes
     }
     
-    func editNotes(_ note: Shade) throws {
+    func editNotes(_ note: Note) throws {
+        print("hereee")
         let root = try getOrCreateAppData()
-        root.noteShadeList.removeAll { $0 == note }
+        root.noteShadeList.removeAll { $0.id == note.id }
         root.noteShadeList.append(note)
         try context.save()
     }
 
-    func deleteNote(_ rec: Shade) throws {
+    func deleteNote(_ rec: Note) throws {
+        print("gewgew")
         let root = try getOrCreateAppData()
         root.noteShadeList.removeAll { $0 == rec }
         try context.save()

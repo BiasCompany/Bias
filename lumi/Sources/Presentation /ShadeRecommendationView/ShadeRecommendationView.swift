@@ -4,6 +4,8 @@ import Kingfisher
 struct ShadeRecommendationView: View {
     @EnvironmentObject var router: Router
     @EnvironmentObject var viewModel: ShadeRecommendationViewModel
+    @EnvironmentObject var notesVM: NotesViewModel
+    @EnvironmentObject var favoriteVM: FavoriteViewModel
     @State private var segment: MySegment = .brands
     
     var body: some View {
@@ -37,6 +39,8 @@ struct ShadeRecommendationView: View {
         .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.load()
+            favoriteVM.load()
+            notesVM.load()
         }
     }
 }

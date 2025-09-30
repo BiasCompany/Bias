@@ -25,9 +25,11 @@ struct BrandView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 8)
                 
-                Text("Based on your Fair Skin Tone, here’s the foundation recommendation shades to complement your natural beauty.")
+                Text("Based on your \(viewModel.skinTone?.name ?? "") Skin Tone, here’s the foundation recommendation shades to complement your natural beauty.")
                     .font(Font.caption2)
                     .foregroundStyle(Color("greyText"))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 12)
                 

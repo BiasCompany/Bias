@@ -4,6 +4,7 @@ import SwiftData
 @MainActor
 final class ShadeRecommendationViewModel: ObservableObject {
     @Published var productService: ProductService
+    @Published var skinAnalysisService: SkinAnalysisService
     
 //    @Published var showUnfavoriteAlert: Bool = false
 //    @Published var isFavorite: Bool = false
@@ -11,11 +12,13 @@ final class ShadeRecommendationViewModel: ObservableObject {
 //    
     @Published var shadesRecommendation: [ShadeRecommendation] = []
     @Published var shadesRecommendationBrandPreference: [ShadeRecommendation] = []
+    @Published var skinTone: SkinTone?
     @Published var isLoading: Bool = true
     
     
     init() {
         productService = DIContainer.shared.productService
+        skinAnalysisService = DIContainer.shared.skinAnalysisService
     }
 
     /// Load both: all recommendations and brand-preference recommendations.
@@ -25,11 +28,9 @@ final class ShadeRecommendationViewModel: ObservableObject {
             guard let self else { return }
             do {
                 self.isLoading = true
-                print("hereeee")
+                skinTone = try await self.skinAnalysisService.getSkinTone()
                 // Recalculate matches based on current skin tone / undertone and catalog
                 try await self.productService.calculateMatches()
-                
-                print("hereeeeefljejlf")
 
                 // Fetch all recommendations
                 let all = try await self.productService.getAllShadesRecommendation()

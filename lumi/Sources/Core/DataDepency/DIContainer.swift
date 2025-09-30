@@ -25,7 +25,7 @@ final class DIContainer {
     lazy var initialService: InitialService = InitialServiceImpl(repo: productRepository)
     lazy var productService: ProductService = ProductServiceImpl(repo: productRepository, skinAnalysisRepo: skinAnalysisRepository)
     lazy var favoriteService: FavoriteService = FavoriteServiceImpl(repo: favoriteRepository)
-    lazy var notesService: NotesService = NotesServiceImpl()
+    lazy var notesService: NotesService = NotesServiceImpl(repo: notesRepository)
     lazy var skinAnalysisService: SkinAnalysisService = SkinAnalysisServiceImpl(repo: skinAnalysisRepository)
     
     // Singleton instance to ensure centralized DI management
